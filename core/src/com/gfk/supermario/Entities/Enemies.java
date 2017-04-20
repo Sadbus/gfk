@@ -12,8 +12,8 @@ public class Enemies {
     private int xPos;
 
 
-    public Enemies(Sprite sprite){
-        this.sprite = sprite;
+    public Enemies(){
+    sprite = new Sprite("mario.png");
 
     }
 
