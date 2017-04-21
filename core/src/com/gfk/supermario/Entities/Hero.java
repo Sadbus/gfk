@@ -1,33 +1,34 @@
 package com.gfk.supermario.Entities;
 
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.gfk.supermario.GameRenderer;
+import com.gfk.supermario.Screens.GameScreen;
 
 /**
  * Created by olav on 20.04.17.
  */
-public class Hero {
-    private Sprite sprite;
-
+public class Hero extends Sprite{
     private int health;
     private int yPos;
     private int xPos;
     private int xSpeed;
     private int ySpeed;
 
+    private GameScreen screen;
 
-    public Hero(Sprite sprite){
-        this.sprite = sprite;
+
+    public Hero(GameScreen screen){
+    this.screen = screen;
+    }
+
+    public void update(float dt){
+
 
     }
 
-    public void update(float delta){
-
-    }
-
-    public void render(SpriteBatch batch){
-        sprite.draw(batch);
-    }
 
     public void jump(){
 
