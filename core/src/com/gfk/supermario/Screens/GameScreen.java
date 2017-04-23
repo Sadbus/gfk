@@ -6,6 +6,10 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.gfk.supermario.GameRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+
+
 
 /**
  * Created by Olav Markus on 19.04.2017.
@@ -16,10 +20,17 @@ public class GameScreen implements Screen{
 
     Music shootingStars;
 
+    TmxMapLoader maploader;
+    TiledMap map;
+
     public GameScreen(GameRenderer game)
     {
         this.game = game;
-        texture = new Texture("badlogic.jpg");
+        /* texture = new Texture("badlogic.jpg");
+        Prøver å laste inn "mario.tmx" istedenfor badlogic.jpg. Bibliotekene er lastet inn. Jobber med saken. */
+        maploader = new TmxMapLoader();
+        map = maploader.load("mario.tmx");
+
         shootingStars = Gdx.audio.newMusic(Gdx.files.internal("mario.mp3"));
         shootingStars.setLooping(true);
     }
@@ -65,4 +76,5 @@ public class GameScreen implements Screen{
         shootingStars.dispose();
 
     }
+
 }
