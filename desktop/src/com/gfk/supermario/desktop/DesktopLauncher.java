@@ -9,8 +9,8 @@ public class DesktopLauncher
 	public static void main (String[] arg)
 	{
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = GameRenderer.WIDTH;
-		config.height = GameRenderer.HEIGHT;
+		//config.width = GameRenderer.WIDTH;
+		//config.height = GameRenderer.HEIGHT;
 		config.title = GameRenderer.TITLE;
 		new LwjglApplication(new GameRenderer(), config);
 	}

@@ -8,8 +8,8 @@ import com.gfk.supermario.Screens.MenuScreen;
 
 public class GameRenderer extends Game
 {
-    public static final int WIDTH = 1000;
-    public static final int HEIGHT = 800;
+    //public static final int WIDTH = 800;
+    //public static final int HEIGHT = 480;
     public static final String TITLE = "Games For Kekistan";
 
 
@@ -21,8 +21,9 @@ public class GameRenderer extends Game
 	public void create ()
 	{
 		batch = new SpriteBatch();
-        setScreen(new MenuScreen(this));
         font = new BitmapFont();
+        setScreen(new MenuScreen(this));
+
 	}
 
 	@Override

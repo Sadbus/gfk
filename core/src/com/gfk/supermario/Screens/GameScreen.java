@@ -5,9 +5,13 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.gfk.supermario.Entities.Enemies;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.gfk.supermario.Entities.Hero;
 import com.gfk.supermario.GameRenderer;
 
@@ -16,24 +20,38 @@ import com.gfk.supermario.GameRenderer;
  */
 public class GameScreen implements Screen{
     private GameRenderer game;
-    Texture texture;
+
+    private OrthographicCamera camera;
+    private FitViewport cameraPort;
+
+    //Tiled map
+    private TiledMap tiledMap;
+    private TiledMapRenderer tiledMapRenderer;
 
     Music shootingStars;
 
-    private Hero hero;
+    //private Hero hero;
 
     public GameScreen(GameRenderer game)
     {
         this.game = game;
-        texture = new Texture("badlogic.jpg");
+        camera = new OrthographicCamera();
+        cameraPort = new FitViewport(800, 480, camera);
+
         shootingStars = Gdx.audio.newMusic(Gdx.files.internal("mario.mp3"));
         shootingStars.setLooping(true);
 
-        hero = new Hero(this);
+        //Load map
+        tiledMap = new TmxMapLoader().load("testmap.tmx");
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+        camera.position.set(cameraPort.getScreenWidth() / 2, cameraPort.getScreenHeight() / 2, 0);
+
+        //hero = new Hero(this);
     }
 
     @Override
-    public void show() {
+    public void show()
+    {
         shootingStars.play();
 
     }
@@ -41,55 +59,73 @@ public class GameScreen implements Screen{
     @Override
     public void render(float delta)
     {
-        Gdx.gl.glClearColor(1, 0, 0, 1);
+        update(delta);
+
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        game.batch.begin();
-        game.batch.draw(texture, 0, 0);
-        game.batch.end();
+
+        tiledMapRenderer.render();
+
+
+        game.batch.setProjectionMatrix(camera.combined);
+
+
+        camera.update();
+        tiledMapRenderer.setView(camera);
     }
 
     @Override
-    public void resize(int width, int height) {
-
+    public void resize(int width, int height)
+    {
+        cameraPort.update(width, height);
     }
 
     @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
+    public void pause()
+    {
 
     }
 
     @Override
-    public void dispose() {
-        shootingStars.dispose();
+    public void resume()
+    {
 
     }
 
-    public void handleInput(float dt){
+    @Override
+    public void hide()
+    {
+
+    }
+
+    public void handleInput(float dt)
+    {
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP)){
-            hero.jump();
+            //hero.jump();
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)){
-            hero.moveForward();
+            //hero.moveForward();
+            camera.position.x += 100 * dt;
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)){
-            hero.moveBackward();
+            //hero.moveBackward();
+
         }
     }
 
-    public void update(float dt){
+    public void update(float dt)
+    {
         handleInput(dt);
+        //camera.update();
+        //tiledMapRenderer.setView(camera);
+        //hero.update(dt);
+    }
 
-        hero.update(dt);
+    @Override
+    public void dispose()
+    {
+        shootingStars.dispose();
+        tiledMap.dispose();
 
     }
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="13" tilewidth="16" tileheight="16" nextobjectid="8">
+ <tileset firstgid="1" name="52571" tilewidth="16" tileheight="16" tilecount="924" columns="33">
+  <image source="52571.png" width="528" height="448"/>
+ </tileset>
+ <layer name="background" width="20" height="13">
+  <data encoding="base64" compression="zlib">
+   eJzbycTAsHMUj+JRPIqBGABb7b3t
+  </data>
+ </layer>
+ <objectgroup name="ground">
+  <object id="5" x="224" y="192" width="96" height="16"/>
+ </objectgroup>
+ <objectgroup name="blocks">
+  <object id="1" x="128" y="144" width="32" height="48"/>
+  <object id="2" x="256.364" y="128.182" width="15.4545" height="15.4545"/>
+  <object id="3" x="289.091" y="128.364" width="14.5455" height="15.2727"/>
+ </objectgroup>
+ <objectgroup name="coins">
+  <object id="4" x="271.818" y="127.636" width="16.1818" height="15.8182"/>
+ </objectgroup>
+ <layer name="graphics" width="20" height="13">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2DoAhkgloTSxABORgYGLkbq2a8FNEt7AM1jIhET0gcA+3IBOQ==
+  </data>
+ </layer>
+</map>
