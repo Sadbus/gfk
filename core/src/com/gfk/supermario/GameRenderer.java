@@ -7,9 +7,17 @@ import com.gfk.supermario.Screens.MenuScreen;
 
 public class GameRenderer extends Game
 {
-    public static final int WIDTH = 800;
-    public static final int HEIGHT = 480;
+
+
+    //Tile bredde * antall tiles i høyden
+    public static final int HEIGHT = 322;
+    //Bredde skal være slik at sideforholdet blir 16:9
+    public static final int WIDTH = 613;
+
+    //"Pixels per Meter", brukes for skalering.
     public static final float PPM = 100;
+
+
     public static final String TITLE = "Games For Kekistan";
 
 

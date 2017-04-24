@@ -7,9 +7,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.gfk.supermario.GameRenderer;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-
 public class MenuScreen implements Screen
 {
 

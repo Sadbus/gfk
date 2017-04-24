@@ -19,7 +19,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.gfk.supermario.Entities.Hero;
 import com.gfk.supermario.GameRenderer;
 
-
 /**
  * Created by Olav Markus on 19.04.2017.
  */
@@ -49,7 +48,7 @@ public class GameScreen implements Screen{
         cameraPort = new FitViewport(GameRenderer.WIDTH / GameRenderer.PPM, GameRenderer.HEIGHT / GameRenderer.PPM, camera);
 
         //  Box2D - Physics
-        //Box2D.init();
+        Box2D.init();
         world = new World(new Vector2(0, -10), true);
         box2DDebugRenderer = new Box2DDebugRenderer();
 
@@ -59,9 +58,13 @@ public class GameScreen implements Screen{
         Body body;
 
         //Load map
-        tiledMap = new TmxMapLoader().load("testmap.tmx");
+        tiledMap = new TmxMapLoader().load("Kenney.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1 / GameRenderer.PPM);
-        camera.position.set(cameraPort.getScreenWidth() / 2, cameraPort.getScreenHeight() / 2, 0);
+
+        //Sentrerer kamera.
+        camera.position.set(cameraPort.getWorldWidth() / 2, cameraPort.getWorldHeight() / 2, 0);
+
+        //Innlasting av objekter skal flyttes over til "InitWorld"
 
         //Create ground
         for(MapObject object : tiledMap.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
@@ -76,7 +79,7 @@ public class GameScreen implements Screen{
             fixtureDef.shape = shape;
             body.createFixture(fixtureDef);
         }
-
+        /*
         //create pipe
         for (MapObject object : tiledMap.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
@@ -90,9 +93,10 @@ public class GameScreen implements Screen{
             fixtureDef.shape = shape;
             body.createFixture(fixtureDef);
         }
+        */
 
         //create brick
-        for (MapObject object : tiledMap.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
+        for (MapObject object : tiledMap.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
