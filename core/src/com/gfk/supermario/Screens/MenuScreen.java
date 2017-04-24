@@ -7,9 +7,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.gfk.supermario.GameRenderer;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-
 public class MenuScreen implements Screen
 {
 
@@ -43,6 +40,7 @@ public class MenuScreen implements Screen
         game.font.draw(game.batch, "Welcome to ", 400, 280);
         game.font.draw(game.batch, "the proud nation of Kekistan", 400, 200);
         game.batch.end();
+
         if (Gdx.input.isKeyPressed(Input.Keys.ENTER))
         {
             game.setScreen(new GameScreen(game));
