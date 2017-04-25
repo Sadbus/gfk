@@ -6,20 +6,22 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.gfk.supermario.GameRenderer;
+import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.ApplicationListener;
 
-public class MenuScreen implements Screen
+public class MenuScreen extends ApplicationAdapter implements Screen, ApplicationListener
+
 {
-
     final GameRenderer game;
-
     OrthographicCamera camera;
+    Texture background;
+    Texture playbutton;
 
     public MenuScreen(final GameRenderer game) {
         this.game = game;
-
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
-
     }
 
     @Override
@@ -28,20 +30,27 @@ public class MenuScreen implements Screen
     }
 
     @Override
+    public void create() {
+
+        background = new Texture(Gdx.files.internal("menuscreen.png")); // jobber med å laste inn menuscreen.png som bakgrunnbildet
+        playbutton = new Texture(Gdx.files.internal("playbutton.png"));
+
+    }
+
+    @Override
     public void render(float delta)
     {
-        Gdx.gl.glClearColor(0, 0, 0.2f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        //Gdx.gl.glClearColor(1, 1, 1, 1);
+        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
-
         game.batch.begin();
-        game.font.draw(game.batch, "Welcome to ", 400, 280);
-        game.font.draw(game.batch, "the proud nation of Kekistan", 400, 200);
+        game.font.draw(game.batch, "Click the play button to start the game ", 200, 100);
         game.batch.end();
 
         if (Gdx.input.isKeyPressed(Input.Keys.ENTER))
+
         {
             game.setScreen(new GameScreen(game));
         }
@@ -69,6 +78,8 @@ public class MenuScreen implements Screen
 
     @Override
     public void dispose() {
+        background.dispose();
+        playbutton.dispose();
 
     }
 }
