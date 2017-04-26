@@ -1,7 +1,6 @@
 package com.gfk.supermario.Screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -9,22 +8,37 @@ import com.gfk.supermario.GameRenderer;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
-public class MenuScreen extends ApplicationAdapter implements Screen
+
+public class MenuScreen extends ApplicationAdapter implements Screen, ApplicationListener
 
 {
     final GameRenderer game;
     OrthographicCamera camera;
 
-    SpriteBatch batch;
-    Texture img;
+    private SpriteBatch batch3;
+    private Texture menuscreen;
+
+    private SpriteBatch batch2;
+    private Texture playbutton;
+
+    private SpriteBatch batch;
+    private BitmapFont font;
 
     public MenuScreen(final GameRenderer game) {
         this.game = game;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
         batch = new SpriteBatch();
-        img = new Texture("menuscreen.png");
+        menuscreen = new Texture("menuscreen.png");
+        batch2 = new SpriteBatch();
+        playbutton = new Texture("playbutton.png");
+        batch3 = new SpriteBatch();
+        font = new BitmapFont();
+        font.setColor(Color.WHITE);
     }
 
     @Override
@@ -35,29 +49,17 @@ public class MenuScreen extends ApplicationAdapter implements Screen
     @Override
     public void render(float delta)
     {
-/*
-        Gdx.gl.glClearColor(1, 1, 1, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        camera.update();
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-        //game.font.draw(game.batch, "Click the play button to start the game ", 200, 100);
-        batch.draw(img, 0, 0);
-        batch.end();
-
-  */
-
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        //game.font.draw(game.batch, "Click the play button to start the game ", 200, 100);
-
-        batch.draw(img, 250, 0);
+        batch.draw(menuscreen, 250, 0);
+        batch.draw(playbutton, 350, 240);
+        font.draw(batch, "Click the play button to start the game", 275, 360);
         batch.end();
 
-        if (Gdx.input.isKeyPressed(Input.Keys.ENTER))
+        if(Gdx.input.justTouched()) // Må trykkes på "play buton" for å starte spillet, ikke enter
 
         {
             game.setScreen(new GameScreen(game));
@@ -88,7 +90,10 @@ public class MenuScreen extends ApplicationAdapter implements Screen
     public void dispose() {
 
         batch.dispose();
-        img.dispose();
-
+        menuscreen.dispose();
+        batch2.dispose();
+        playbutton.dispose();
+        batch3.dispose();
+        font.dispose();
     }
 }
