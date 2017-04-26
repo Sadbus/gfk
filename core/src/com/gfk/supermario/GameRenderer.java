@@ -10,7 +10,7 @@ public class GameRenderer extends Game
 
 
     //Tile bredde * antall tiles i høyden
-    public static final int HEIGHT = 208;
+    public static final int HEIGHT = 265;
     //Bredde skal være slik at sideforholdet blir 16:9
     public static final int WIDTH = 370;
 

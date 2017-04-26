@@ -59,7 +59,7 @@ public class GameScreen implements Screen{
         Body body;
 
         //Load map
-        tiledMap = new TmxMapLoader().load("mario.tmx");
+        tiledMap = new TmxMapLoader().load("level1.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1 / GameRenderer.PPM);
 
         //Sentrerer kamera.
@@ -80,8 +80,8 @@ public class GameScreen implements Screen{
             fixtureDef.shape = shape;
             body.createFixture(fixtureDef);
         }
-        /*
-        //create pipe
+
+        //create tiles
         for (MapObject object : tiledMap.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
@@ -94,23 +94,9 @@ public class GameScreen implements Screen{
             fixtureDef.shape = shape;
             body.createFixture(fixtureDef);
         }
-        */
+
 
         //create brick
-        for (MapObject object : tiledMap.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2) / GameRenderer.PPM, (rect.getY() + rect.getHeight() / 2) / GameRenderer.PPM);
-
-            body = world.createBody(bdef);
-
-            shape.setAsBox(rect.getWidth() / 2 / GameRenderer.PPM, rect.getHeight() / 2 / GameRenderer.PPM);
-            fixtureDef.shape = shape;
-            body.createFixture(fixtureDef);
-        }
-
-        //create coin
         for (MapObject object : tiledMap.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
@@ -124,6 +110,19 @@ public class GameScreen implements Screen{
             body.createFixture(fixtureDef);
         }
 
+        //create coin
+        for (MapObject object : tiledMap.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set((rect.getX() + rect.getWidth() / 2) / GameRenderer.PPM, (rect.getY() + rect.getHeight() / 2) / GameRenderer.PPM);
+
+            body = world.createBody(bdef);
+
+            shape.setAsBox(rect.getWidth() / 2 / GameRenderer.PPM, rect.getHeight() / 2 / GameRenderer.PPM);
+            fixtureDef.shape = shape;
+            body.createFixture(fixtureDef);
+        }
 
         shootingStars = Gdx.audio.newMusic(Gdx.files.internal("mario.mp3"));
         shootingStars.setLooping(true);
@@ -193,7 +192,7 @@ public class GameScreen implements Screen{
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && hero.b2body.getLinearVelocity().x <= 2){
             hero.b2body.applyLinearImpulse(new Vector2(0.1f, 0), hero.b2body.getWorldCenter(), true);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && hero.b2body.getLinearVelocity().x <= 2){
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && hero.b2body.getLinearVelocity().x >= -2){
             hero.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), hero.b2body.getWorldCenter(), true);
         }
     }
