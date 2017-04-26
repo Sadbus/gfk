@@ -3,7 +3,6 @@ package com.gfk.supermario.Entities;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -29,7 +28,7 @@ public class Hero extends Sprite{
     defineHero();
 
     texture = new Texture("region.jpeg");
-        region = new TextureRegion(texture, 20, 20, 50, 50);
+    region = new TextureRegion(texture, 20, 20, 50, 50);
     }
 
     public void defineHero(){
@@ -41,10 +40,18 @@ public class Hero extends Sprite{
         FixtureDef fixtureDef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(5 / GameRenderer.PPM);
+        fixtureDef.filter.categoryBits = GameRenderer.HERO_BIT;
+        fixtureDef.filter.maskBits = GameRenderer.DEFAULT_BIT | GameRenderer.COIN_BIT | GameRenderer.BRICK_BIT;
 
         fixtureDef.shape = shape;
         b2body.createFixture(fixtureDef);
 
+        EdgeShape head = new EdgeShape();
+        head.set(new Vector2(-2 / GameRenderer.PPM, 6 / GameRenderer.PPM), new Vector2(2 / GameRenderer.PPM, 6 / GameRenderer.PPM));
+        fixtureDef.shape = head;
+        fixtureDef.isSensor = true;
+
+        b2body.createFixture(fixtureDef).setUserData("head");
     }
 
     public void update(float dt){

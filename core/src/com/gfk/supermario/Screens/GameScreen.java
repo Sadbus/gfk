@@ -5,11 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.PolygonMapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -20,7 +15,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.gfk.supermario.Entities.Hero;
 import com.gfk.supermario.GameRenderer;
-import com.gfk.supermario.initWorld;
+import com.gfk.supermario.Utils.WorldContactListener;
+import com.gfk.supermario.Utils.initWorld;
 
 /**
  * Created by Olav Markus on 19.04.2017.
@@ -72,6 +68,8 @@ public class GameScreen implements Screen{
 
 
         hero = new Hero(world);
+
+        world.setContactListener(new WorldContactListener());
     }
 
 

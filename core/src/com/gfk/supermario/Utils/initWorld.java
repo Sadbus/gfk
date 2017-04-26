@@ -1,4 +1,4 @@
-package com.gfk.supermario;
+package com.gfk.supermario.Utils;
 
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -9,6 +9,9 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.gfk.supermario.Blocks.Brick;
+import com.gfk.supermario.Blocks.Coin;
+import com.gfk.supermario.GameRenderer;
 import com.gfk.supermario.Screens.GameScreen;
 
 /**
@@ -30,13 +33,27 @@ public class initWorld {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2) / GameRenderer.PPM, (rect.getY() + rect.getHeight() / 2) / GameRenderer.PPM);
+            bdef.position.set((rect.getX() + rect.getWidth() / 2) / GameRenderer.PPM,
+                    (rect.getY() + rect.getHeight() / 2) / GameRenderer.PPM);
 
             body = world.createBody(bdef);
 
-            shape.setAsBox(rect.getWidth() / 2 / GameRenderer.PPM, rect.getHeight() / 2 / GameRenderer.PPM);
+            shape.setAsBox(rect.getWidth() / 2 / GameRenderer.PPM,
+                    rect.getHeight() / 2 / GameRenderer.PPM);
             fixtureDef.shape = shape;
             body.createFixture(fixtureDef);
+        }
+        //create coins
+        for (MapObject object : tiledMap.getLayers().get("Coins").getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+            new Coin(world, tiledMap, rect);
+        }
+        //create Bricks
+        for (MapObject object : tiledMap.getLayers().get("Bricks").getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+            new Brick(world, tiledMap, rect);
         }
         /*
         for(MapObject object : tiledMap.getLayers().get("Tiles").getObjects().getByType(PolygonMapObject.class)){
