@@ -6,7 +6,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -18,6 +20,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.gfk.supermario.Entities.Hero;
 import com.gfk.supermario.GameRenderer;
+import com.gfk.supermario.initWorld;
 
 /**
  * Created by Olav Markus on 19.04.2017.
@@ -39,6 +42,8 @@ public class GameScreen implements Screen{
     private Box2DDebugRenderer box2DDebugRenderer;
     private Body body;
 
+    private initWorld worldCreator;
+
     private Hero hero;
 
     public GameScreen(GameRenderer game)
@@ -48,16 +53,6 @@ public class GameScreen implements Screen{
         camera = new OrthographicCamera();
         cameraPort = new FitViewport(GameRenderer.WIDTH / GameRenderer.PPM, GameRenderer.HEIGHT / GameRenderer.PPM, camera);
 
-        //  Box2D - Physics
-        Box2D.init();
-        world = new World(new Vector2(0, -10), true);
-        box2DDebugRenderer = new Box2DDebugRenderer();
-
-        BodyDef bdef = new BodyDef();
-        PolygonShape shape = new PolygonShape();
-        FixtureDef fixtureDef = new FixtureDef();
-        Body body;
-
         //Load map
         tiledMap = new TmxMapLoader().load("level1.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1 / GameRenderer.PPM);
@@ -65,64 +60,12 @@ public class GameScreen implements Screen{
         //Sentrerer kamera.
         camera.position.set(cameraPort.getWorldWidth() / 2, cameraPort.getWorldHeight() / 2, 0);
 
-        //Innlasting av objekter skal flyttes over til "InitWorld"
+        //  Box2D - Physics
+        Box2D.init();
+        world = new World(new Vector2(0, -10), true);
+        box2DDebugRenderer = new Box2DDebugRenderer();
 
-        //Create ground
-        for(MapObject object : tiledMap.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2) / GameRenderer.PPM, (rect.getY() + rect.getHeight() / 2) / GameRenderer.PPM);
-
-            body = world.createBody(bdef);
-
-            shape.setAsBox(rect.getWidth() / 2 / GameRenderer.PPM, rect.getHeight() / 2 / GameRenderer.PPM);
-            fixtureDef.shape = shape;
-            body.createFixture(fixtureDef);
-        }
-
-        //create tiles
-        for (MapObject object : tiledMap.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2) / GameRenderer.PPM, (rect.getY() + rect.getHeight() / 2) / GameRenderer.PPM);
-
-            body = world.createBody(bdef);
-
-            shape.setAsBox(rect.getWidth() / 2 / GameRenderer.PPM, rect.getHeight() / 2 / GameRenderer.PPM);
-            fixtureDef.shape = shape;
-            body.createFixture(fixtureDef);
-        }
-
-
-        //create brick
-        for (MapObject object : tiledMap.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2) / GameRenderer.PPM, (rect.getY() + rect.getHeight() / 2) / GameRenderer.PPM);
-
-            body = world.createBody(bdef);
-
-            shape.setAsBox(rect.getWidth() / 2 / GameRenderer.PPM, rect.getHeight() / 2 / GameRenderer.PPM);
-            fixtureDef.shape = shape;
-            body.createFixture(fixtureDef);
-        }
-
-        //create coin
-        for (MapObject object : tiledMap.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2) / GameRenderer.PPM, (rect.getY() + rect.getHeight() / 2) / GameRenderer.PPM);
-
-            body = world.createBody(bdef);
-
-            shape.setAsBox(rect.getWidth() / 2 / GameRenderer.PPM, rect.getHeight() / 2 / GameRenderer.PPM);
-            fixtureDef.shape = shape;
-            body.createFixture(fixtureDef);
-        }
+        worldCreator = new initWorld(this);
 
         shootingStars = Gdx.audio.newMusic(Gdx.files.internal("mario.mp3"));
         shootingStars.setLooping(true);
@@ -220,6 +163,13 @@ public class GameScreen implements Screen{
         tiledMap.dispose();
         box2DDebugRenderer.dispose();
         world.dispose();
+    }
+
+    public TiledMap getTiledMap(){
+        return tiledMap;
+    }
+    public World getWorld(){
+        return world;
     }
 
 }

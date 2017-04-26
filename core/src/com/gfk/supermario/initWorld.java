@@ -4,7 +4,11 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 import com.gfk.supermario.Screens.GameScreen;
 
 /**
@@ -13,17 +17,16 @@ import com.gfk.supermario.Screens.GameScreen;
 public class initWorld {
 
     public initWorld(GameScreen screen){
-        /*
         World world = screen.getWorld();
-        TiledMap tiledMap = screen.getMap();
+        TiledMap tiledMap = screen.getTiledMap();
 
         BodyDef bdef = new BodyDef();
         PolygonShape shape = new PolygonShape();
-        FixtureDef fdef = new FixtureDef();
+        FixtureDef fixtureDef = new FixtureDef();
         Body body;
 
-        //Create ground
-        for(MapObject object : tiledMap.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
+        //create tiles
+        for (MapObject object : tiledMap.getLayers().get("Tiles").getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
@@ -35,49 +38,28 @@ public class initWorld {
             fixtureDef.shape = shape;
             body.createFixture(fixtureDef);
         }
+        /*
+        for(MapObject object : tiledMap.getLayers().get("Tiles").getObjects().getByType(PolygonMapObject.class)){
+            PolygonShape polygon = new PolygonShape();
+            float vertices[] = ((PolygonMapObject) object).getPolygon().getTransformedVertices();
 
-        //create pipe
-        for (MapObject object : tiledMap.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            float[] worldVertices = new float[vertices.length];
 
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2) / GameRenderer.PPM, (rect.getY() + rect.getHeight() / 2) / GameRenderer.PPM);
+            for (int i = 0; i < vertices.length; ++i) {
+                System.out.println(vertices[i]);
+                worldVertices[i] = vertices[i] / GameRenderer.PPM;
+            }
+            polygon.set(worldVertices);
 
-            body = world.createBody(bdef);
 
-            shape.setAsBox(rect.getWidth() / 2 / GameRenderer.PPM, rect.getHeight() / 2 / GameRenderer.PPM);
-            fixtureDef.shape = shape;
-            body.createFixture(fixtureDef);
-        }
-
-        //create brick
-        for (MapObject object : tiledMap.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2) / GameRenderer.PPM, (rect.getY() + rect.getHeight() / 2) / GameRenderer.PPM);
-
+            bdef.position.set(0, 0);
             body = world.createBody(bdef);
 
-            shape.setAsBox(rect.getWidth() / 2 / GameRenderer.PPM, rect.getHeight() / 2 / GameRenderer.PPM);
-            fixtureDef.shape = shape;
-            body.createFixture(fixtureDef);
-        }
-
-        //create coin
-        for (MapObject object : tiledMap.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2) / GameRenderer.PPM, (rect.getY() + rect.getHeight() / 2) / GameRenderer.PPM);
-
-            body = world.createBody(bdef);
-
-            shape.setAsBox(rect.getWidth() / 2 / GameRenderer.PPM, rect.getHeight() / 2 / GameRenderer.PPM);
-            fixtureDef.shape = shape;
+            fixtureDef.shape = polygon;
             body.createFixture(fixtureDef);
         }
         */
-
     }
 }
