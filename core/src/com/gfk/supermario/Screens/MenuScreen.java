@@ -28,6 +28,7 @@ public class MenuScreen extends ApplicationAdapter implements Screen, Applicatio
     private SpriteBatch batch;
     private BitmapFont font;
 
+
     public MenuScreen(final GameRenderer game) {
         this.game = game;
         camera = new OrthographicCamera();
@@ -59,7 +60,8 @@ public class MenuScreen extends ApplicationAdapter implements Screen, Applicatio
         font.draw(batch, "Click the play button to start the game", 275, 360);
         batch.end();
 
-        if(Gdx.input.justTouched()) // Må trykkes på "play buton" for å starte spillet, ikke enter
+        if(Gdx.input.justTouched())
+
 
         {
             game.setScreen(new GameScreen(game));

@@ -1,7 +1,7 @@
 package com.gfk.supermario.Utils;
 
 import com.badlogic.gdx.physics.box2d.*;
-import com.gfk.supermario.Blocks.InteractiveTIleObject;
+import com.gfk.supermario.Blocks.InteractiveTileObject;
 
 /**
  * Created by Olav on 26.04.2017.
@@ -17,8 +17,8 @@ public class WorldContactListener implements ContactListener {
             Fixture head = fixA.getUserData() == "head" ? fixA : fixB;
             Fixture object = head == fixA ? fixB : fixA;
 
-            if(object.getUserData() instanceof InteractiveTIleObject){
-                ((InteractiveTIleObject) object.getUserData()).onHeadHit();
+            if(object.getUserData() instanceof InteractiveTileObject){
+                ((InteractiveTileObject) object.getUserData()).onHeadHit();
             }
         }
 

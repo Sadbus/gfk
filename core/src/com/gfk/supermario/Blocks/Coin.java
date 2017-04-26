@@ -10,7 +10,7 @@ import com.gfk.supermario.GameRenderer;
 /**
  * Created by Olav on 26.04.2017.
  */
-public class Coin extends InteractiveTIleObject {
+public class Coin extends InteractiveTileObject {
     public Coin(World world, TiledMap map, Rectangle bounds){
         super(world, map, bounds);
         fixture.setUserData(this);

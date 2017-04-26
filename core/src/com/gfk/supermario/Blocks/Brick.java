@@ -9,7 +9,7 @@ import com.gfk.supermario.GameRenderer;
 /**
  * Created by Olav on 26.04.2017.
  */
-public class Brick extends InteractiveTIleObject {
+public class Brick extends InteractiveTileObject {
     public Brick(World world, TiledMap map, Rectangle bounds){
         super(world, map, bounds);
         fixture.setUserData(this);

@@ -10,7 +10,7 @@ import com.gfk.supermario.GameRenderer;
 /**
  * Created by Olav on 26.04.2017.
  */
-public abstract class InteractiveTIleObject {
+public abstract class InteractiveTileObject {
     protected World world;
     protected TiledMap map;
     protected TiledMapTile tile;
@@ -19,7 +19,7 @@ public abstract class InteractiveTIleObject {
 
     protected Fixture fixture;
 
-    public InteractiveTIleObject(World world, TiledMap map, Rectangle bounds){
+    public InteractiveTileObject(World world, TiledMap map, Rectangle bounds){
         this.world = world;
         this.map = map;
         this.bounds = bounds;
