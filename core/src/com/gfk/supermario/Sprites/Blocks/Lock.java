@@ -23,10 +23,9 @@ public class Lock extends TileObject {
     @Override
     public void onHeadHit() {
         Gdx.app.log("Lock", "Collision");
-        setCategoryFilter(GameRenderer.DESTROYED_BIT);
-
-
+        
         if (Hero.hasKey){
+            setCategoryFilter(GameRenderer.DESTROYED_BIT);
             // Temporary, this should initiate a new screen with option to exit or go to next map.
             JOptionPane.showMessageDialog(null, "You won");
         }
