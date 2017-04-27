@@ -65,8 +65,8 @@ public class MenuScreen extends ApplicationAdapter implements Screen, Applicatio
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         batch.draw(menuscreen, 0, 0);
-        batch.draw(start, 100, 230);
-        batch.draw(about, 320, 230);
+        batch.draw(start, 320, 230);
+        batch.draw(about, 100, 230);
         batch.draw(options, 550, 230);
         batch.draw(welcome, 200, 350);
         batch.draw(keymaster, 120, 280);
