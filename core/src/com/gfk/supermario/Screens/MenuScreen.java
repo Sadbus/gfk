@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.gfk.supermario.GameRenderer;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;
@@ -18,6 +19,9 @@ public class MenuScreen extends ApplicationAdapter implements Screen, Applicatio
 {
     final GameRenderer game;
     OrthographicCamera camera;
+    TextButton button;
+    TextButton.TextButtonStyle buttonStyle;
+
 
     private SpriteBatch batch3;
     private Texture menuscreen;

@@ -5,6 +5,11 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
+
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -18,11 +23,17 @@ import com.gfk.supermario.GameRenderer;
 import com.gfk.supermario.Utils.WorldContactListener;
 import com.gfk.supermario.Utils.initWorld;
 
+import com.gfk.supermario.Scenes.HUD;
+
+
 /**
  * Created by Olav Markus on 19.04.2017.
  */
-public class GameScreen implements Screen{
+public class GameScreen implements Screen
+{
     private GameRenderer game;
+    private TextureAtlas atlas;
+
 
     private OrthographicCamera camera;
     private FitViewport cameraPort;
@@ -40,11 +51,16 @@ public class GameScreen implements Screen{
 
     private initWorld worldCreator;
 
+
+    private HUD hud;
     private Hero hero;
 
     public GameScreen(GameRenderer game)
     {
+        atlas = new TextureAtlas("heroSprite.pack");
+
         this.game = game;
+        hud = new HUD(game.batch);
 
         camera = new OrthographicCamera();
         cameraPort = new FitViewport(GameRenderer.WIDTH / GameRenderer.PPM, GameRenderer.HEIGHT / GameRenderer.PPM, camera);
@@ -66,13 +82,14 @@ public class GameScreen implements Screen{
         shootingStars = Gdx.audio.newMusic(Gdx.files.internal("mario.mp3"));
         shootingStars.setLooping(true);
 
-
-        hero = new Hero(world);
-
         world.setContactListener(new WorldContactListener());
+        hero = new Hero(world, this);
     }
 
-
+    public TextureAtlas getAtlas()
+    {
+        return atlas;
+    }
 
     @Override
     public void show()
@@ -85,20 +102,19 @@ public class GameScreen implements Screen{
     public void render(float delta)
     {
         update(delta);
-
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         tiledMapRenderer.render();
 
         box2DDebugRenderer.render(world, camera.combined);
 
         game.batch.setProjectionMatrix(camera.combined);
-
-        //game.batch.begin();
+        game.batch.begin();
         hero.draw(game.batch);
-        //game.batch.draw(hero.sprite, hero.b2body.getPosition().x, hero.b2body.getPosition().y);
-        //game.batch.end();
+        game.batch.end();
+
+        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.stage.draw();
     }
 
     @Override
@@ -127,13 +143,16 @@ public class GameScreen implements Screen{
 
     public void handleInput(float dt)
     {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
+        {
             hero.b2body.applyLinearImpulse(new Vector2(0, 4f), hero.b2body.getWorldCenter(), true);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && hero.b2body.getLinearVelocity().x <= 2){
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && hero.b2body.getLinearVelocity().x <= 2)
+        {
             hero.b2body.applyLinearImpulse(new Vector2(0.1f, 0), hero.b2body.getWorldCenter(), true);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && hero.b2body.getLinearVelocity().x >= -2){
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && hero.b2body.getLinearVelocity().x >= -2)
+        {
             hero.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), hero.b2body.getWorldCenter(), true);
         }
     }
@@ -145,9 +164,6 @@ public class GameScreen implements Screen{
         world.step(1/60f, 6, 2);
 
         camera.position.x = hero.b2body.getPosition().x;
-
-
-
 
         camera.update();
         tiledMapRenderer.setView(camera);

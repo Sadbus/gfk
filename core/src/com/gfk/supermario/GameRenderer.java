@@ -7,8 +7,6 @@ import com.gfk.supermario.Screens.MenuScreen;
 
 public class GameRenderer extends Game
 {
-
-
     //Tile bredde * antall tiles i høyden
     public static final int HEIGHT = 260;
     //Bredde skal være slik at sideforholdet blir 16:9
@@ -24,11 +22,12 @@ public class GameRenderer extends Game
     public static final short DESTROYED_BIT = 16;
 
 
-    public static final String TITLE = "Games For Kekistan";
+    public static final String TITLE = "Key Master; The quest for keys";
 
 
     public SpriteBatch batch;
     public BitmapFont font;
+
 
 
     @Override
@@ -37,7 +36,6 @@ public class GameRenderer extends Game
 		batch = new SpriteBatch();
         font = new BitmapFont();
         setScreen(new MenuScreen(this));
-
 	}
 
 	@Override

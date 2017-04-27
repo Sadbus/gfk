@@ -1,0 +1,68 @@
+
+heroSprite.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+inair
+  rotate: false
+  xy: 1, 1
+  size: 20, 24
+  orig: 20, 24
+  offset: 0, 0
+  index: -1
+jump1
+  rotate: false
+  xy: 23, 1
+  size: 20, 24
+  orig: 20, 24
+  offset: 0, 0
+  index: -1
+walk1
+  rotate: false
+  xy: 23, 1
+  size: 20, 24
+  orig: 20, 24
+  offset: 0, 0
+  index: -1
+landing
+  rotate: false
+  xy: 45, 1
+  size: 20, 24
+  orig: 20, 24
+  offset: 0, 0
+  index: -1
+landpafiende
+  rotate: false
+  xy: 67, 1
+  size: 20, 24
+  orig: 20, 24
+  offset: 0, 0
+  index: -1
+stige1
+  rotate: false
+  xy: 89, 1
+  size: 20, 24
+  orig: 20, 24
+  offset: 0, 0
+  index: -1
+stige2
+  rotate: false
+  xy: 111, 1
+  size: 20, 24
+  orig: 20, 24
+  offset: 0, 0
+  index: -1
+Still
+  rotate: false
+  xy: 133, 1
+  size: 20, 24
+  orig: 20, 24
+  offset: 0, 0
+  index: -1
+walk2
+  rotate: false
+  xy: 155, 1
+  size: 20, 24
+  orig: 20, 24
+  offset: 0, 0
+  index: -1

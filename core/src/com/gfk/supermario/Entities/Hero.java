@@ -1,5 +1,6 @@
 package com.gfk.supermario.Entities;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -12,26 +13,30 @@ import com.gfk.supermario.Screens.GameScreen;
 /**
  * Created by olav on 20.04.17.
  */
-public class Hero extends Sprite{
+public class Hero extends Sprite
+{
     public World world;
     public Body b2body;
-    private GameRenderer game;
 
-    private TextureRegion region;
-    private Texture texture;
-
-    private GameScreen screen;
-
-    public Hero(World world)
+    private TextureRegion heroStand;
+    public Hero(World world, GameScreen screen)
     {
-    this.world = world;
-    defineHero();
-
-    texture = new Texture("region.jpeg");
-    region = new TextureRegion(texture, 20, 20, 50, 50);
+        super(screen.getAtlas().findRegion("Still"));
+        this.world = world;
+        defineHero();
+        heroStand = new TextureRegion(getTexture(), 0,0,24,24);
+        setBounds(0,0, 24/ GameRenderer.PPM, 24/GameRenderer.PPM);
+        setRegion(heroStand);
     }
 
-    public void defineHero(){
+
+    public void update(float dt)
+    {
+        setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
+    }
+
+    public void defineHero()
+    {
         BodyDef bdef = new BodyDef();
         bdef.position.set(32 / GameRenderer.PPM, 32 / GameRenderer.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
@@ -54,17 +59,8 @@ public class Hero extends Sprite{
         b2body.createFixture(fixtureDef).setUserData("head");
     }
 
-    public void update(float dt){
-
+    public void draw(Batch batch)
+    {
 
     }
-
-    public void draw(Batch batch){
-        //super.draw(batch);
-        batch.begin();
-        //batch.draw(img, 32 / GameRenderer.PPM, 32 / GameRenderer.PPM);
-        batch.draw(region, 10, 10);
-        batch.end();
-    }
-
 }
