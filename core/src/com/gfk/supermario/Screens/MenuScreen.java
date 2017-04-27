@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.audio.Music;
 
 
 public class MenuScreen extends ApplicationAdapter implements Screen, ApplicationListener
@@ -23,14 +24,16 @@ public class MenuScreen extends ApplicationAdapter implements Screen, Applicatio
     TextButton.TextButtonStyle buttonStyle;
 
 
-    private SpriteBatch batch3;
+    private Texture welcome;
+    private Texture keymaster;
     private Texture menuscreen;
-
-    private SpriteBatch batch2;
-    private Texture playbutton;
-
+    private Texture start;
+    private Texture about;
+    private Texture options;
     private SpriteBatch batch;
     private BitmapFont font;
+    Music music;
+
 
 
     public MenuScreen(final GameRenderer game) {
@@ -38,16 +41,22 @@ public class MenuScreen extends ApplicationAdapter implements Screen, Applicatio
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
         batch = new SpriteBatch();
-        menuscreen = new Texture("menuscreen.png");
-        batch2 = new SpriteBatch();
-        playbutton = new Texture("playbutton.png");
-        batch3 = new SpriteBatch();
+        welcome = new Texture("welcome.png");
+        keymaster = new Texture("keymaster.png");
+        menuscreen = new Texture("menuscreen1.png");
+        start = new Texture("start.png");
+        about = new Texture("about.png");
+        options = new Texture("options.png");
         font = new BitmapFont();
         font.setColor(Color.WHITE);
+        music= Gdx.audio.newMusic(Gdx.files.internal("intro.mp3"));
+
     }
 
     @Override
     public void show() {
+
+        music.play();
 
     }
 
@@ -59,9 +68,14 @@ public class MenuScreen extends ApplicationAdapter implements Screen, Applicatio
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(menuscreen, 250, 0);
-        batch.draw(playbutton, 350, 240);
-        font.draw(batch, "Click the play button to start the game", 275, 360);
+        batch.draw(menuscreen, 0, 0);
+        batch.draw(start, 100, 230);
+        batch.draw(about, 320, 230);
+        batch.draw(options, 550, 230);
+        batch.draw(welcome, 200, 350);
+        batch.draw(keymaster, 120, 280);
+        //font.draw(batch, "WELCOME TO ", 350, 420);
+        //font.draw(batch, "KEY MASTER; THE QUEST FOR KEYS", 270, 390);
         batch.end();
 
         if(Gdx.input.justTouched())
@@ -69,7 +83,9 @@ public class MenuScreen extends ApplicationAdapter implements Screen, Applicatio
 
         {
             game.setScreen(new GameScreen(game));
+            music.stop();
         }
+
     }
 
     @Override
@@ -97,9 +113,12 @@ public class MenuScreen extends ApplicationAdapter implements Screen, Applicatio
 
         batch.dispose();
         menuscreen.dispose();
-        batch2.dispose();
-        playbutton.dispose();
-        batch3.dispose();
+        start.dispose();
+        options.dispose();
+        about.dispose();
+        welcome.dispose();
+        keymaster.dispose();
         font.dispose();
+        music.dispose();
     }
 }

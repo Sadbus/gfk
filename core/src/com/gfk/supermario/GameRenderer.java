@@ -34,14 +34,14 @@ public class GameRenderer extends Game
 
 
     @Override
-	public void create ()
-	{
-		batch = new SpriteBatch();
+    public void create ()
+    {
+        batch = new SpriteBatch();
         font = new BitmapFont();
         setScreen(new MenuScreen(this));
-	}
+    }
 
-	@Override
+    @Override
     public void render()
     {
         super.render();

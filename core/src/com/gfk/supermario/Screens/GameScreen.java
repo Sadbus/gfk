@@ -75,7 +75,7 @@ public class GameScreen implements Screen
 
         worldCreator = new initWorld(this);
 
-        shootingStars = Gdx.audio.newMusic(Gdx.files.internal("mario.mp3"));
+        shootingStars = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
         shootingStars.setLooping(true);
 
         world.setContactListener(new WorldContactListener());
