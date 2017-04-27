@@ -1,4 +1,4 @@
-package com.gfk.supermario.Blocks;
+package com.gfk.supermario.Sprites.Items;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
@@ -8,9 +8,9 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.gfk.supermario.GameRenderer;
 
 /**
- * Created by Olav on 26.04.2017.
+ * Created by Olav on 27.04.2017.
  */
-public abstract class InteractiveTileObject {
+public abstract class ItemObject {
     protected World world;
     protected TiledMap map;
     protected TiledMapTile tile;
@@ -19,7 +19,7 @@ public abstract class InteractiveTileObject {
 
     protected Fixture fixture;
 
-    public InteractiveTileObject(World world, TiledMap map, Rectangle bounds){
+    public ItemObject(World world, TiledMap map, Rectangle bounds){
         this.world = world;
         this.map = map;
         this.bounds = bounds;
@@ -37,11 +37,9 @@ public abstract class InteractiveTileObject {
         shape.setAsBox(bounds.getWidth() / 2 / GameRenderer.PPM, bounds.getHeight() / 2 / GameRenderer.PPM);
         fdef.shape = shape;
         fixture = body.createFixture(fdef);
-
-
     }
 
-    public abstract void onHeadHit();
+    public abstract void onHit();
 
     public void setCategoryFilter(short filterBit){
         Filter filter = new Filter();

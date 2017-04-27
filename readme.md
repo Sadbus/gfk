@@ -5,7 +5,7 @@ Olav Markus Sjursø <br>
 Morten Mikalsen <br>
 Adrian Adamski <br>
 
-Vi har laget en platformer ved hjelp av biblioteket LibGDX, for fysikk har vi brukt en port av Box2D som følger med LibGX.
+Vi har laget en platformer ved hjelp av biblioteket LibGDX, for fysikk har vi brukt en port av Box2D som følger med LibGX. Spillkartet har blitt laget ved hjelp av et program som heter Tiled.
 
 
 

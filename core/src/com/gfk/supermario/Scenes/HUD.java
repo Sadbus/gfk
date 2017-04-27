@@ -1,6 +1,5 @@
 package com.gfk.supermario.Scenes;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -12,8 +11,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gfk.supermario.GameRenderer;
 
-import javax.swing.*;
-
 /**
  * Created by Nat on 25/04/2017.
  */
@@ -22,13 +19,13 @@ public class HUD
     public Stage stage;
     private Viewport viewport;
 
-    private Integer score;
+    public static Integer score;
 
-    Label scoreLabel;
+    static Label scoreLabel;
     Label pointLabel;
     Label levelLabel;
     Label worldLabel;
-    Label keyLabel;
+    static Label keyLabel;
 
     public HUD(SpriteBatch sb)
     {
@@ -42,10 +39,10 @@ public class HUD
         table.setFillParent(true);
 
         scoreLabel = new Label(String.format("%06d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        pointLabel = new Label("Keys", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        pointLabel = new Label("Score", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         levelLabel = new Label("First Level", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        worldLabel = new Label("World", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        keyLabel = new Label("Key Master", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        worldLabel = new Label("KeyMaster", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        keyLabel = new Label("Find the key!", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         table.add(keyLabel).expandX().padTop(10);
         table.add(worldLabel).expandX().padTop(10);
@@ -57,5 +54,13 @@ public class HUD
         table.add(scoreLabel).expandX();
 
         stage.addActor(table);
+    }
+
+    public static void gotKey(){
+        keyLabel.setText(String.format("You got the Key!"));
+    }
+    public static void incrementScore(){
+        score++;
+        scoreLabel.setText(String.format("%06d", score));
     }
 }

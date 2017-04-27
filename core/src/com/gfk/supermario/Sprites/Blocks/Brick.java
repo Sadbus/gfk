@@ -1,5 +1,4 @@
-package com.gfk.supermario.Blocks;
-
+package com.gfk.supermario.Sprites.Blocks;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -10,16 +9,17 @@ import com.gfk.supermario.GameRenderer;
 /**
  * Created by Olav on 26.04.2017.
  */
-public class Coin extends InteractiveTileObject {
-    public Coin(World world, TiledMap map, Rectangle bounds){
+public class Brick extends TileObject {
+    public Brick(World world, TiledMap map, Rectangle bounds){
         super(world, map, bounds);
         fixture.setUserData(this);
-        setCategoryFilter(GameRenderer.COIN_BIT);
+        setCategoryFilter(GameRenderer.BRICK_BIT);
     }
 
     @Override
     public void onHeadHit() {
-        Gdx.app.log("Coin", "Collision");
+        Gdx.app.log("Brick", "Collision");
+        setCategoryFilter(GameRenderer.DESTROYED_BIT);
+        getCell().setTile(null);
     }
-
 }

@@ -7,9 +7,6 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -47,7 +44,6 @@ public class GameScreen implements Screen
     //  Box2D - Physics
     private World world;
     private Box2DDebugRenderer box2DDebugRenderer;
-    private Body body;
 
     private initWorld worldCreator;
 
@@ -164,6 +160,7 @@ public class GameScreen implements Screen
         world.step(1/60f, 6, 2);
 
         camera.position.x = hero.b2body.getPosition().x;
+
 
         camera.update();
         tiledMapRenderer.setView(camera);

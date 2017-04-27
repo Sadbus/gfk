@@ -1,7 +1,5 @@
 package com.gfk.supermario.Entities;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -18,6 +16,8 @@ public class Hero extends Sprite
     public World world;
     public Body b2body;
 
+    public static Boolean hasKey;
+
     private TextureRegion heroStand;
     public Hero(World world, GameScreen screen)
     {
@@ -27,6 +27,8 @@ public class Hero extends Sprite
         heroStand = new TextureRegion(getTexture(), 0,0,24,24);
         setBounds(0,0, 24/ GameRenderer.PPM, 24/GameRenderer.PPM);
         setRegion(heroStand);
+
+        hasKey = false;
     }
 
 
@@ -46,17 +48,44 @@ public class Hero extends Sprite
         CircleShape shape = new CircleShape();
         shape.setRadius(5 / GameRenderer.PPM);
         fixtureDef.filter.categoryBits = GameRenderer.HERO_BIT;
-        fixtureDef.filter.maskBits = GameRenderer.DEFAULT_BIT | GameRenderer.COIN_BIT | GameRenderer.BRICK_BIT;
+        fixtureDef.filter.maskBits = GameRenderer.DEFAULT_BIT |
+                GameRenderer.COIN_BIT |
+                GameRenderer.BRICK_BIT |
+                GameRenderer.KEY_BIT |
+                GameRenderer.LOCK_BIT |
+                GameRenderer.MOVABLE_TILE_BIT;
 
         fixtureDef.shape = shape;
         b2body.createFixture(fixtureDef);
 
+        // Definerer sensor for å sjekke kollisjon med hodet
+        EdgeShape head = new EdgeShape();
+        head.set(new Vector2(-2 / GameRenderer.PPM, 6 / GameRenderer.PPM), new Vector2(2 / GameRenderer.PPM, 6 / GameRenderer.PPM));
+        fixtureDef.filter.categoryBits = GameRenderer.HERO_HEAD_BIT;
+        fixtureDef.shape = head;
+        fixtureDef.isSensor = true;
+
+        b2body.createFixture(fixtureDef).setUserData("head");
+
+        /*
+        // Definerer sensor for å sjekke kollisjon med hodet
         EdgeShape head = new EdgeShape();
         head.set(new Vector2(-2 / GameRenderer.PPM, 6 / GameRenderer.PPM), new Vector2(2 / GameRenderer.PPM, 6 / GameRenderer.PPM));
         fixtureDef.shape = head;
         fixtureDef.isSensor = true;
 
         b2body.createFixture(fixtureDef).setUserData("head");
+
+
+        //definerer sensor for å sjekke kollisjon med kroppen
+        EdgeShape bodyShape = new EdgeShape();
+        bodyShape.setRadius(6 / GameRenderer.PPM);
+        fixtureDef.shape = bodyShape;
+        fixtureDef.isSensor = true;
+        */
+
+        b2body.createFixture(fixtureDef).setUserData("bodyShape");
+
     }
 
     public void draw(Batch batch)

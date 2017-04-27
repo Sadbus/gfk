@@ -9,8 +9,8 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.gfk.supermario.Blocks.Brick;
-import com.gfk.supermario.Blocks.Coin;
+import com.gfk.supermario.Sprites.Blocks.*;
+import com.gfk.supermario.Sprites.Items.Key;
 import com.gfk.supermario.GameRenderer;
 import com.gfk.supermario.Screens.GameScreen;
 
@@ -55,7 +55,26 @@ public class initWorld {
 
             new Brick(world, tiledMap, rect);
         }
+        //create Key
+        for (MapObject object : tiledMap.getLayers().get("Key").getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+            new Key(world, tiledMap, rect);
+        }
+        //create Lock
+        for (MapObject object : tiledMap.getLayers().get("Lock").getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+            new Lock(world, tiledMap, rect);
+        }
         /*
+        //create Movable blocks
+        for (MapObject object : tiledMap.getLayers().get("MovableTile").getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+            new MovableTile(world, tiledMap, rect);
+        }
+
         for(MapObject object : tiledMap.getLayers().get("Tiles").getObjects().getByType(PolygonMapObject.class)){
             PolygonShape polygon = new PolygonShape();
             float vertices[] = ((PolygonMapObject) object).getPolygon().getTransformedVertices();
