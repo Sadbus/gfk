@@ -1,16 +1,16 @@
-##<center>Keymaster: The Quest for Keys</center>
-**_<center>A Games for Kekistan Production</center>_**
+##Keymaster: The Quest for Keys
+**_A Games for Kekistan Production_**
 
-<div style="text-align:center"><img src ="https://pepethefrogfaith.files.wordpress.com/2016/11/meme_wizard.jpg" /></div>
+![](https://pepethefrogfaith.files.wordpress.com/2016/11/meme_wizard.jpg)
 
 <br>
 
-**Gruppe:**
+**Gruppe:** <br>
 * Olav Markus Sjursø <br>
 * Morten Mikalsen <br>
 * Adrian Adamski <br>
 
-Vi har laget en platformer ved hjelp av biblioteket LibGDX, for fysikk har vi brukt en port av <br>Box2D som følger med LibGX. Spillkartet har blitt laget ved hjelp av et program som heter Tiled.
+Vi har laget en platformer ved hjelp av biblioteket LibGDX, for fysikk har vi brukt en port av Box2D som følger med LibGX. Spillkartet har blitt laget ved hjelp av et program som heter Tiled.
 
 
 

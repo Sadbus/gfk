@@ -22,6 +22,7 @@ public class Key extends ItemObject {
     public void onHit() {
         Gdx.app.log("Key", "Collision");
         setCategoryFilter(GameRenderer.DESTROYED_BIT);
+        getCell().setTile(null);
         Hero.hasKey = true;
         HUD.gotKey();
     }
