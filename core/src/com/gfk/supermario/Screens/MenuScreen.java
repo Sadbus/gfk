@@ -20,10 +20,6 @@ public class MenuScreen extends ApplicationAdapter implements Screen, Applicatio
 {
     final GameRenderer game;
     OrthographicCamera camera;
-    TextButton button;
-    TextButton.TextButtonStyle buttonStyle;
-
-
     private Texture welcome;
     private Texture keymaster;
     private Texture menuscreen;
