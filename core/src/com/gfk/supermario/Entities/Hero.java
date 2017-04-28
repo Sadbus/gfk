@@ -155,6 +155,7 @@ public class Hero extends Sprite
         FixtureDef fixtureDef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(10 / GameRenderer.PPM);
+        fixtureDef.friction = 0.6f;
         fixtureDef.filter.categoryBits = GameRenderer.HERO_BIT;
         fixtureDef.filter.maskBits = GameRenderer.DEFAULT_BIT |
                 GameRenderer.COIN_BIT |

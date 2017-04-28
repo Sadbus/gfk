@@ -18,13 +18,13 @@ public class MovableTile extends Sprite
     private float y;
 
     public MovableTile(GameScreen screen, float x, float y) {
-        super(screen.getAtlas().findRegion("Still"));
+        super(screen.getAtlas().findRegion("7"));
         this.world = screen.getWorld();
         this.x = x;
         this.y = y;
         defineBox();
         //TODO: Switch texture
-        setRegion(new TextureRegion(getTexture(), 0,0,24,24));
+        setRegion(new TextureRegion(getTexture(), 133,4,21,21));
         setBounds(0,0, 21 / GameRenderer.PPM, 21 / GameRenderer.PPM);
     }
 

@@ -54,7 +54,7 @@ public class GameScreen implements Screen
 
     public GameScreen(GameRenderer game)
     {
-        atlas = new TextureAtlas("heroSprite.pack");
+        atlas = new TextureAtlas("TexturePack.pack");
 
         this.game = game;
         hud = new HUD(game.batch);
