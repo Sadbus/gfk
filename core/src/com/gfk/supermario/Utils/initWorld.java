@@ -17,9 +17,11 @@ import com.gfk.supermario.Screens.GameScreen;
 /**
  * Created by Olav on 23.04.2017.
  */
-public class initWorld {
+public class initWorld
+{
 
-    public initWorld(GameScreen screen){
+    public initWorld(GameScreen screen)
+    {
         World world = screen.getWorld();
         TiledMap tiledMap = screen.getTiledMap();
 
@@ -29,7 +31,8 @@ public class initWorld {
         Body body;
 
         //create tiles
-        for (MapObject object : tiledMap.getLayers().get("Tiles").getObjects().getByType(RectangleMapObject.class)){
+        for (MapObject object : tiledMap.getLayers().get("Tiles").getObjects().getByType(RectangleMapObject.class))
+        {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
@@ -44,23 +47,27 @@ public class initWorld {
             body.createFixture(fixtureDef);
         }
         //create coins
-        for (MapObject object : tiledMap.getLayers().get("Coins").getObjects().getByType(RectangleMapObject.class)){
+        for (MapObject object : tiledMap.getLayers().get("Coins").getObjects().getByType(RectangleMapObject.class))
+        {
             new Coin(screen, object);
         }
         //create Bricks
-        for (MapObject object : tiledMap.getLayers().get("Bricks").getObjects().getByType(RectangleMapObject.class)){
+        for (MapObject object : tiledMap.getLayers().get("Bricks").getObjects().getByType(RectangleMapObject.class))
+        {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             new Brick(screen, object);
         }
         //create Key
-        for (MapObject object : tiledMap.getLayers().get("Key").getObjects().getByType(RectangleMapObject.class)){
+        for (MapObject object : tiledMap.getLayers().get("Key").getObjects().getByType(RectangleMapObject.class))
+        {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             new Key(world, tiledMap, rect);
         }
         //create Lock
-        for (MapObject object : tiledMap.getLayers().get("Lock").getObjects().getByType(RectangleMapObject.class)){
+        for (MapObject object : tiledMap.getLayers().get("Lock").getObjects().getByType(RectangleMapObject.class))
+        {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             new Lock(screen, object);

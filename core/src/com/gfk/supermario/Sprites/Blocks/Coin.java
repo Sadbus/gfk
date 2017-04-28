@@ -9,15 +9,18 @@ import com.gfk.supermario.Screens.GameScreen;
 /**
  * Created by Olav on 26.04.2017.
  */
-public class Coin extends TileObject {
-    public Coin(GameScreen screen, MapObject object){
+public class Coin extends TileObject
+{
+    public Coin(GameScreen screen, MapObject object)
+    {
         super(screen, object);
         fixture.setUserData(this);
         setCategoryFilter(GameRenderer.COIN_BIT);
     }
 
     @Override
-    public void onHeadHit() {
+    public void onHeadHit()
+    {
         // This will be changed to breaking the block and updating score
         Gdx.app.log("Coin", "Collision");
         setCategoryFilter(GameRenderer.DESTROYED_BIT);

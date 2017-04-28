@@ -9,7 +9,8 @@ import com.gfk.supermario.GameRenderer;
 /**
  * Created by Olav on 27.04.2017.
  */
-public abstract class ItemObject {
+public abstract class ItemObject
+{
     protected World world;
     protected TiledMap map;
     protected Rectangle bounds;
@@ -17,7 +18,8 @@ public abstract class ItemObject {
 
     protected Fixture fixture;
 
-    public ItemObject(World world, TiledMap map, Rectangle bounds){
+    public ItemObject(World world, TiledMap map, Rectangle bounds)
+    {
         this.world = world;
         this.map = map;
         this.bounds = bounds;
@@ -39,13 +41,15 @@ public abstract class ItemObject {
 
     public abstract void onHit();
 
-    public void setCategoryFilter(short filterBit){
+    public void setCategoryFilter(short filterBit)
+    {
         Filter filter = new Filter();
         filter.categoryBits = filterBit;
         fixture.setFilterData(filter);
     }
 
-    public TiledMapTileLayer.Cell getCell(){
+    public TiledMapTileLayer.Cell getCell()
+    {
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("Graphics");
         return  layer.getCell((int)(body.getPosition().x * GameRenderer.PPM / 21),
                 (int)(body.getPosition().y * GameRenderer.PPM / 21));

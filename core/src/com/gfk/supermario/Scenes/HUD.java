@@ -56,10 +56,12 @@ public class HUD
         stage.addActor(table);
     }
 
-    public static void gotKey(){
+    public static void gotKey()
+    {
         keyLabel.setText(String.format("You got the Key!"));
     }
-    public static void incrementScore(){
+    public static void incrementScore()
+    {
         score += 5;
         scoreLabel.setText(String.format("%03d", score));
     }
