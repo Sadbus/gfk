@@ -3,6 +3,7 @@ package com.gfk.supermario.Screens;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.gfk.supermario.GameRenderer;
@@ -47,11 +48,20 @@ public class MenuScreen implements Screen
 
     private BitmapFont font;
 
-    Music music;
+    private TextureAtlas atlas;
+    private Skin skin;
+
+
+
+    private Music music;
 
     public MenuScreen(final GameRenderer game)
     {
         this.game = game;
+        //atlas = new TextureAtlas("greenSheet.xml");
+        //skin = new Skin();
+
+        //TextureRegion testButton = skin.get("green_button00.png", TextureRegion.class);
 
         camera = new OrthographicCamera();
         //camera.setToOrtho(false, 800, 480);
@@ -91,13 +101,16 @@ public class MenuScreen implements Screen
     @Override
     public void show()
     {
+        //TextButton playButton = new TextButton("Play", skin);
+
+
         // Create table, fill stage and align top.
         table = new Table();
         table.setFillParent(true);
         table.center();
 
 
-        // Create buttons
+        //Create buttons
         startButton = new ImageButton(startTexRegionDrawable);
         //table.row();
         aboutButton = new ImageButton(aboutTexRegionDrawable);
@@ -113,7 +126,6 @@ public class MenuScreen implements Screen
             public void clicked(InputEvent event, float x, float y)
             {
                 game.setScreen(new GameScreen(game));
-                System.out.println("Start New game");
             }
         });
         aboutButton.addListener(new ClickListener()
@@ -134,10 +146,17 @@ public class MenuScreen implements Screen
         });
 
 
+        optionsButton.pad(10);
+
+        //table.defaults().width(110);
         // Add buttons to table
-        table.add(aboutButton);
         table.add(startButton);
+        table.row();
+        //table.pad(50);
         table.add(optionsButton);
+        table.row();
+        //table.pad(50);
+        table.add(aboutButton);
 
         //TODO Add padding between buttons
         //table.pad(50);
