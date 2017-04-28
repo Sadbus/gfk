@@ -10,15 +10,13 @@ import com.gfk.supermario.Screens.GameScreen;
 /**
  * Created by olav on 20.04.17.
  */
-public class MovableTile extends Sprite
-{
+public class MovableBox extends Sprite {
     public World world;
     public Body body;
     private float x;
     private float y;
 
-    public MovableTile(GameScreen screen, float x, float y)
-    {
+    public MovableBox(GameScreen screen, float x, float y) {
         super(screen.getAtlas().findRegion("7"));
         this.world = screen.getWorld();
         this.x = x;
@@ -29,13 +27,11 @@ public class MovableTile extends Sprite
     }
 
 
-    public void update(float dt)
-    {
+    public void update(float dt) {
         setPosition(body.getPosition().x - getWidth()/2, body.getPosition().y - getHeight()/2);
     }
 
-    public void defineBox()
-    {
+    public void defineBox() {
         BodyDef bdef = new BodyDef();
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
@@ -51,8 +47,7 @@ public class MovableTile extends Sprite
 
     }
 
-    public void draw(Batch batch)
-    {
+    public void draw(Batch batch) {
         super.draw(batch);
 
     }

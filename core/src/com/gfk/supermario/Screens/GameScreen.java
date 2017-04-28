@@ -15,7 +15,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.gfk.supermario.Entities.Hero;
 import com.gfk.supermario.GameRenderer;
-import com.gfk.supermario.Sprites.Blocks.MovableTile;
+import com.gfk.supermario.Sprites.Blocks.MovableBox;
 import com.gfk.supermario.Utils.WorldContactListener;
 import com.gfk.supermario.Utils.initWorld;
 import com.gfk.supermario.Scenes.HUD;
@@ -44,9 +44,9 @@ public class GameScreen implements Screen {
 
     private HUD hud;
     private Hero hero;
-    private MovableTile box;
-    private MovableTile box2;
-    private MovableTile box3;
+    private MovableBox box;
+    private MovableBox box2;
+    private MovableBox box3;
 
 
     public GameScreen(GameRenderer game) {
@@ -78,9 +78,9 @@ public class GameScreen implements Screen {
         world.setContactListener(new WorldContactListener());
         hero = new Hero(world, this);
 
-        box = new MovableTile(this, 1290, 200);
-        box2 = new MovableTile(this, 1570, 210);
-        box3 = new MovableTile(this, 1690, 40);
+        box = new MovableBox(this, 1290, 200);
+        box2 = new MovableBox(this, 1570, 210);
+        box3 = new MovableBox(this, 1690, 40);
 
     }
 

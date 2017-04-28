@@ -175,26 +175,6 @@ public class Hero extends Sprite
         fixtureDef.isSensor = true;
 
         b2body.createFixture(fixtureDef).setUserData("head");
-
-        /*
-        // Definerer sensor for å sjekke kollisjon med hodet
-        EdgeShape head = new EdgeShape();
-        head.set(new Vector2(-2 / GameRenderer.PPM, 6 / GameRenderer.PPM), new Vector2(2 / GameRenderer.PPM, 6 / GameRenderer.PPM));
-        fixtureDef.shape = head;
-        fixtureDef.isSensor = true;
-
-        b2body.createFixture(fixtureDef).setUserData("head");
-
-
-        //definerer sensor for å sjekke kollisjon med kroppen
-        EdgeShape bodyShape = new EdgeShape();
-        bodyShape.setRadius(6 / GameRenderer.PPM);
-        fixtureDef.shape = bodyShape;
-        fixtureDef.isSensor = true;
-        */
-
-        b2body.createFixture(fixtureDef).setUserData("bodyShape");
-
     }
 
     public void draw(Batch batch)
