@@ -23,8 +23,7 @@ import com.gfk.supermario.Scenes.HUD;
 /**
  * Created by Olav Markus on 19.04.2017.
  */
-public class GameScreen implements Screen
-{
+public class GameScreen implements Screen {
     private GameRenderer game;
     private TextureAtlas atlas;
 
@@ -50,8 +49,7 @@ public class GameScreen implements Screen
     private MovableTile box3;
 
 
-    public GameScreen(GameRenderer game)
-    {
+    public GameScreen(GameRenderer game) {
         atlas = new TextureAtlas("TexturePack.pack");
 
         this.game = game;
@@ -74,7 +72,7 @@ public class GameScreen implements Screen
 
         worldCreator = new initWorld(this);
 
-        shootingStars = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
+        shootingStars = Gdx.audio.newMusic(Gdx.files.internal("GameMusic.mp3"));
         shootingStars.setLooping(true);
 
         world.setContactListener(new WorldContactListener());
@@ -92,21 +90,19 @@ public class GameScreen implements Screen
     }
 
     @Override
-    public void show()
-    {
+    public void show() {
         shootingStars.play();
 
     }
 
     @Override
-    public void render(float delta)
-    {
+    public void render(float delta) {
         update(delta);
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         tiledMapRenderer.render();
 
-        box2DDebugRenderer.render(world, camera.combined);
+        //box2DDebugRenderer.render(world, camera.combined);
 
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
@@ -127,46 +123,39 @@ public class GameScreen implements Screen
     }
 
     @Override
-    public void pause()
-    {
+    public void pause() {
 
     }
 
     @Override
-    public void resume()
-    {
+    public void resume() {
 
     }
 
     @Override
-    public void hide()
-    {
+    public void hide() {
 
     }
 
-    public void handleInput(float dt)
-    {
+    public void handleInput(float dt) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
         {
             hero.b2body.applyLinearImpulse(new Vector2(0, 4f), hero.b2body.getWorldCenter(), true);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && hero.b2body.getLinearVelocity().x <= 2)
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && hero.b2body.getLinearVelocity().x <= 1.5)
         {
             hero.b2body.applyLinearImpulse(new Vector2(0.1f, 0), hero.b2body.getWorldCenter(), true);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && hero.b2body.getLinearVelocity().x >= -2)
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && hero.b2body.getLinearVelocity().x >= -1.5)
         {
             hero.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), hero.b2body.getWorldCenter(), true);
         }
     }
 
-    public void update(float dt)
-    {
+    public void update(float dt) {
         handleInput(dt);
 
         world.step(1/60f, 6, 2);
-
-
 
         camera.position.x = hero.b2body.getPosition().x;
 
@@ -180,8 +169,7 @@ public class GameScreen implements Screen
     }
 
     @Override
-    public void dispose()
-    {
+    public void dispose() {
         shootingStars.dispose();
         tiledMap.dispose();
         box2DDebugRenderer.dispose();
