@@ -8,15 +8,18 @@ import com.gfk.supermario.Screens.GameScreen;
 /**
  * Created by Olav on 26.04.2017.
  */
-public class Brick extends TileObject {
-    public Brick(GameScreen screen, MapObject object){
+public class Brick extends TileObject
+{
+    public Brick(GameScreen screen, MapObject object)
+    {
         super(screen, object);
         fixture.setUserData(this);
         setCategoryFilter(GameRenderer.BRICK_BIT);
     }
 
     @Override
-    public void onHeadHit() {
+    public void onHeadHit()
+    {
         Gdx.app.log("Brick", "Collision");
         //setCategoryFilter(GameRenderer.DESTROYED_BIT);
         getCell().setTile(null);

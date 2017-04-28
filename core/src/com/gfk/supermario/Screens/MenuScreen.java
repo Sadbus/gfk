@@ -16,7 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-public class MenuScreen implements Screen {
+public class MenuScreen implements Screen
+{
     private GameRenderer game;
     private OrthographicCamera camera;
     protected Stage stage;
@@ -48,7 +49,8 @@ public class MenuScreen implements Screen {
 
     Music music;
 
-    public MenuScreen(final GameRenderer game) {
+    public MenuScreen(final GameRenderer game)
+    {
         this.game = game;
 
         camera = new OrthographicCamera();
@@ -87,7 +89,8 @@ public class MenuScreen implements Screen {
     }
 
     @Override
-    public void show() {
+    public void show()
+    {
         // Create table, fill stage and align top.
         table = new Table();
         table.setFillParent(true);
@@ -104,22 +107,28 @@ public class MenuScreen implements Screen {
         music.play();
 
         // Create ClickListeners for buttons
-        startButton.addListener(new ClickListener(){
+        startButton.addListener(new ClickListener()
+        {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public void clicked(InputEvent event, float x, float y)
+            {
                 game.setScreen(new GameScreen(game));
                 System.out.println("Start New game");
             }
         });
-        aboutButton.addListener(new ClickListener(){
+        aboutButton.addListener(new ClickListener()
+        {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public void clicked(InputEvent event, float x, float y)
+            {
                 System.out.println("Clicked about");
             }
         });
-        optionsButton.addListener(new ClickListener(){
+        optionsButton.addListener(new ClickListener()
+        {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public void clicked(InputEvent event, float x, float y)
+            {
                 System.out.println("Clicked Options");
             }
         });
@@ -151,7 +160,8 @@ public class MenuScreen implements Screen {
     }
 
     @Override
-    public void resize(int width, int height) {
+    public void resize(int width, int height)
+    {
         viewport.update(width, height);
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
         camera.update();
@@ -173,8 +183,8 @@ public class MenuScreen implements Screen {
     }
 
     @Override
-    public void dispose() {
-
+    public void dispose()
+    {
         background.dispose();
         welcome.dispose();
         keymaster.dispose();

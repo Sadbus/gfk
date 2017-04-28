@@ -8,10 +8,12 @@ import com.gfk.supermario.Sprites.Items.ItemObject;
 /**
  * Created by Olav on 26.04.2017.
  */
-public class WorldContactListener implements ContactListener {
+public class WorldContactListener implements ContactListener
+{
 
     @Override
-    public void beginContact(Contact contact) {
+    public void beginContact(Contact contact)
+    {
 
         /*
         Fixture fixA = contact.getFixtureA();
@@ -31,7 +33,8 @@ public class WorldContactListener implements ContactListener {
         Fixture fixB = contact.getFixtureB();
         int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
 
-        switch (cDef){
+        switch (cDef)
+        {
             case GameRenderer.HERO_HEAD_BIT | GameRenderer.LOCK_BIT:
             case GameRenderer.HERO_HEAD_BIT | GameRenderer.BRICK_BIT:
             case GameRenderer.HERO_HEAD_BIT | GameRenderer.COIN_BIT:

@@ -11,15 +11,18 @@ import com.gfk.supermario.Scenes.HUD;
 /**
  * Created by Olav on 27.04.2017.
  */
-public class Key extends ItemObject {
-    public Key(World world, TiledMap map, Rectangle bounds){
+public class Key extends ItemObject
+{
+    public Key(World world, TiledMap map, Rectangle bounds)
+    {
         super(world, map, bounds);
         fixture.setUserData(this);
         setCategoryFilter(GameRenderer.KEY_BIT);
     }
 
     @Override
-    public void onHit() {
+    public void onHit()
+    {
         Gdx.app.log("Key", "Collision");
         setCategoryFilter(GameRenderer.DESTROYED_BIT);
         getCell().setTile(null);
