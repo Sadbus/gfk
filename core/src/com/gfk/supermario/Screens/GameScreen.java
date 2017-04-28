@@ -48,6 +48,9 @@ public class GameScreen implements Screen
     private HUD hud;
     private Hero hero;
     private MovableTile box;
+    private MovableTile box2;
+    private MovableTile box3;
+
 
     public GameScreen(GameRenderer game)
     {
@@ -60,7 +63,7 @@ public class GameScreen implements Screen
         cameraPort = new FitViewport(game.WIDTH / game.PPM, game.HEIGHT / game.PPM, camera);
 
         //Load map
-        tiledMap = new TmxMapLoader().load("level1.tmx");
+        tiledMap = new TmxMapLoader().load("Level1.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1 / game.PPM);
 
         //Sentrerer kamera.
@@ -82,6 +85,8 @@ public class GameScreen implements Screen
         //TODO: Spawne flere
         //x = 1660, y = 210 og x = 1760, Y = 40
         box = new MovableTile(this, 1350, 200);
+        box2 = new MovableTile(this, 1660, 210);
+        box3 = new MovableTile(this, 1760, 40);
 
     }
 
@@ -111,6 +116,8 @@ public class GameScreen implements Screen
         game.batch.begin();
         hero.draw(game.batch);
         box.draw(game.batch);
+        box2.draw(game.batch);
+        box3.draw(game.batch);
         game.batch.end();
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
@@ -171,6 +178,9 @@ public class GameScreen implements Screen
         tiledMapRenderer.setView(camera);
         hero.update(dt);
         box.update(dt);
+        box2.update(dt);
+        box3.update(dt);
+
     }
 
     @Override
