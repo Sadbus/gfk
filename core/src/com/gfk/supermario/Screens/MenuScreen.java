@@ -1,156 +1,160 @@
 package com.gfk.supermario.Screens;
 
 import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.gfk.supermario.GameRenderer;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.audio.Music;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-public class MenuScreen extends ApplicationAdapter implements Screen, ApplicationListener
+public class MenuScreen implements Screen {
+    private GameRenderer game;
+    private OrthographicCamera camera;
+    protected Stage stage;
+    private FitViewport viewport;
+    private Table table;
 
-{
-    final GameRenderer game;
-    OrthographicCamera camera;
+
+    private Texture startTexture;
+    private Texture aboutTexture;
+    private Texture optionsTexture;
+
+    private TextureRegion startTextureRegion;
+    private TextureRegion aboutTextureRegion;
+    private TextureRegion optionsTextureRegion;
+
+    private TextureRegionDrawable startTexRegionDrawable;
+    private TextureRegionDrawable aboutTexRegionDrawable;
+    private TextureRegionDrawable optionsTexRegionDrawable;
+
+    private ImageButton startButton;
+    private ImageButton aboutButton;
+    private ImageButton optionsButton;
+
     private Texture welcome;
     private Texture keymaster;
-    private Texture menuscreen;
-    //private Texture start;
-    //private Texture about;
-    //private Texture options;
-    private SpriteBatch batch;
+    private Texture background;
+
     private BitmapFont font;
+
     Music music;
 
-    private Stage stage1;
-    private Stage stage2;
-    private Stage stage3;
-
-    private Texture myTexture1;
-    private Texture myTexture2;
-    private Texture myTexture3;
-
-    private TextureRegion myTextureRegion1;
-    private TextureRegion myTextureRegion2;
-    private TextureRegion myTextureRegion3;
-
-    private TextureRegionDrawable myTexRegionDrawable1;
-    private TextureRegionDrawable myTexRegionDrawable2;
-    private TextureRegionDrawable myTexRegionDrawable3;
-
-    private ImageButton button1;
-    private ImageButton button2;
-    private ImageButton button3;
-
-
-
     public MenuScreen(final GameRenderer game) {
-
         this.game = game;
+
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
-        batch = new SpriteBatch();
+        //camera.setToOrtho(false, 800, 480);
+        //camera.setToOrtho(false, game.WIDTH, game.HEIGHT);
+
+        viewport = new FitViewport(800, 400, camera);
+        viewport.apply();
+
+        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+        camera.update();
+
+        startTexture = new Texture(Gdx.files.internal("start.png"));
+        aboutTexture = new Texture(Gdx.files.internal("about.png"));
+        optionsTexture = new Texture(Gdx.files.internal("options.png"));
+
+        startTextureRegion = new TextureRegion(startTexture);
+        startTexRegionDrawable = new TextureRegionDrawable(startTextureRegion);
+        aboutTextureRegion = new TextureRegion(aboutTexture);
+        aboutTexRegionDrawable = new TextureRegionDrawable(aboutTextureRegion);
+        optionsTextureRegion = new TextureRegion(optionsTexture);
+        optionsTexRegionDrawable = new TextureRegionDrawable(optionsTextureRegion);
+
+
+        music = Gdx.audio.newMusic(Gdx.files.internal("intro.mp3"));
+        font = new BitmapFont();
+
+
+        stage = new Stage(viewport, game.batch);
+
+        Gdx.input.setInputProcessor(stage);
+
         welcome = new Texture("welcome.png");
         keymaster = new Texture("keymaster.png");
-        menuscreen = new Texture("menuscreen1.png");
-        //start = new Texture("start.png");
-        //about = new Texture("about.png");
-        //options = new Texture("options.png");
-        font = new BitmapFont();
-        music = Gdx.audio.newMusic(Gdx.files.internal("intro.mp3"));
-
-        myTexture1 = new Texture(Gdx.files.internal("start.png"));
-        myTexture2 = new Texture(Gdx.files.internal("about.png"));
-        myTexture3 = new Texture(Gdx.files.internal("options.png"));
-
-        myTextureRegion1 = new TextureRegion(myTexture1);
-        myTexRegionDrawable1 = new TextureRegionDrawable(myTextureRegion1);
-        myTextureRegion2 = new TextureRegion(myTexture2);
-        myTexRegionDrawable2 = new TextureRegionDrawable(myTextureRegion2);
-        myTextureRegion3 = new TextureRegion(myTexture3);
-        myTexRegionDrawable3 = new TextureRegionDrawable(myTextureRegion3);
-
-        button1 = new ImageButton(myTexRegionDrawable1);
-        button2 = new ImageButton(myTexRegionDrawable2);
-        button3 = new ImageButton(myTexRegionDrawable3);
-
-        stage1 = new Stage(new ScreenViewport());
-        stage1.addActor(button1);
-        stage2 = new Stage(new ScreenViewport());
-        stage2.addActor(button2);
-        stage3 = new Stage(new ScreenViewport());
-        stage3.addActor(button3);
-
-        //Gdx.input.setInputProcessor(stage1);
-        //Gdx.input.setInputProcessor(stage2);
-        //Gdx.input.setInputProcessor(stage3);
-
+        background = new Texture("menuscreen1.png");
     }
 
     @Override
     public void show() {
+        // Create table, fill stage and align top.
+        table = new Table();
+        table.setFillParent(true);
+        table.center();
+
+
+        // Create buttons
+        startButton = new ImageButton(startTexRegionDrawable);
+        //table.row();
+        aboutButton = new ImageButton(aboutTexRegionDrawable);
+        //table.row();
+        optionsButton = new ImageButton(optionsTexRegionDrawable);
 
         music.play();
 
+        // Create ClickListeners for buttons
+        startButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new GameScreen(game));
+                System.out.println("Start New game");
+            }
+        });
+        aboutButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("Clicked about");
+            }
+        });
+        optionsButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("Clicked Options");
+            }
+        });
+
+
+        // Add buttons to table
+        table.add(aboutButton);
+        table.add(startButton);
+        table.add(optionsButton);
+
+        //TODO Add padding between buttons
+        //table.pad(50);
+
+        // Add buttons table stage
+        stage.addActor(table);
     }
 
     @Override
     public void render(float delta)
     {
-        camera.update();
-        batch.setProjectionMatrix(camera.combined);
-        Gdx.gl.glClearColor(1, 1, 1, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch.begin();
-        batch.draw(menuscreen, 0, 0);
-        //batch.draw(start, 320, 230);
-        //batch.draw(about, 100, 230);
-        //batch.draw(options, 550, 230);
-        batch.draw(welcome, 200, 350);
-        batch.draw(keymaster, 120, 280);
-        batch.end();
+        game.batch.begin();
+        game.batch.draw(background, 0, 0);
+        game.batch.draw(welcome, 200, 280);
+        game.batch.draw(keymaster, 120, 240);
+        game.batch.end();
 
-        stage1.draw();
-        stage2.draw();
-        stage3.draw();
-        button1.setPosition(450, 290);
-        button2.setPosition(250, 290);
-        button3.setPosition(640, 290);
-
-                //if(Gdx.input.justTouched())
-                if(button1.isPressed()) // Hvordan få start knappen til å funke? Kanskje ved hjelp av ClickListener?
-
-                {
-                    game.setScreen(new GameScreen(game));
-                    music.stop();
-                }
-
+        stage.act();
+        stage.draw();
     }
 
     @Override
     public void resize(int width, int height) {
-
+        viewport.update(width, height);
+        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+        camera.update();
     }
 
     @Override
@@ -171,14 +175,9 @@ public class MenuScreen extends ApplicationAdapter implements Screen, Applicatio
     @Override
     public void dispose() {
 
-        batch.dispose();
-        menuscreen.dispose();
-        //start.dispose();
-        //options.dispose();
-        //about.dispose();
+        background.dispose();
         welcome.dispose();
         keymaster.dispose();
-        font.dispose();
         music.dispose();
     }
 }
