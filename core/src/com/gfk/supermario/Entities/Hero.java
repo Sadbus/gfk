@@ -25,8 +25,10 @@ public class Hero extends Sprite
     };
     public State currentState;
     public State previousState;
+    public State fallingState;
     private Animation heroRun;
     private Animation heroJump;
+    private Animation heroFall;
 
     private float stateTimer;
     private boolean runningRight;
@@ -37,29 +39,36 @@ public class Hero extends Sprite
 
     public Hero(World world, GameScreen screen)
     {
-        super(screen.getAtlas().findRegion("Still"));
+        super(screen.getAtlas().findRegion("1"));
         this.world = world;
         currentState = State.STANDING;
         previousState = State.STANDING;
+        fallingState = State.FALLING;
         stateTimer = 0;
         runningRight = true;
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
-        for (int i = 0; i < 1; i++)
+        for (int i = 1; i < 4; i++)
         {
-            frames.add(new TextureRegion(getTexture(), i * 24, 0, 20, 24 ));
+            frames.add(new TextureRegion(getTexture(), i * 23, 0, 20, 24 ));
         }
         heroRun = new Animation(0.1f, frames);
         frames.clear();
 
-        for (int i = 2; i < 3; i++)
+        for (int i = 3; i <5; i++)
         {
-            frames.add(new TextureRegion(getTexture(), i*24, 0, 20, 24));
+            frames.add(new TextureRegion(getTexture(), 24, 0, 20, 24));
         }
-        heroJump = new Animation(0.1f, frames);
+        heroJump = new Animation(0.2f, frames);
+
+        for (int i = 4; i < 6; i++)
+        {
+            frames.add(new TextureRegion(getTexture(), 24, 0, 20, 24 ));
+        }
+        heroFall = new Animation(0.1f, frames);
 
 
-        heroStand = new TextureRegion(getTexture(), 133,1,20,24);
+        heroStand = new TextureRegion(getTexture(), 1,1,20,24);
         defineHero();
         setBounds(5,0, 20/ GameRenderer.PPM, 24/GameRenderer.PPM);
         setRegion(heroStand);
@@ -118,11 +127,11 @@ public class Hero extends Sprite
 
     public State getState()
     {
-        if (b2body.getLinearVelocity().y > 0) //|| (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING))
+        if (b2body.getLinearVelocity().y > 0 )//|| (b2body.getLinearVelocity().y < 0 && currentState == State.JUMPING))
         {
             return State.JUMPING;
         }
-        else if (b2body.getLinearVelocity().y < 0)
+        else if (b2body.getLinearVelocity().y < 0 && currentState == State.JUMPING)
         {
             return State.FALLING;
         }
@@ -146,6 +155,7 @@ public class Hero extends Sprite
         FixtureDef fixtureDef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(10 / GameRenderer.PPM);
+        fixtureDef.friction = 0.6f;
         fixtureDef.filter.categoryBits = GameRenderer.HERO_BIT;
         fixtureDef.filter.maskBits = GameRenderer.DEFAULT_BIT |
                 GameRenderer.COIN_BIT |
