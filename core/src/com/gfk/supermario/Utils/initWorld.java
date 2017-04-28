@@ -45,15 +45,13 @@ public class initWorld {
         }
         //create coins
         for (MapObject object : tiledMap.getLayers().get("Coins").getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            new Coin(world, tiledMap, rect);
+            new Coin(screen, object);
         }
         //create Bricks
         for (MapObject object : tiledMap.getLayers().get("Bricks").getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-            new Brick(world, tiledMap, rect);
+            new Brick(screen, object);
         }
         //create Key
         for (MapObject object : tiledMap.getLayers().get("Key").getObjects().getByType(RectangleMapObject.class)){
@@ -65,37 +63,7 @@ public class initWorld {
         for (MapObject object : tiledMap.getLayers().get("Lock").getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-            new Lock(world, tiledMap, rect);
+            new Lock(screen, object);
         }
-        /*
-        //create Movable blocks
-        for (MapObject object : tiledMap.getLayers().get("MovableTile").getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            new MovableTile(world, tiledMap, rect);
-        }
-
-        for(MapObject object : tiledMap.getLayers().get("Tiles").getObjects().getByType(PolygonMapObject.class)){
-            PolygonShape polygon = new PolygonShape();
-            float vertices[] = ((PolygonMapObject) object).getPolygon().getTransformedVertices();
-
-            float[] worldVertices = new float[vertices.length];
-
-            for (int i = 0; i < vertices.length; ++i) {
-                System.out.println(vertices[i]);
-                worldVertices[i] = vertices[i] / GameRenderer.PPM;
-            }
-            polygon.set(worldVertices);
-
-
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set(0, 0);
-            body = world.createBody(bdef);
-
-            fixtureDef.shape = polygon;
-            body.createFixture(fixtureDef);
-        }
-        */
     }
 }
