@@ -25,7 +25,7 @@ public class Hero extends Sprite
         this.world = world;
         defineHero();
         heroStand = new TextureRegion(getTexture(), 0,0,24,24);
-        setBounds(0,0, 24/ GameRenderer.PPM, 24/GameRenderer.PPM);
+        setBounds(0,0, 24 / GameRenderer.PPM, 24 / GameRenderer.PPM);
         setRegion(heroStand);
 
         hasKey = false;
@@ -45,8 +45,9 @@ public class Hero extends Sprite
         b2body = world.createBody(bdef);
 
         FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.friction = 0.4f;
         CircleShape shape = new CircleShape();
-        shape.setRadius(5 / GameRenderer.PPM);
+        shape.setRadius(9 / GameRenderer.PPM);
         fixtureDef.filter.categoryBits = GameRenderer.HERO_BIT;
         fixtureDef.filter.maskBits = GameRenderer.DEFAULT_BIT |
                 GameRenderer.COIN_BIT |
@@ -60,36 +61,17 @@ public class Hero extends Sprite
 
         // Definerer sensor for å sjekke kollisjon med hodet
         EdgeShape head = new EdgeShape();
-        head.set(new Vector2(-2 / GameRenderer.PPM, 6 / GameRenderer.PPM), new Vector2(2 / GameRenderer.PPM, 6 / GameRenderer.PPM));
+        head.set(new Vector2(-2 / GameRenderer.PPM, 10 / GameRenderer.PPM), new Vector2(2 / GameRenderer.PPM, 10 / GameRenderer.PPM));
         fixtureDef.filter.categoryBits = GameRenderer.HERO_HEAD_BIT;
         fixtureDef.shape = head;
         fixtureDef.isSensor = true;
 
         b2body.createFixture(fixtureDef).setUserData("head");
-
-        /*
-        // Definerer sensor for å sjekke kollisjon med hodet
-        EdgeShape head = new EdgeShape();
-        head.set(new Vector2(-2 / GameRenderer.PPM, 6 / GameRenderer.PPM), new Vector2(2 / GameRenderer.PPM, 6 / GameRenderer.PPM));
-        fixtureDef.shape = head;
-        fixtureDef.isSensor = true;
-
-        b2body.createFixture(fixtureDef).setUserData("head");
-
-
-        //definerer sensor for å sjekke kollisjon med kroppen
-        EdgeShape bodyShape = new EdgeShape();
-        bodyShape.setRadius(6 / GameRenderer.PPM);
-        fixtureDef.shape = bodyShape;
-        fixtureDef.isSensor = true;
-        */
-
-        b2body.createFixture(fixtureDef).setUserData("bodyShape");
-
     }
 
     public void draw(Batch batch)
     {
+        super.draw(batch);
 
     }
 }

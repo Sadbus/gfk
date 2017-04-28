@@ -1,18 +1,17 @@
 package com.gfk.supermario.Sprites.Blocks;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.maps.MapObject;
 import com.gfk.supermario.GameRenderer;
 import com.gfk.supermario.Scenes.HUD;
+import com.gfk.supermario.Screens.GameScreen;
 
 /**
  * Created by Olav on 26.04.2017.
  */
 public class Coin extends TileObject {
-    public Coin(World world, TiledMap map, Rectangle bounds){
-        super(world, map, bounds);
+    public Coin(GameScreen screen, MapObject object){
+        super(screen, object);
         fixture.setUserData(this);
         setCategoryFilter(GameRenderer.COIN_BIT);
     }

@@ -17,11 +17,10 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.gfk.supermario.Entities.Hero;
 import com.gfk.supermario.GameRenderer;
+import com.gfk.supermario.Sprites.Blocks.MovableTile;
 import com.gfk.supermario.Utils.WorldContactListener;
 import com.gfk.supermario.Utils.initWorld;
-
 import com.gfk.supermario.Scenes.HUD;
-
 
 /**
  * Created by Olav Markus on 19.04.2017.
@@ -30,7 +29,6 @@ public class GameScreen implements Screen
 {
     private GameRenderer game;
     private TextureAtlas atlas;
-
 
     private OrthographicCamera camera;
     private FitViewport cameraPort;
@@ -47,9 +45,9 @@ public class GameScreen implements Screen
 
     private initWorld worldCreator;
 
-
     private HUD hud;
     private Hero hero;
+    private MovableTile box;
 
     public GameScreen(GameRenderer game)
     {
@@ -59,11 +57,11 @@ public class GameScreen implements Screen
         hud = new HUD(game.batch);
 
         camera = new OrthographicCamera();
-        cameraPort = new FitViewport(GameRenderer.WIDTH / GameRenderer.PPM, GameRenderer.HEIGHT / GameRenderer.PPM, camera);
+        cameraPort = new FitViewport(game.WIDTH / game.PPM, game.HEIGHT / game.PPM, camera);
 
         //Load map
         tiledMap = new TmxMapLoader().load("level1.tmx");
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1 / GameRenderer.PPM);
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1 / game.PPM);
 
         //Sentrerer kamera.
         camera.position.set(cameraPort.getWorldWidth() / 2, cameraPort.getWorldHeight() / 2, 0);
@@ -71,7 +69,7 @@ public class GameScreen implements Screen
         //  Box2D - Physics
         Box2D.init();
         world = new World(new Vector2(0, -10), true);
-        box2DDebugRenderer = new Box2DDebugRenderer();
+        //box2DDebugRenderer = new Box2DDebugRenderer();
 
         worldCreator = new initWorld(this);
 
@@ -80,6 +78,11 @@ public class GameScreen implements Screen
 
         world.setContactListener(new WorldContactListener());
         hero = new Hero(world, this);
+
+        //TODO: Spawne flere
+        //x = 1660, y = 210 og x = 1760, Y = 40
+        box = new MovableTile(this, 1350, 200);
+
     }
 
     public TextureAtlas getAtlas()
@@ -102,11 +105,12 @@ public class GameScreen implements Screen
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         tiledMapRenderer.render();
 
-        box2DDebugRenderer.render(world, camera.combined);
+        //box2DDebugRenderer.render(world, camera.combined);
 
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         hero.draw(game.batch);
+        box.draw(game.batch);
         game.batch.end();
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
@@ -159,12 +163,14 @@ public class GameScreen implements Screen
 
         world.step(1/60f, 6, 2);
 
-        camera.position.x = hero.b2body.getPosition().x;
 
+
+        camera.position.x = hero.b2body.getPosition().x;
 
         camera.update();
         tiledMapRenderer.setView(camera);
         hero.update(dt);
+        box.update(dt);
     }
 
     @Override

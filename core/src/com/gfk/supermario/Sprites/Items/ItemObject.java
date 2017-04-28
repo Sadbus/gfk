@@ -1,7 +1,6 @@
 package com.gfk.supermario.Sprites.Items;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
@@ -13,7 +12,6 @@ import com.gfk.supermario.GameRenderer;
 public abstract class ItemObject {
     protected World world;
     protected TiledMap map;
-    protected TiledMapTile tile;
     protected Rectangle bounds;
     protected Body body;
 
@@ -49,8 +47,8 @@ public abstract class ItemObject {
 
     public TiledMapTileLayer.Cell getCell(){
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("Graphics");
-        return  layer.getCell((int)(body.getPosition().x * GameRenderer.PPM / 20),
-                (int)(body.getPosition().y * GameRenderer.PPM / 20));
+        return  layer.getCell((int)(body.getPosition().x * GameRenderer.PPM / 21),
+                (int)(body.getPosition().y * GameRenderer.PPM / 21));
     }
 
 }

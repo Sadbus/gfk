@@ -1,11 +1,14 @@
 package com.gfk.supermario.Sprites.Blocks;
 
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
 import com.gfk.supermario.GameRenderer;
+import com.gfk.supermario.Screens.GameScreen;
 
 /**
  * Created by Olav on 26.04.2017.
@@ -16,13 +19,17 @@ public abstract class TileObject {
     protected TiledMapTile tile;
     protected Rectangle bounds;
     protected Body body;
+    protected GameScreen screen;
+    protected MapObject object;
 
     protected Fixture fixture;
 
-    public TileObject(World world, TiledMap map, Rectangle bounds){
-        this.world = world;
-        this.map = map;
-        this.bounds = bounds;
+    public TileObject(GameScreen screen, MapObject object){
+        this.object = object;
+        this.screen = screen;
+        this.world = screen.getWorld();
+        this.map = screen.getTiledMap();
+        this.bounds = ((RectangleMapObject) object).getRectangle();
 
         BodyDef bdef = new BodyDef();
         FixtureDef fdef = new FixtureDef();
@@ -50,8 +57,8 @@ public abstract class TileObject {
     // This method gets the coordinates to the tile which hero collides with.
     public TiledMapTileLayer.Cell getCell(){
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("Graphics");
-        return  layer.getCell((int)(body.getPosition().x * GameRenderer.PPM / 20),
-                (int)(body.getPosition().y * GameRenderer.PPM / 20));
+        return  layer.getCell((int)(body.getPosition().x * GameRenderer.PPM / 21),
+                (int)(body.getPosition().y * GameRenderer.PPM / 21));
     }
 
 }

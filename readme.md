@@ -1,8 +1,10 @@
-##Keymaster: The Quest for Keys
+Keymaster: The Quest for Keys
+==============================
+
 **_A Games for Kekistan Production_**
 
-![](https://pepethefrogfaith.files.wordpress.com/2016/11/meme_wizard.jpg)
 
+![](https://pepethefrogfaith.files.wordpress.com/2016/11/meme_wizard.jpg)
 <br>
 
 **Gruppe:** <br>
@@ -12,6 +14,7 @@
 
 Vi har laget en platformer ved hjelp av biblioteket LibGDX, for fysikk har vi brukt en port av Box2D som følger med LibGX. Spillkartet har blitt laget ved hjelp av et program som heter Tiled.
 
+-----------------------
 
 
 **Importere prosjekt til IntelliJIdea** <br>
@@ -28,6 +31,8 @@ Vi har laget en platformer ved hjelp av biblioteket LibGDX, for fysikk har vi br
 5. Sett "Working directory" til /core/assets/ <br>
 6. Trykk OK. <br>
 	
+-----------------------
+
 
 Grafikken vi har brukt er hentet fra:<br>
 [Kenney](http://www.kenney.nl/)
