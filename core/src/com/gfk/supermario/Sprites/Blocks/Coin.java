@@ -23,7 +23,7 @@ public class Coin extends TileObject
     {
         // This will be changed to breaking the block and updating score
         Gdx.app.log("Coin", "Collision");
-        setCategoryFilter(GameRenderer.DESTROYED_BIT);
+        //setCategoryFilter(GameRenderer.DESTROYED_BIT);
         getCell().setTile(null);
         HUD.incrementScore();
     }

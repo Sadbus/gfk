@@ -51,8 +51,8 @@ public abstract class ItemObject
     public TiledMapTileLayer.Cell getCell()
     {
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("Graphics");
-        return  layer.getCell((int)(body.getPosition().x * GameRenderer.PPM / 21),
-                (int)(body.getPosition().y * GameRenderer.PPM / 21));
+        return  layer.getCell((int)(body.getPosition().x * GameRenderer.PPM / 20),
+                (int)(body.getPosition().y * GameRenderer.PPM / 20));
     }
 
 }

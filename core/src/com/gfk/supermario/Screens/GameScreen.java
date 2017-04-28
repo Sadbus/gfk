@@ -78,9 +78,9 @@ public class GameScreen implements Screen {
         world.setContactListener(new WorldContactListener());
         hero = new Hero(world, this);
 
-        box = new MovableTile(this, 1350, 200);
-        box2 = new MovableTile(this, 1660, 210);
-        box3 = new MovableTile(this, 1760, 40);
+        box = new MovableTile(this, 1290, 200);
+        box2 = new MovableTile(this, 1570, 210);
+        box3 = new MovableTile(this, 1690, 40);
 
     }
 
