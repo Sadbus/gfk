@@ -24,7 +24,6 @@ public class MovableTile extends Sprite
         this.x = x;
         this.y = y;
         defineBox();
-        //TODO: Switch texture
         setRegion(new TextureRegion(getTexture(), 133,4,21,21));
         setBounds(0,0, 21 / GameRenderer.PPM, 21 / GameRenderer.PPM);
     }
