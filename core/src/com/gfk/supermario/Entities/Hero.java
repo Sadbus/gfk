@@ -25,8 +25,10 @@ public class Hero extends Sprite
     };
     public State currentState;
     public State previousState;
+    public State fallingState;
     private Animation heroRun;
     private Animation heroJump;
+    private Animation heroFall;
 
     private float stateTimer;
     private boolean runningRight;
@@ -41,6 +43,7 @@ public class Hero extends Sprite
         this.world = world;
         currentState = State.STANDING;
         previousState = State.STANDING;
+        fallingState = State.FALLING;
         stateTimer = 0;
         runningRight = true;
 
@@ -57,6 +60,12 @@ public class Hero extends Sprite
             frames.add(new TextureRegion(getTexture(), 24, 0, 20, 24));
         }
         heroJump = new Animation(0.2f, frames);
+
+        for (int i = 4; i < 6; i++)
+        {
+            frames.add(new TextureRegion(getTexture(), 24, 0, 20, 24 ));
+        }
+        heroFall = new Animation(0.1f, frames);
 
 
         heroStand = new TextureRegion(getTexture(), 1,1,20,24);
@@ -118,11 +127,11 @@ public class Hero extends Sprite
 
     public State getState()
     {
-        if (b2body.getLinearVelocity().y > 0 || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING))
+        if (b2body.getLinearVelocity().y > 0 )//|| (b2body.getLinearVelocity().y < 0 && currentState == State.JUMPING))
         {
             return State.JUMPING;
         }
-        else if (b2body.getLinearVelocity().y < 0)
+        else if (b2body.getLinearVelocity().y < 0 && currentState == State.JUMPING)
         {
             return State.FALLING;
         }
