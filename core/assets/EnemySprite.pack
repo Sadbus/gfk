@@ -1,0 +1,61 @@
+
+EnemySprite.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+ghostAlive
+  rotate: false
+  xy: 1, 10
+  size: 17, 21
+  orig: 17, 21
+  offset: 0, 0
+  index: -1
+ghostApathetic
+  rotate: false
+  xy: 20, 10
+  size: 17, 21
+  orig: 17, 21
+  offset: 0, 0
+  index: -1
+GhostDead
+  rotate: false
+  xy: 39, 10
+  size: 17, 21
+  orig: 17, 21
+  offset: 0, 0
+  index: -1
+GhostGhost
+  rotate: false
+  xy: 58, 10
+  size: 17, 21
+  orig: 17, 21
+  offset: 0, 0
+  index: -1
+SpiderWalk1
+  rotate: false
+  xy: 77, 15
+  size: 21, 16
+  orig: 21, 16
+  offset: 0, 0
+  index: -1
+spiderWoundyou
+  rotate: false
+  xy: 100, 15
+  size: 21, 16
+  orig: 21, 16
+  offset: 0, 0
+  index: -1
+SpiderAlive
+  rotate: false
+  xy: 123, 17
+  size: 21, 14
+  orig: 21, 14
+  offset: 0, 0
+  index: -1
+SpiderDead
+  rotate: false
+  xy: 123, 1
+  size: 21, 14
+  orig: 21, 14
+  offset: 0, 0
+  index: -1
