@@ -17,8 +17,7 @@ public class DesktopLauncher {
 		config.title = GameRenderer.TITLE;
 		config.width = 1024;
 		config.height = 576;
-		config.fullscreen = false;
-		config.vSyncEnabled = false;
+		config.forceExit = false;
 		new LwjglApplication(new GameRenderer(), config);
 	}
 }

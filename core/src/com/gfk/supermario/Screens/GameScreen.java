@@ -92,6 +92,7 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         shootingStars.play();
+        shootingStars.setVolume(game.musicVolume);
 
     }
 

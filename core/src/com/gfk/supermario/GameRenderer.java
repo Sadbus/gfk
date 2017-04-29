@@ -25,12 +25,16 @@ public class GameRenderer extends Game
     public static final short LOCK_BIT = 128;
     public static final short MOVABLE_TILE_BIT = 256;
 
-    public static final String TITLE = "Key Master; The quest for keys";
+    //Variables for OptionScreen
+    public boolean fullscreenIsChecked;
+    public boolean vSyncIsChecked;
+    public float musicVolume = 1f;
+    public float soundVolume = 1f;
 
+    public static final String TITLE = "Key Master; The quest for keys";
 
     public SpriteBatch batch;
     public BitmapFont font;
-
 
 
     @Override

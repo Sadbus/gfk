@@ -22,7 +22,9 @@ public class MenuScreen implements Screen {
     private TextButton startButton;
     private TextButton optionsButton;
     private TextButton aboutButton;
-    private BitmapFont font;
+    private TextButton exitButton;
+
+
     private Music music;
 
     public Table table;
@@ -46,6 +48,7 @@ public class MenuScreen implements Screen {
 
         buttonStyle();
 
+        //TODO: Replace background with something higher resolution
         background = new Image(new Texture("sky1.png"));
         subTitle = new Image(new Texture("welcome.png"));
         title = new Image(new Texture("keymaster.png"));
@@ -53,11 +56,12 @@ public class MenuScreen implements Screen {
         startButton = new TextButton("New Game", skin);
         optionsButton = new TextButton("Options", skin);
         aboutButton = new TextButton("About", skin);
+        exitButton = new TextButton("Exit", skin);
     }
 
 
     public void buttonStyle() {
-        font = new BitmapFont();
+        BitmapFont font = new BitmapFont();
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = font;
         textButtonStyle.up = skin.getDrawable("button05");
@@ -88,6 +92,12 @@ public class MenuScreen implements Screen {
                 game.setScreen(new AboutScreen(game));
             }
         });
+        exitButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+            Gdx.app.exit();
+            }
+        });
 
         // Set position for text images
         subTitle.setPosition(Gdx.graphics.getWidth()/2-subTitle.getWidth()/2,Gdx.graphics.getHeight()/2+subTitle.getHeight()/1.2f);
@@ -96,14 +106,16 @@ public class MenuScreen implements Screen {
         // Create table, fill stage and align center.
         table.setFillParent(true);
         table.center();
-        table.padTop(100);
+        table.padTop(150);
 
         // Add buttons to table
         table.add(startButton);
         table.row();
-        table.add(optionsButton).pad(30);
+        table.add(optionsButton).pad(20);
         table.row();
         table.add(aboutButton);
+        table.row().pad(20);
+        table.add(exitButton);
 
         stage.addActor(background);
         stage.addActor(subTitle);
@@ -111,6 +123,7 @@ public class MenuScreen implements Screen {
         stage.addActor(table);
 
         music.play();
+        music.setVolume(game.musicVolume);
     }
 
     @Override

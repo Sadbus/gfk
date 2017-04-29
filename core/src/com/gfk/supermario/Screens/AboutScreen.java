@@ -120,5 +120,6 @@ public class AboutScreen implements Screen {
         skin.dispose();
         atlas.dispose();
         game.dispose();
+
     }
 }
