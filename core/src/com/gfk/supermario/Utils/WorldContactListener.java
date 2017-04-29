@@ -19,7 +19,7 @@ public class WorldContactListener implements ContactListener {
 
         switch (cDef) {
             case GameRenderer.HERO_HEAD_BIT | GameRenderer.LOCK_BIT:
-            case GameRenderer.HERO_HEAD_BIT | GameRenderer.BRICK_BIT:
+            case GameRenderer.HERO_HEAD_BIT | GameRenderer.BOX_BIT:
             case GameRenderer.HERO_HEAD_BIT | GameRenderer.COIN_BIT:
                 if(fixA.getFilterData().categoryBits == GameRenderer.HERO_HEAD_BIT)
                     ((TileObject) fixB.getUserData()).onHeadHit();

@@ -10,8 +10,6 @@ import com.badlogic.gdx.utils.Array;
 import com.gfk.supermario.GameRenderer;
 import com.gfk.supermario.Screens.GameScreen;
 
-import javax.swing.plaf.nimbus.State;
-
 /**
  * Created by olav on 20.04.17.
  */
@@ -159,7 +157,7 @@ public class Hero extends Sprite
         fixtureDef.filter.categoryBits = GameRenderer.HERO_BIT;
         fixtureDef.filter.maskBits = GameRenderer.DEFAULT_BIT |
                 GameRenderer.COIN_BIT |
-                GameRenderer.BRICK_BIT |
+                GameRenderer.BOX_BIT |
                 GameRenderer.KEY_BIT |
                 GameRenderer.LOCK_BIT |
                 GameRenderer.MOVABLE_TILE_BIT;

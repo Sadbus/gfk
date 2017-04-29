@@ -13,7 +13,7 @@ public class Box extends TileObject {
     public Box(GameScreen screen, MapObject object) {
         super(screen, object);
         fixture.setUserData(this);
-        setCategoryFilter(GameRenderer.BRICK_BIT);
+        setCategoryFilter(GameRenderer.BOX_BIT);
     }
 
     @Override
