@@ -52,7 +52,7 @@ public class initWorld {
         //create Bricks
         for (MapObject object : tiledMap.getLayers().get("Bricks").getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            new Brick(screen, object);
+            new Box(screen, object);
         }
 
         //create Key

@@ -1,5 +1,6 @@
 package com.gfk.supermario.Sprites.Items;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
@@ -24,5 +25,6 @@ public class Key extends ItemObject {
         Hero.hasKey = true;
         HUD.gotKey();
         HUD.addScore(300);
+        GameRenderer.manager.get("audio/sounds/key.mp3", Sound.class).play();
     }
 }

@@ -48,6 +48,8 @@ public class GameScreen implements Screen {
     private MovableBox box2;
     private MovableBox box3;
 
+    private Music music;
+
 
     public GameScreen(GameRenderer game) {
         atlas = new TextureAtlas("TexturePack.pack");
@@ -72,9 +74,6 @@ public class GameScreen implements Screen {
 
         worldCreator = new initWorld(this);
 
-        shootingStars = Gdx.audio.newMusic(Gdx.files.internal("GameMusic.mp3"));
-        shootingStars.setLooping(true);
-
         world.setContactListener(new WorldContactListener());
         hero = new Hero(world, this);
 
@@ -82,6 +81,9 @@ public class GameScreen implements Screen {
         box2 = new MovableBox(this, 1570, 210);
         box3 = new MovableBox(this, 1690, 40);
 
+        music = GameRenderer.manager.get("audio/music/game_music.mp3", Music.class);
+        music.setLooping(true);
+        music.play();
     }
 
     public TextureAtlas getAtlas()
@@ -91,9 +93,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-        shootingStars.play();
-        shootingStars.setVolume(game.musicVolume);
-
+        music.setVolume(game.musicVolume);
     }
 
     @Override

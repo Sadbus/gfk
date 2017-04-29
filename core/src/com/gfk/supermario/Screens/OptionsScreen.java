@@ -2,6 +2,7 @@ package com.gfk.supermario.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -83,13 +84,13 @@ public class OptionsScreen implements Screen {
         Label soundVolume = new Label("Sound ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         musicVolumeSlider = new Slider(0.1f, 0.9f, 0.1f, false, skin.get("slider", Slider.SliderStyle.class));
-        soundVolumeSlider = new Slider(0.1f, 1, 0.1f, false, skin.get("slider", Slider.SliderStyle.class));
+        soundVolumeSlider = new Slider(0.1f, 0.9f, 0.1f, false, skin.get("slider", Slider.SliderStyle.class));
 
         musicVolumeSlider.setValue(game.musicVolume);
         soundVolumeSlider.setValue(game.soundVolume);
 
-        musicVolumeValue = new Label("1.0", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        soundVolumeValue = new Label("1.0", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        musicVolumeValue = new Label("0.9", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        soundVolumeValue = new Label("0.9", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         soundTable.add(volume);
         soundTable.row().pad(10);
@@ -133,6 +134,7 @@ public class OptionsScreen implements Screen {
         fullscreenCheckBox.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
                 if (fullscreenCheckBox.isChecked()){
                     System.out.println("Switching to fullscreen");
                     if (!Gdx.graphics.isFullscreen()){
@@ -151,6 +153,7 @@ public class OptionsScreen implements Screen {
         vSyncCheckBox.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
                 if (vSyncCheckBox.isChecked()){
                     System.out.println("Turning on vSync");
                     Gdx.graphics.setVSync(true);
@@ -206,6 +209,7 @@ public class OptionsScreen implements Screen {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
                 game.setScreen(new MenuScreen(game));
             }
         });

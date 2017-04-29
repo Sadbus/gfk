@@ -1,6 +1,7 @@
 package com.gfk.supermario.Screens;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -44,7 +45,7 @@ public class MenuScreen implements Screen {
 
         table = new Table();
 
-        music = Gdx.audio.newMusic(Gdx.files.internal("MenuMusic.mp3"));
+        music = Gdx.audio.newMusic(Gdx.files.internal("menu_music.mp3"));
 
         buttonStyle();
 
@@ -74,6 +75,7 @@ public class MenuScreen implements Screen {
         startButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
                 music.stop();
                 game.setScreen(new GameScreen(game));
             }
@@ -81,6 +83,7 @@ public class MenuScreen implements Screen {
         optionsButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
                 music.stop();
                 game.setScreen(new OptionsScreen(game));
             }
@@ -88,6 +91,7 @@ public class MenuScreen implements Screen {
         aboutButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
                 music.stop();
                 game.setScreen(new AboutScreen(game));
             }
@@ -95,7 +99,7 @@ public class MenuScreen implements Screen {
         exitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-            Gdx.app.exit();
+                Gdx.app.exit();
             }
         });
 

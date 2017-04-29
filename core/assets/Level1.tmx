@@ -13,12 +13,12 @@
  </layer>
  <layer name="BrokenBricks" width="200" height="13">
   <data encoding="base64" compression="zlib">
-   eJzt1jENADAMBLGPVCbhzzFDMLRd7OUoXAK80pWc2gIA3OY9AADgDy8OAAAAsAYhDgDo
+   eJzt1jENAAAIBLEnwb9mXMBAq+DGS4BNXdcFAMAn3gMAAG54cQAAAIBkAMesABA=
   </data>
  </layer>
  <layer name="Graphics" width="200" height="13">
   <data encoding="base64" compression="zlib">
-   eJztmrtKA0EUhjebF1ALDRrFS7QSbFTESHyCNGqhgoUIip3XxiqCENMI6hOoqGDlI1hqaytB8fYMFik8S+bgMO5OdmZnZmdDfviYJDuzl9nz7zm7G8eJX7WYqKTV7P99Si2mlYV56CX0KZqTlvw1COf3m7Qi8mI1aryjTPkClVRfoKZhPvKEmZY/rJeIV8JKhy9oJdEXKMwf+Vb+SJSCfKJbJdjuISdOcHmJ6pNUb3jKUvkjTn9g7ZGzZF6SItYnfjLpnyAl2R+t/GFGX4AL5z2t4dyjTzztkDbKfYUOT9ngjR9XrH8z3n+0Cc4BrRFLrlsy8qu5dPuixNRSPEXxBa+u24Xf94AD0rLsk3HvEBcfwKdAfGB91UzPrzoi+KMZ5Hkiii901mIqckaO1OLDZMwpHOsZh3OcC2hTgCswNzL3H6MQf2OKYnAT2PChHGGd7Qnxh856K6xUPP+iFSaX6KinOsl2u5g2w+xPTTA2wr7/6E79p4eQBzIW1SWi/li1aN8b6VlRjlf5fFhGxXTdF8UGz8LC1m7j0G8FmAD6Set9n2TGVzXcf3hemOIQpAFYVgBmFcXfuuOfa3TxSHii9mEtBi9VHXUxLPNO0XYNwTmZg9idJxSozwtMTL8I+mMRxi8Rlpl1YZ7geYPnD9U6MsyrJLRk14G8OWIxjDVbUN1m0h94/adh341gP947FVoXirgEroCyW+cYqLh/y2i8flgr0TTyBbLtmMG0P2T/y3FHIbuOsGwJInsctvCgmGu3zg1w6wb3C+sFP04cM5j2xy9X8Ayb
+   eJztmrtKA0EUhjebF1ALDRrFS7QSbFTESHyCNGqhgoUIip3XxiqCENMI6hOoqGDlI1hqaytB8fYMFik8S+bgMO5tZmdmZ8P+8DFJdmYvs+ffc3Y3lhW/GjFRy8rZ//uMXHQrD/PQS+iTNCep3DUI5/ebtDxyYjVqvKN0+QKVVF+gpmE+ioSZ1B/Gi8crYaXCF7SS6AsU5o9imj8SJS+fqFYFtnvoEye4vEL1Sao3HOWp/BGnP7D2KBgyL0kR6xM36fSPl5LsjzR/6NEXYMN5zyo49+gTRzukjXJfocJTJnjjx+br34r3H22cc0BrxJDrlojcai7VvqgwtZSfovjCr67bhd/3gAPSsuyTce8QFx/AJ0d8YH3VSs+vOiL4oxXkeCKKL1TWYjJyRoHU4sNkzCkc65kP5zgX0GYAm2NuRO4/RiH+xiTF4Caw4UI1wjrbE+IPlfVWWMl4/kUrTC5RUU91ku12MW2O2Z8GZ2yEff/RnflPD6EI5AyqS3j9sWrQvgfpWVKOl/l8WETlbNMX5YBnYWFrt3HotwJMAP2kdb5PMuPrCu4/HC9M+eCnAVheAmYlxOC65Z5rVPFIeKL2YS0GL9UteTEs8k7RdA3BOZmD2J0nlKjPC0xMv3D6YxHGLxGWmXVhnvDzRpA/ZOpIM6+C0BJdB/Jm8cUw1mxedZtOf+D1n4Z9N4L9/N6p0LqQxCVwBVTtJsdAzf5bRuP0w1qJJsgXyLalB93+EP0vxx2F6DrCssWJ6HGYwoNkru0mN8Ct7d0vrBfcOLH0oNsfv1VsDJs=
   </data>
  </layer>
  <layer name="TopLayer" width="200" height="13">
@@ -101,7 +101,7 @@
   <object id="522" x="2720" y="200" width="200" height="20"/>
   <object id="523" x="2760" y="180" width="160" height="20"/>
   <object id="525" x="2780" y="160" width="160" height="20"/>
-  <object id="526" x="3040" y="180" width="60" height="9.5"/>
+  <object id="526" x="3060" y="180" width="60" height="9.5"/>
   <object id="527" x="3220" y="140" width="140" height="20"/>
   <object id="528" x="3440" y="180" width="560" height="80"/>
   <object id="548" x="0" y="0" height="260"/>

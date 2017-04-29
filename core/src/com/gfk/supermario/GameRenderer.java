@@ -1,12 +1,14 @@
 package com.gfk.supermario;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.gfk.supermario.Screens.MenuScreen;
 
-public class GameRenderer extends Game
-{
+public class GameRenderer extends Game {
     //Tile bredde * antall tiles i høyden
     public static final int HEIGHT = 260;
     //Bredde skal være slik at sideforholdet blir 16:9
@@ -36,25 +38,33 @@ public class GameRenderer extends Game
     public SpriteBatch batch;
     public BitmapFont font;
 
+    public static AssetManager manager;
 
     @Override
-    public void create ()
-    {
+    public void create () {
         batch = new SpriteBatch();
-        font = new BitmapFont();
+        manager = new AssetManager();
+        manager.load("audio/music/game_music.mp3", Music.class);
+        manager.load("menu_music.mp3", Music.class);
+        manager.load("audio/sounds/break_box.ogg", Sound.class);
+        manager.load("audio/sounds/coin.mp3", Sound.class);
+        manager.load("audio/sounds/key.mp3", Sound.class);
+        manager.load("audio/sounds/menu_click.mp3", Sound.class);
+        manager.load("audio/sounds/lock.mp3", Sound.class);
+        manager.finishLoading();
+
         setScreen(new MenuScreen(this));
     }
 
     @Override
-    public void render()
-    {
+    public void render() {
         super.render();
     }
 
     @Override
-    public void dispose()
-    {
+    public void dispose() {
         super.dispose();
         batch.dispose();
+        manager.dispose();
     }
 }

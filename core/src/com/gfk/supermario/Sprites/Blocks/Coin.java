@@ -1,5 +1,6 @@
 package com.gfk.supermario.Sprites.Blocks;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.MapObject;
 import com.gfk.supermario.GameRenderer;
 import com.gfk.supermario.Scenes.HUD;
@@ -20,5 +21,6 @@ public class Coin extends TileObject {
         setCategoryFilter(GameRenderer.DEFAULT_BIT);
         getCell().setTile(null);
         HUD.addScore(100);
+        GameRenderer.manager.get("audio/sounds/coin.mp3", Sound.class).play();
     }
 }
