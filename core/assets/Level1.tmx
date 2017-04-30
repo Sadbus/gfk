@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="13" tilewidth="20" tileheight="20" nextobjectid="566">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="13" tilewidth="20" tileheight="20" nextobjectid="568">
  <tileset firstgid="1" name="backgrounds" tilewidth="21" tileheight="21" tilecount="99" columns="11">
   <image source="sprites/backgrounds.png" width="231" height="189"/>
  </tileset>
@@ -18,7 +18,7 @@
  </layer>
  <layer name="Graphics" width="200" height="13">
   <data encoding="base64" compression="zlib">
-   eJztmrtKA0EUhjebF1ALDRrFS7QSbFTESHyCNGqhgoUIip3XxiqCENMI6hOoqGDlI1hqaytB8fYMFik8S+bgMO5tZmdmZ8P+8DFJdmYvs+ffc3Y3lhW/GjFRy8rZ//uMXHQrD/PQS+iTNCep3DUI5/ebtDxyYjVqvKN0+QKVVF+gpmE+ioSZ1B/Gi8crYaXCF7SS6AsU5o9imj8SJS+fqFYFtnvoEye4vEL1Sao3HOWp/BGnP7D2KBgyL0kR6xM36fSPl5LsjzR/6NEXYMN5zyo49+gTRzukjXJfocJTJnjjx+br34r3H22cc0BrxJDrlojcai7VvqgwtZSfovjCr67bhd/3gAPSsuyTce8QFx/AJ0d8YH3VSs+vOiL4oxXkeCKKL1TWYjJyRoHU4sNkzCkc65kP5zgX0GYAm2NuRO4/RiH+xiTF4Caw4UI1wjrbE+IPlfVWWMl4/kUrTC5RUU91ku12MW2O2Z8GZ2yEff/RnflPD6EI5AyqS3j9sWrQvgfpWVKOl/l8WETlbNMX5YBnYWFrt3HotwJMAP2kdb5PMuPrCu4/HC9M+eCnAVheAmYlxOC65Z5rVPFIeKL2YS0GL9UteTEs8k7RdA3BOZmD2J0nlKjPC0xMv3D6YxHGLxGWmXVhnvDzRpA/ZOpIM6+C0BJdB/Jm8cUw1mxedZtOf+D1n4Z9N4L9/N6p0LqQxCVwBVTtJsdAzf5bRuP0w1qJJsgXyLalB93+EP0vxx2F6DrCssWJ6HGYwoNkru0mN8Ct7d0vrBfcOLH0oNsfv1VsDJs=
+   eJztmk0vA0EYx7fbL4ADDSVeyknigohKfYJecEDiIBLiRnFxqkRSvUjwCRAkTj6CI1dXaYi3z+DQg2fTeWIy9m1mZ2ZnZf/JL9N2Z/Zl9vnv8+xuLSt+NWOinpWz/3cZuehWHuahl9AnaU5SuWsQzu8XaXnkxGrUeEfp8gUqqb5ATcN8FAkzqT+MF49XwkqFL2gl0RcozB/FNH8kSl4+Ua0qbPfAJ05weZXqk1RvOMpT+SNOf2DtUTBkXpIi1idu0ukfLyXZH2n+0KNPwIbznlVw7tEnjiqkjXJfocJTJnjj2+br/x/vP9o454DWiCHXLRG51VyqfVFlaik/RfGFX123A7/vAvukZdkj494gLt6BD474wPrqPz2/6ojgD1GZ5CvHE1F8obIWk5EzCqQWHyZjTuBYT304w7mANgPYHHMjcv8xCvE3JikGN4ENF2oR1tkegz9EpLLeCisZz79ohcklKuqpTrLdLqbNMfvT5IyNsO8/ujN/6SEUgZxB109ef6watO9BepKU42U+HxZROdvyRTngWVjY2m0c+q0AE0A/aZ3vk8z4hoL7D8cLUz74aQCWl4BZCTG4brnnGlU8EB6pfVijjqNi6VHDkhfDIu8UTdcQnJM5iN15Qon6vMDE9DOnPxZh/BJhmVkX5gk/bwT5Q6YONfMiCC3RdSCvFl8MY83mVbfp9Ade/2nYdyPYz++dCq1zSVwAl0DNbnEE1O3fZTROP6yVaIJ8gWxbetDtD9H/ctxSiK4jLFuciB6HKdxL5spucQ3c2N79wnrBjWNLD7r98QNI4A00
   </data>
  </layer>
  <layer name="TopLayer" width="200" height="13">
@@ -28,10 +28,12 @@
  </layer>
  <objectgroup name="Key">
   <object id="532" x="920" y="100" width="20" height="20"/>
+  <object id="567" x="160" y="200" width="20" height="20"/>
  </objectgroup>
  <objectgroup name="MovableTile"/>
  <objectgroup name="Lock">
   <object id="539" x="3940" y="100" width="20" height="20"/>
+  <object id="566" x="220" y="140" width="20" height="20"/>
  </objectgroup>
  <objectgroup name="Death">
   <object id="540" x="280" y="250.25" width="60" height="9.75"/>

@@ -8,6 +8,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.gfk.supermario.Screens.GameScreen;
 import com.gfk.supermario.Screens.MenuScreen;
 
 public class GameRenderer extends Game {
@@ -66,6 +67,7 @@ public class GameRenderer extends Game {
         prefs.putFloat("musicVolume", 1f);
         prefs.putBoolean("soundOn", true);
         prefs.putBoolean("musicOn", true);
+        prefs.putInteger("level", 1);
 
         setScreen(new MenuScreen(this));
     }

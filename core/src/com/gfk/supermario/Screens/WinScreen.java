@@ -20,13 +20,13 @@ import com.gfk.supermario.GameRenderer;
 /**
  * Created by Olav on 30.04.2017.
  */
-public class PauseScreen implements Screen {
+public class WinScreen implements Screen {
     private GameRenderer game;
     protected Stage stage;
     private TextureAtlas atlas;
     private Skin skin;
 
-    private TextButton resumeButton;
+    private TextButton nextLevel;
     private TextButton menuButton;
     private TextButton exitButton;
 
@@ -37,7 +37,7 @@ public class PauseScreen implements Screen {
     private Image background;
     private Image title;
 
-    public PauseScreen(GameRenderer game) {
+    public WinScreen(GameRenderer game) {
         this.game = game;
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -54,7 +54,7 @@ public class PauseScreen implements Screen {
         background = new Image(new Texture("menu_bg.png"));
         title = new Image(new Texture("keymaster.png"));
 
-        resumeButton = new TextButton("Resume", skin);
+        nextLevel = new TextButton("Next Level", skin);
         menuButton = new TextButton("Exit to Main Menu", skin);
         exitButton = new TextButton("Exit to Desktop", skin);
     }
@@ -62,18 +62,17 @@ public class PauseScreen implements Screen {
     @Override
     public void show() {
         // Create ClickListeners for buttons
-        resumeButton.addListener(new ClickListener() {
+        nextLevel.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //resume the game
-
+                game.setScreen(new GameScreen(game));
+                System.out.println("Next Level");
             }
         });
         menuButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
-                music.stop();
                 game.setScreen(new MenuScreen(game));
             }
         });
@@ -97,7 +96,7 @@ public class PauseScreen implements Screen {
         table.padTop(150);
 
         // Add buttons to table
-        table.add(resumeButton);
+        table.add(nextLevel);
         table.row().pad(20);
         table.add(menuButton);
         table.row().pad(20);
@@ -148,6 +147,10 @@ public class PauseScreen implements Screen {
 
     @Override
     public void hide() {
-
+        dispose();
+    }
+    public void win(){
+        music.stop();
+        game.setScreen(new WinScreen(game));
     }
 }

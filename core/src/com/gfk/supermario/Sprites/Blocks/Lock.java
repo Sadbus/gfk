@@ -1,10 +1,13 @@
 package com.gfk.supermario.Sprites.Blocks;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.MapObject;
 import com.gfk.supermario.Entities.Hero;
 import com.gfk.supermario.GameRenderer;
 import com.gfk.supermario.Screens.GameScreen;
+import com.gfk.supermario.Screens.MenuScreen;
+import com.gfk.supermario.Screens.WinScreen;
 
 import javax.swing.JOptionPane;
 
@@ -24,7 +27,7 @@ public class Lock extends TileObject {
             setCategoryFilter(GameRenderer.DESTROYED_BIT);
             // TODO: Do something when the player wins
             GameRenderer.manager.get("audio/sounds/lock.mp3", Sound.class).play();
-            JOptionPane.showMessageDialog(null, "You won");
+            GameScreen.hasWon = true;
         }
     }
 }

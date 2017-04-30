@@ -76,6 +76,8 @@ public class GameScreen implements Screen {
     private Image background;
     private Image title;
 
+    public static boolean hasWon;
+
     public GameScreen(GameRenderer game)
     {
         atlas = new TextureAtlas("TexturePack.pack");
@@ -89,8 +91,16 @@ public class GameScreen implements Screen {
         cameraPort = new FitViewport(game.WIDTH / game.PPM, game.HEIGHT / game.PPM, camera);
 
         //Load map
-        tiledMap = new TmxMapLoader().load("Level1.tmx");
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1 / game.PPM);
+        if (game.prefs.getInteger("level") == 1) {
+            tiledMap = new TmxMapLoader().load("Level1.tmx");
+            System.out.println("Displaying map 1");
+        } else {
+            tiledMap = new TmxMapLoader().load("Level2.tmx");
+            System.out.println("Displaying map 2");
+
+        }
+
+            tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1 / game.PPM);
 
         //Sentrerer kamera.
         camera.position.set(cameraPort.getWorldWidth() / 2, cameraPort.getWorldHeight() / 2, 0);
@@ -101,29 +111,23 @@ public class GameScreen implements Screen {
         box2DDebugRenderer = new Box2DDebugRenderer();
 
         new initWorld(this);
-
-
         world.setContactListener(new WorldContactListener());
-        hero = new Hero(world, this);
 
+        hero = new Hero(world, this);
         box = new MovableBox(this, 1290, 200);
         box2 = new MovableBox(this, 1570, 210);
         box3 = new MovableBox(this, 1690, 40);
 
-
-
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-
 
         atlas = new TextureAtlas("UI.pack");
         skin = new Skin();
         skin.addRegions(atlas);
 
-        table = new Table();
-
         buttonStyle();
 
+        table = new Table();
         background = new Image(new Texture("menu_bg.png"));
         title = new Image(new Texture("keymaster.png"));
 
@@ -193,6 +197,17 @@ public class GameScreen implements Screen {
         stage.addActor(table);
     }
 
+
+    /*
+    public void changeMap(){
+        Gdx.app.postRunnable(() -> { //Post runnable posts the below task in opengl thread
+            tiledMap.dispose();
+            tiledMap = new TmxMapLoader().load("Level2.tmx"); //load the new map
+            tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1 / game.PPM);
+
+        });
+    }
+    */
     @Override
     public void render(float delta)
     {
@@ -298,6 +313,12 @@ public class GameScreen implements Screen {
                 break;
         }
 
+        if (hasWon){
+            hasWon = false;
+            game.prefs.putInteger("level", 2);
+            music.stop();
+            game.setScreen(new WinScreen(game));
+        }
     }
 
     public void updateRunning(float dt){
@@ -314,7 +335,6 @@ public class GameScreen implements Screen {
 
     public void updatePaused(float dt){
         handleInput(dt);
-
     }
 
     @Override
@@ -324,6 +344,9 @@ public class GameScreen implements Screen {
         tiledMap.dispose();
         box2DDebugRenderer.dispose();
         world.dispose();
+        atlas.dispose();
+        stage.dispose();
+        skin.dispose();
     }
 
     public void buttonStyle() {
