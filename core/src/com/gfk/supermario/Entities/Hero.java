@@ -10,6 +10,9 @@ import com.badlogic.gdx.utils.Array;
 import com.gfk.supermario.GameRenderer;
 import com.gfk.supermario.Screens.GameScreen;
 
+import static com.gfk.supermario.Entities.Hero.State.FALLING;
+import static com.gfk.supermario.Entities.Hero.State.JUMPING;
+
 /**
  * Created by olav on 20.04.17.
  */
@@ -124,9 +127,9 @@ public class Hero extends Sprite
     {
         if (b2body.getLinearVelocity().y > 0 )//|| (b2body.getLinearVelocity().y < 0 && currentState == State.JUMPING))
         {
-            return State.JUMPING;
+            return JUMPING;
         }
-        else if (b2body.getLinearVelocity().y < 0 && currentState == State.JUMPING)
+        else if (b2body.getLinearVelocity().y < 0 && currentState == JUMPING)
         {
             return State.FALLING;
         }
@@ -170,6 +173,13 @@ public class Hero extends Sprite
         fixtureDef.isSensor = true;
 
         b2body.createFixture(fixtureDef).setUserData("head");
+    }
+
+    public void jump(){
+        if (currentState != JUMPING && currentState != FALLING){
+            b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+            currentState = State.JUMPING;
+        }
     }
 
     public void draw(Batch batch) {super.draw(batch);}

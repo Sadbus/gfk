@@ -49,7 +49,8 @@ public class GameRenderer extends Game {
         batch = new SpriteBatch();
         manager = new AssetManager();
         manager.load("audio/music/game_music.mp3", Music.class);
-        manager.load("menu_music.mp3", Music.class);
+        manager.load("audio/music/menu_music.mp3", Music.class);
+        //manager.load("menu_music.mp3", Music.class);
         manager.load("audio/sounds/break_box.ogg", Sound.class);
         manager.load("audio/sounds/coin.mp3", Sound.class);
         manager.load("audio/sounds/key.mp3", Sound.class);

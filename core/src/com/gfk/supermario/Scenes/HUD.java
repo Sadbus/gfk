@@ -4,9 +4,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gfk.supermario.GameRenderer;
@@ -17,6 +17,8 @@ import com.gfk.supermario.GameRenderer;
 public class HUD
 {
     public Stage stage;
+    private TextureAtlas atlas;
+    private Skin skin;
     private Viewport viewport;
 
     public static Integer score;
@@ -27,12 +29,26 @@ public class HUD
     Label worldLabel;
     static Label keyLabel;
 
+    static ImageButton key;
+
     public HUD(SpriteBatch sb)
     {
-        score = 0;
-
         viewport = new FitViewport(GameRenderer.WIDTH, GameRenderer.HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, sb);
+
+        atlas = new TextureAtlas("TexturePack.pack");
+        skin = new Skin();
+        skin.addRegions(atlas);
+
+        score = 0;
+
+        buttonStyle();
+
+        key = new ImageButton(skin);
+
+
+
+
 
         Table table = new Table();
         table.top();
@@ -46,7 +62,7 @@ public class HUD
         //TODO: Replace this with image
         keyLabel = new Label("Find the key!", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
-        table.add(keyLabel).expandX().padTop(10);
+        table.add(key).expandX().padTop(10);
         table.add(worldLabel).expandX().padTop(10);
         table.add(pointLabel).expandX().padTop(10);
 
@@ -60,10 +76,19 @@ public class HUD
 
     public static void gotKey()
     {
-        keyLabel.setText(String.format("You got the Key!"));
+        key.setChecked(true);
     }
     public static void addScore(int value) {
         score += value;
         scoreLabel.setText(String.format("%04d", score));
+    }
+
+    public void buttonStyle() {
+        BitmapFont font = new BitmapFont();
+        ImageButton.ImageButtonStyle imageButtonStyle = new ImageButton.ImageButtonStyle();
+        imageButtonStyle.up = skin.getDrawable("10");
+        imageButtonStyle.checked = skin.getDrawable("9");
+
+        skin.add("default", imageButtonStyle);
     }
 }

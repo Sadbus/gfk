@@ -3,7 +3,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -12,6 +15,13 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.gfk.supermario.Entities.Hero;
 import com.gfk.supermario.GameRenderer;
@@ -19,6 +29,10 @@ import com.gfk.supermario.Sprites.Blocks.MovableBox;
 import com.gfk.supermario.Utils.WorldContactListener;
 import com.gfk.supermario.Utils.initWorld;
 import com.gfk.supermario.Scenes.HUD;
+
+import static com.gfk.supermario.Screens.GameScreen.State.PAUSE;
+import static com.gfk.supermario.Screens.GameScreen.State.RESUME;
+import static com.gfk.supermario.Screens.GameScreen.State.RUNNING;
 
 /**
  * Created by Olav Markus on 19.04.2017.
@@ -38,8 +52,6 @@ public class GameScreen implements Screen {
     private World world;
     private Box2DDebugRenderer box2DDebugRenderer;
 
-    private initWorld worldCreator;
-
     private HUD hud;
     private Hero hero;
     private MovableBox box;
@@ -48,12 +60,30 @@ public class GameScreen implements Screen {
 
     private Music music;
 
+    public enum State{PAUSE, RUNNING, RESUME}
+    State state;
+
+    //Pause
+    protected Stage stage;
+    private Skin skin;
+
+    private TextButton resumeButton;
+    private TextButton menuButton;
+    private TextButton exitButton;
+
+    private Table table;
+
+    private Image background;
+    private Image title;
+
     public GameScreen(GameRenderer game)
     {
         atlas = new TextureAtlas("TexturePack.pack");
 
         this.game = game;
         hud = new HUD(game.batch);
+
+        state = RUNNING;
 
         camera = new OrthographicCamera();
         cameraPort = new FitViewport(game.WIDTH / game.PPM, game.HEIGHT / game.PPM, camera);
@@ -70,7 +100,7 @@ public class GameScreen implements Screen {
         world = new World(new Vector2(0, -10), true);
         box2DDebugRenderer = new Box2DDebugRenderer();
 
-        worldCreator = new initWorld(this);
+        new initWorld(this);
 
 
         world.setContactListener(new WorldContactListener());
@@ -80,7 +110,29 @@ public class GameScreen implements Screen {
         box2 = new MovableBox(this, 1570, 210);
         box3 = new MovableBox(this, 1690, 40);
 
+
+
+        stage = new Stage();
+        Gdx.input.setInputProcessor(stage);
+
+
+        atlas = new TextureAtlas("UI.pack");
+        skin = new Skin();
+        skin.addRegions(atlas);
+
+        table = new Table();
+
+        buttonStyle();
+
+        background = new Image(new Texture("menu_bg.png"));
+        title = new Image(new Texture("keymaster.png"));
+
+        resumeButton = new TextButton("Resume", skin);
+        menuButton = new TextButton("Exit to Main Menu", skin);
+        exitButton = new TextButton("Exit to Desktop", skin);
+
         music = GameRenderer.manager.get("audio/music/game_music.mp3", Music.class);
+        music.setVolume(game.prefs.getFloat("musicVolume"));
         music.setLooping(true);
         music.play();
     }
@@ -92,13 +144,73 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-        music.setVolume(game.prefs.getFloat("musicVolume"));
+
+        // Create ClickListeners for buttons
+        resumeButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y)
+            {
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
+                resume();
+            }
+        });
+        menuButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
+                music.stop();
+                game.setScreen(new MenuScreen(game));
+            }
+        });
+        exitButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        });
+
+        // Set position for images
+        title.setPosition(Gdx.graphics.getWidth() / 2 - title.getWidth()/ 2,
+                Gdx.graphics.getHeight() / 2 + title.getHeight() / 3);
+        background.setPosition(Gdx.graphics.getWidth() / 2 - background.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 - background.getHeight() / 2);
+
+
+        // Create table, fill stage and align center.
+        table.setFillParent(true);
+        table.center();
+        table.padTop(150);
+
+        // Add buttons to table
+        table.add(resumeButton);
+        table.row().pad(20);
+        table.add(menuButton);
+        table.row().pad(20);
+        table.add(exitButton);
+
+        stage.addActor(background);
+        stage.addActor(title);
+        stage.addActor(table);
     }
 
     @Override
     public void render(float delta)
     {
-        update(delta);
+        switch (state) {
+            case RUNNING:
+                renderRunning(delta);
+                break;
+            case PAUSE:
+                renderPause(delta);
+                break;
+            case RESUME:
+
+                break;
+        }
+    }
+
+    public void renderRunning(float dt){
+        update(dt);
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         tiledMapRenderer.render();
@@ -117,6 +229,14 @@ public class GameScreen implements Screen {
         hud.stage.draw();
     }
 
+    public void renderPause(float dt){
+        Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        stage.act(dt);
+        stage.draw();
+    }
+
     @Override
     public void resize(int width, int height)
     {
@@ -125,12 +245,15 @@ public class GameScreen implements Screen {
 
     @Override
     public void pause() {
+        music.pause();
+        this.state = PAUSE;
 
     }
 
     @Override
     public void resume() {
-
+        this.state = RESUME;
+        music.play();
     }
 
     @Override
@@ -142,8 +265,8 @@ public class GameScreen implements Screen {
     {
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
         {
-            hero.b2body.applyLinearImpulse(new Vector2(0, 4f),
-                    hero.b2body.getWorldCenter(), true);
+            //hero.b2body.applyLinearImpulse(new Vector2(0, 4f),hero.b2body.getWorldCenter(), true);
+            hero.jump();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && hero.b2body.getLinearVelocity().x <= 2)
         {
@@ -155,10 +278,29 @@ public class GameScreen implements Screen {
             hero.b2body.applyLinearImpulse(new Vector2(-0.1f, 0),
                     hero.b2body.getWorldCenter(), true);
         }
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
+        {
+            pause();
+        }
     }
 
     public void update(float dt)
     {
+        switch (state) {
+            case RUNNING:
+                updateRunning(dt);
+                break;
+            case PAUSE:
+                updatePaused(dt);
+                break;
+            case RESUME:
+
+                break;
+        }
+
+    }
+
+    public void updateRunning(float dt){
         handleInput(dt);
         world.step(1/60f, 6, 2);
         camera.position.x = hero.b2body.getPosition().x;
@@ -170,6 +312,11 @@ public class GameScreen implements Screen {
         box3.update(dt);
     }
 
+    public void updatePaused(float dt){
+        handleInput(dt);
+
+    }
+
     @Override
     public void dispose()
     {
@@ -178,6 +325,15 @@ public class GameScreen implements Screen {
         box2DDebugRenderer.dispose();
         world.dispose();
     }
+
+    public void buttonStyle() {
+        BitmapFont font = new BitmapFont();
+        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.font = font;
+        textButtonStyle.up = skin.getDrawable("button05");
+        skin.add("default", textButtonStyle);
+    }
+
 
     public TiledMap getTiledMap(){
         return tiledMap;
