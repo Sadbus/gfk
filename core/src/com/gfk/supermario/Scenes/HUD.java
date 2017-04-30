@@ -38,10 +38,12 @@ public class HUD
         table.top();
         table.setFillParent(true);
 
-        scoreLabel = new Label(String.format("%03d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        scoreLabel = new Label(String.format("%04d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         pointLabel = new Label("Score", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         levelLabel = new Label("First Level", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         worldLabel = new Label("KeyMaster", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+
+        //TODO: Replace this with image
         keyLabel = new Label("Find the key!", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         table.add(keyLabel).expandX().padTop(10);
@@ -60,9 +62,8 @@ public class HUD
     {
         keyLabel.setText(String.format("You got the Key!"));
     }
-    public static void incrementScore()
-    {
-        score += 5;
-        scoreLabel.setText(String.format("%03d", score));
+    public static void addScore(int value) {
+        score += value;
+        scoreLabel.setText(String.format("%04d", score));
     }
 }

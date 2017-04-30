@@ -13,8 +13,7 @@ import com.gfk.supermario.Screens.GameScreen;
 /**
  * Created by Olav on 26.04.2017.
  */
-public abstract class TileObject
-{
+public abstract class TileObject {
     protected World world;
     protected TiledMap map;
     protected TiledMapTile tile;
@@ -25,8 +24,7 @@ public abstract class TileObject
 
     protected Fixture fixture;
 
-    public TileObject(GameScreen screen, MapObject object)
-    {
+    public TileObject(GameScreen screen, MapObject object) {
         this.object = object;
         this.screen = screen;
         this.world = screen.getWorld();
@@ -50,19 +48,17 @@ public abstract class TileObject
 
     public abstract void onHeadHit();
 
-    public void setCategoryFilter(short filterBit)
-    {
+    public void setCategoryFilter(short filterBit) {
         Filter filter = new Filter();
         filter.categoryBits = filterBit;
         fixture.setFilterData(filter);
     }
 
     // This method gets the coordinates to the tile which hero collides with.
-    public TiledMapTileLayer.Cell getCell()
-    {
+    public TiledMapTileLayer.Cell getCell() {
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("Graphics");
-        return  layer.getCell((int)(body.getPosition().x * GameRenderer.PPM / 21),
-                (int)(body.getPosition().y * GameRenderer.PPM / 21));
+        return  layer.getCell((int)(body.getPosition().x * GameRenderer.PPM / 20),
+                (int)(body.getPosition().y * GameRenderer.PPM / 20));
     }
 
 }

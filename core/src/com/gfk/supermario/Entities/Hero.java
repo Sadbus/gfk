@@ -10,8 +10,6 @@ import com.badlogic.gdx.utils.Array;
 import com.gfk.supermario.GameRenderer;
 import com.gfk.supermario.Screens.GameScreen;
 
-import javax.swing.plaf.nimbus.State;
-
 /**
  * Created by olav on 20.04.17.
  */
@@ -159,7 +157,7 @@ public class Hero extends Sprite
         fixtureDef.filter.categoryBits = GameRenderer.HERO_BIT;
         fixtureDef.filter.maskBits = GameRenderer.GROUND_BIT |
                 GameRenderer.COIN_BIT |
-                GameRenderer.BRICK_BIT |
+                GameRenderer.BOX_BIT |
                 GameRenderer.KEY_BIT |
                 GameRenderer.LOCK_BIT |
                 GameRenderer.MOVABLE_TILE_BIT;
@@ -175,26 +173,6 @@ public class Hero extends Sprite
         fixtureDef.isSensor = true;
 
         b2body.createFixture(fixtureDef).setUserData("head");
-
-        /*
-        // Definerer sensor for å sjekke kollisjon med hodet
-        EdgeShape head = new EdgeShape();
-        head.set(new Vector2(-2 / GameRenderer.PPM, 6 / GameRenderer.PPM), new Vector2(2 / GameRenderer.PPM, 6 / GameRenderer.PPM));
-        fixtureDef.shape = head;
-        fixtureDef.isSensor = true;
-
-        b2body.createFixture(fixtureDef).setUserData("head");
-
-
-        //definerer sensor for å sjekke kollisjon med kroppen
-        EdgeShape bodyShape = new EdgeShape();
-        bodyShape.setRadius(6 / GameRenderer.PPM);
-        fixtureDef.shape = bodyShape;
-        fixtureDef.isSensor = true;
-        */
-
-        b2body.createFixture(fixtureDef).setUserData("bodyShape");
-
     }
 
     public void draw(Batch batch)

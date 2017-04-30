@@ -1,170 +1,148 @@
 package com.gfk.supermario.Screens;
 
 import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.gfk.supermario.GameRenderer;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.audio.Music;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-public class MenuScreen implements Screen
-{
+public class MenuScreen implements Screen {
     private GameRenderer game;
-    private OrthographicCamera camera;
     protected Stage stage;
-    private FitViewport viewport;
-    private Table table;
+    private TextureAtlas atlas;
+    private Skin skin;
+
+    private TextButton startButton;
+    private TextButton optionsButton;
+    private TextButton aboutButton;
+    private TextButton exitButton;
 
 
-    private Texture startTexture;
-    private Texture aboutTexture;
-    private Texture optionsTexture;
+    private Music music;
 
-    private TextureRegion startTextureRegion;
-    private TextureRegion aboutTextureRegion;
-    private TextureRegion optionsTextureRegion;
+    public Table table;
 
-    private TextureRegionDrawable startTexRegionDrawable;
-    private TextureRegionDrawable aboutTexRegionDrawable;
-    private TextureRegionDrawable optionsTexRegionDrawable;
+    Image background;
+    Image subTitle;
+    Image title;
 
-    private ImageButton startButton;
-    private ImageButton aboutButton;
-    private ImageButton optionsButton;
-
-    private Texture welcome;
-    private Texture keymaster;
-    private Texture background;
-
-    private BitmapFont font;
-
-    Music music;
-
-    public MenuScreen(final GameRenderer game)
-    {
+    public MenuScreen(final GameRenderer game) {
         this.game = game;
-
-        camera = new OrthographicCamera();
-        //camera.setToOrtho(false, 800, 480);
-        //camera.setToOrtho(false, game.WIDTH, game.HEIGHT);
-
-        viewport = new FitViewport(800, 400, camera);
-        viewport.apply();
-
-        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
-        camera.update();
-
-        startTexture = new Texture(Gdx.files.internal("start.png"));
-        aboutTexture = new Texture(Gdx.files.internal("about.png"));
-        optionsTexture = new Texture(Gdx.files.internal("options.png"));
-
-        startTextureRegion = new TextureRegion(startTexture);
-        startTexRegionDrawable = new TextureRegionDrawable(startTextureRegion);
-        aboutTextureRegion = new TextureRegion(aboutTexture);
-        aboutTexRegionDrawable = new TextureRegionDrawable(aboutTextureRegion);
-        optionsTextureRegion = new TextureRegion(optionsTexture);
-        optionsTexRegionDrawable = new TextureRegionDrawable(optionsTextureRegion);
-
-
-        music = Gdx.audio.newMusic(Gdx.files.internal("intro.mp3"));
-        font = new BitmapFont();
-
-
-        stage = new Stage(viewport, game.batch);
-
+        stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
-        welcome = new Texture("welcome.png");
-        keymaster = new Texture("keymaster.png");
-        background = new Texture("menuscreen1.png");
+        atlas = new TextureAtlas("UI.pack");
+        skin = new Skin();
+        skin.addRegions(atlas);
+
+        table = new Table();
+
+        music = Gdx.audio.newMusic(Gdx.files.internal("menu_music.mp3"));
+
+        buttonStyle();
+
+        //TODO: Replace background with something higher resolution
+        background = new Image(new Texture("sky1.png"));
+        subTitle = new Image(new Texture("welcome.png"));
+        title = new Image(new Texture("keymaster.png"));
+
+        startButton = new TextButton("New Game", skin);
+        optionsButton = new TextButton("Options", skin);
+        aboutButton = new TextButton("About", skin);
+        exitButton = new TextButton("Exit", skin);
+    }
+
+
+    public void buttonStyle() {
+        BitmapFont font = new BitmapFont();
+        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.font = font;
+        textButtonStyle.up = skin.getDrawable("button05");
+        skin.add("default", textButtonStyle);
     }
 
     @Override
-    public void show()
-    {
-        // Create table, fill stage and align top.
-        table = new Table();
+    public void show() {
+        // Create ClickListeners for buttons
+        startButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
+                music.stop();
+                game.setScreen(new GameScreen(game));
+            }
+        });
+        optionsButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
+                music.stop();
+                game.setScreen(new OptionsScreen(game));
+            }
+        });
+        aboutButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
+                music.stop();
+                game.setScreen(new AboutScreen(game));
+            }
+        });
+        exitButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        });
+
+        // Set position for text images
+        subTitle.setPosition(Gdx.graphics.getWidth()/2-subTitle.getWidth()/2,Gdx.graphics.getHeight()/2+subTitle.getHeight()/1.2f);
+        title.setPosition(Gdx.graphics.getWidth()/2-title.getWidth()/2,Gdx.graphics.getHeight()/2+title.getHeight()/3);
+
+        // Create table, fill stage and align center.
         table.setFillParent(true);
         table.center();
-
-
-        // Create buttons
-        startButton = new ImageButton(startTexRegionDrawable);
-        //table.row();
-        aboutButton = new ImageButton(aboutTexRegionDrawable);
-        //table.row();
-        optionsButton = new ImageButton(optionsTexRegionDrawable);
-
-        music.play();
-
-        // Create ClickListeners for buttons
-        startButton.addListener(new ClickListener()
-        {
-            @Override
-            public void clicked(InputEvent event, float x, float y)
-            {
-                game.setScreen(new GameScreen(game));
-                System.out.println("Start New game");
-            }
-        });
-        aboutButton.addListener(new ClickListener()
-        {
-            @Override
-            public void clicked(InputEvent event, float x, float y)
-            {
-                System.out.println("Clicked about");
-            }
-        });
-        optionsButton.addListener(new ClickListener()
-        {
-            @Override
-            public void clicked(InputEvent event, float x, float y)
-            {
-                System.out.println("Clicked Options");
-            }
-        });
-
+        table.padTop(150);
 
         // Add buttons to table
-        table.add(aboutButton);
         table.add(startButton);
-        table.add(optionsButton);
+        table.row();
+        table.add(optionsButton).pad(20);
+        table.row();
+        table.add(aboutButton);
+        table.row().pad(20);
+        table.add(exitButton);
 
-        //TODO Add padding between buttons
-        //table.pad(50);
-
-        // Add buttons table stage
+        stage.addActor(background);
+        stage.addActor(subTitle);
+        stage.addActor(title);
         stage.addActor(table);
+
+        music.play();
+        music.setVolume(game.musicVolume);
     }
 
     @Override
     public void render(float delta)
     {
-        game.batch.begin();
-        game.batch.draw(background, 0, 0);
-        game.batch.draw(welcome, 200, 280);
-        game.batch.draw(keymaster, 120, 240);
-        game.batch.end();
+        Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        stage.act();
+        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
     }
 
     @Override
-    public void resize(int width, int height)
-    {
-        viewport.update(width, height);
-        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
-        camera.update();
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height, true);
     }
 
     @Override
@@ -183,11 +161,10 @@ public class MenuScreen implements Screen
     }
 
     @Override
-    public void dispose()
-    {
-        background.dispose();
-        welcome.dispose();
-        keymaster.dispose();
+    public void dispose() {
         music.dispose();
+        skin.dispose();
+        atlas.dispose();
+        game.dispose();
     }
 }

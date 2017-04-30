@@ -8,49 +8,24 @@ import com.gfk.supermario.Sprites.Items.ItemObject;
 /**
  * Created by Olav on 26.04.2017.
  */
-public class WorldContactListener implements ContactListener
-{
+public class WorldContactListener implements ContactListener {
 
     @Override
-    public void beginContact(Contact contact)
-    {
-
-        /*
-        Fixture fixA = contact.getFixtureA();
-        Fixture fixB = contact.getFixtureB();
-
-        if(fixA.getUserData() == "bodyShape" || fixB.getUserData() == "bodyShape"){
-            Fixture bodyShape = fixA.getUserData() == "bodyShape" ? fixA : fixB;
-            Fixture object = bodyShape == fixA ? fixB : fixA;
-
-            if(object.getUserData() instanceof TileObject){
-                ((TileObject) object.getUserData()).onHit();
-            }
-        }
-        */
+    public void beginContact(Contact contact) {
 
         Fixture fixA = contact.getFixtureA();
         Fixture fixB = contact.getFixtureB();
         int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
 
-        switch (cDef)
-        {
+        switch (cDef) {
             case GameRenderer.HERO_HEAD_BIT | GameRenderer.LOCK_BIT:
-            case GameRenderer.HERO_HEAD_BIT | GameRenderer.BRICK_BIT:
+            case GameRenderer.HERO_HEAD_BIT | GameRenderer.BOX_BIT:
             case GameRenderer.HERO_HEAD_BIT | GameRenderer.COIN_BIT:
                 if(fixA.getFilterData().categoryBits == GameRenderer.HERO_HEAD_BIT)
                     ((TileObject) fixB.getUserData()).onHeadHit();
                 else
                     ((TileObject) fixA.getUserData()).onHeadHit();
                 break;
-                /*
-            case GameRenderer.HERO_BIT | GameRenderer.MOVABLE_TILE_BIT:
-                if(fixA.getFilterData().categoryBits == GameRenderer.HERO_BIT)
-                    ((MovableTile) fixB.getUserData()).onHeadHit();
-                else
-                    ((MovableTile) fixA.getUserData()).onHeadHit();
-                break;
-                */
             case GameRenderer.HERO_BIT | GameRenderer.KEY_BIT:
                 if(fixA.getFilterData().categoryBits == GameRenderer.HERO_BIT)
                     ((ItemObject) fixB.getUserData()).onHit();
