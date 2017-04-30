@@ -157,7 +157,7 @@ public class Hero extends Sprite
         shape.setRadius(10 / GameRenderer.PPM);
         fixtureDef.friction = 0.6f;
         fixtureDef.filter.categoryBits = GameRenderer.HERO_BIT;
-        fixtureDef.filter.maskBits = GameRenderer.DEFAULT_BIT |
+        fixtureDef.filter.maskBits = GameRenderer.GROUND_BIT |
                 GameRenderer.COIN_BIT |
                 GameRenderer.BRICK_BIT |
                 GameRenderer.KEY_BIT |

@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.gfk.supermario.Entities.Ghost;
 import com.gfk.supermario.Entities.Hero;
 import com.gfk.supermario.GameRenderer;
 import com.gfk.supermario.Sprites.Blocks.MovableTile;
@@ -45,6 +46,7 @@ public class GameScreen implements Screen
 
     private HUD hud;
     private Hero hero;
+    private Ghost ghost;
     private MovableTile box;
     private MovableTile box2;
     private MovableTile box3;
@@ -84,6 +86,8 @@ public class GameScreen implements Screen
         box2 = new MovableTile(this, 1660, 210);
         box3 = new MovableTile(this, 1760, 40);
 
+
+        ghost = new Ghost(this, .32f, .32f);
     }
 
     public TextureAtlas getAtlas()
@@ -98,6 +102,8 @@ public class GameScreen implements Screen
 
     }
 
+
+
     @Override
     public void render(float delta)
     {
@@ -111,6 +117,9 @@ public class GameScreen implements Screen
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         hero.draw(game.batch);
+
+        ghost.draw(game.batch);
+
         box.draw(game.batch);
         box2.draw(game.batch);
         box3.draw(game.batch);
@@ -167,6 +176,7 @@ public class GameScreen implements Screen
         world.step(1/60f, 6, 2);
 
 
+        ghost.update(dt);
 
         camera.position.x = hero.b2body.getPosition().x;
 

@@ -15,7 +15,7 @@ public class GameRenderer extends Game
     //"Pixels per Meter", brukes for skalering.
     public static final float PPM = 100;
 
-    public static final short DEFAULT_BIT = 1;
+    public static final short GROUND_BIT = 1;
     public static final short HERO_BIT = 2;
     public static final short HERO_HEAD_BIT = 4;
     public static final short BRICK_BIT = 8;
@@ -24,6 +24,8 @@ public class GameRenderer extends Game
     public static final short KEY_BIT = 64;
     public static final short LOCK_BIT = 128;
     public static final short MOVABLE_TILE_BIT = 256;
+    public static final short OBJECT_BIT = 32;
+    public static final short ENEMY_BIT = 32;
 
     public static final String TITLE = "Key Master; The quest for keys";
 
