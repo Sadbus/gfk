@@ -15,7 +15,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.gfk.supermario.Entities.Hero;
 import com.gfk.supermario.GameRenderer;
-import com.gfk.supermario.Sprites.Blocks.MovableTile;
+import com.gfk.supermario.Sprites.Blocks.MovableBox;
 import com.gfk.supermario.Utils.WorldContactListener;
 import com.gfk.supermario.Utils.initWorld;
 import com.gfk.supermario.Scenes.HUD;
@@ -23,8 +23,7 @@ import com.gfk.supermario.Scenes.HUD;
 /**
  * Created by Olav Markus on 19.04.2017.
  */
-public class GameScreen implements Screen
-{
+public class GameScreen implements Screen {
     private GameRenderer game;
     private TextureAtlas atlas;
 
@@ -35,8 +34,6 @@ public class GameScreen implements Screen
     private TiledMap tiledMap;
     private TiledMapRenderer tiledMapRenderer;
 
-    Music shootingStars;
-
     //  Box2D - Physics
     private World world;
     private Box2DDebugRenderer box2DDebugRenderer;
@@ -45,10 +42,11 @@ public class GameScreen implements Screen
 
     private HUD hud;
     private Hero hero;
-    private MovableTile box;
-    private MovableTile box2;
-    private MovableTile box3;
+    private MovableBox box;
+    private MovableBox box2;
+    private MovableBox box3;
 
+    private Music music;
 
     public GameScreen(GameRenderer game)
     {
@@ -74,16 +72,17 @@ public class GameScreen implements Screen
 
         worldCreator = new initWorld(this);
 
-        shootingStars = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
-        shootingStars.setLooping(true);
 
         world.setContactListener(new WorldContactListener());
         hero = new Hero(world, this);
 
-        box = new MovableTile(this, 1350, 200);
-        box2 = new MovableTile(this, 1660, 210);
-        box3 = new MovableTile(this, 1760, 40);
+        box = new MovableBox(this, 1290, 200);
+        box2 = new MovableBox(this, 1570, 210);
+        box3 = new MovableBox(this, 1690, 40);
 
+        music = GameRenderer.manager.get("audio/music/game_music.mp3", Music.class);
+        music.setLooping(true);
+        music.play();
     }
 
     public TextureAtlas getAtlas()
@@ -92,10 +91,8 @@ public class GameScreen implements Screen
     }
 
     @Override
-    public void show()
-    {
-        shootingStars.play();
-
+    public void show() {
+        music.setVolume(game.prefs.getFloat("musicVolume"));
     }
 
     @Override
@@ -127,20 +124,17 @@ public class GameScreen implements Screen
     }
 
     @Override
-    public void pause()
-    {
+    public void pause() {
 
     }
 
     @Override
-    public void resume()
-    {
+    public void resume() {
 
     }
 
     @Override
-    public void hide()
-    {
+    public void hide() {
 
     }
 
@@ -148,41 +142,38 @@ public class GameScreen implements Screen
     {
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
         {
-            hero.b2body.applyLinearImpulse(new Vector2(0, 4f), hero.b2body.getWorldCenter(), true);
+            hero.b2body.applyLinearImpulse(new Vector2(0, 4f),
+                    hero.b2body.getWorldCenter(), true);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && hero.b2body.getLinearVelocity().x <= 2)
         {
-            hero.b2body.applyLinearImpulse(new Vector2(0.1f, 0), hero.b2body.getWorldCenter(), true);
+            hero.b2body.applyLinearImpulse(new Vector2(0.1f, 0),
+                    hero.b2body.getWorldCenter(), true);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && hero.b2body.getLinearVelocity().x >= -2)
         {
-            hero.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), hero.b2body.getWorldCenter(), true);
+            hero.b2body.applyLinearImpulse(new Vector2(-0.1f, 0),
+                    hero.b2body.getWorldCenter(), true);
         }
     }
 
     public void update(float dt)
     {
         handleInput(dt);
-
         world.step(1/60f, 6, 2);
-
-
-
         camera.position.x = hero.b2body.getPosition().x;
-
         camera.update();
         tiledMapRenderer.setView(camera);
         hero.update(dt);
         box.update(dt);
         box2.update(dt);
         box3.update(dt);
-
     }
 
     @Override
     public void dispose()
     {
-        shootingStars.dispose();
+        music.dispose();
         tiledMap.dispose();
         box2DDebugRenderer.dispose();
         world.dispose();
@@ -194,5 +185,4 @@ public class GameScreen implements Screen
     public World getWorld(){
         return world;
     }
-
 }

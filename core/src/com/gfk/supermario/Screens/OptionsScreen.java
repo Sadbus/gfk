@@ -1,6 +1,7 @@
 package com.gfk.supermario.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -25,7 +26,7 @@ public class OptionsScreen implements Screen {
     private TextureAtlas atlas;
     private Skin skin;
 
-    Image bgImage;
+    private Image background;
     private TextButton backButton;
     private ImageButton fullscreenCheckBox;
     private ImageButton vSyncCheckBox;
@@ -53,7 +54,7 @@ public class OptionsScreen implements Screen {
         sliderStyle();
 
         // Create background image
-        bgImage = new Image(new Texture("sky1.png"));
+        background = new Image(new Texture("menu_bg.png"));
 
         // skin refers to default textButtonStyle
         backButton = new TextButton("Go back", skin.get("button", TextButton.TextButtonStyle.class));
@@ -103,6 +104,94 @@ public class OptionsScreen implements Screen {
         soundTable.add(soundVolumeValue);
     }
 
+    @Override
+    public void show() {
+        // Create ClickListeners for buttons
+        fullscreenCheckBox.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
+                if (fullscreenCheckBox.isChecked()){
+                    System.out.println("Switching to fullscreen");
+                    if (!Gdx.graphics.isFullscreen()){
+                        game.prefs.putBoolean("fullscreen", true);
+                        Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+                    }
+                } else {
+                    System.out.println("Switching to Windowed");
+                    if (Gdx.graphics.isFullscreen()){
+                        game.prefs.putBoolean("fullscreen", false);
+                        Gdx.graphics.setWindowedMode(1024, 576);
+                    }
+                }
+            }
+        });
+        vSyncCheckBox.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
+                if (vSyncCheckBox.isChecked()){
+                    game.prefs.putBoolean("vSync", true);
+                    Gdx.graphics.setVSync(true);
+                } else {
+                    game.prefs.putBoolean("vSync", false);
+                    Gdx.graphics.setVSync(false);
+                }
+            }
+        });
+        musicVolumeSlider.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                //game.musicVolume = musicVolumeSlider.getValue();
+                //musicVolumeValue.setText("" + game.musicVolume);
+
+                game.prefs.putFloat("musicVolume", musicVolumeSlider.getValue());
+                musicVolumeValue.setText("" + game.prefs.getFloat("musicVolume"));
+            }
+        });
+        soundVolumeSlider.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.soundVolume = soundVolumeSlider.getValue();
+                soundVolumeValue.setText("" + game.soundVolume);
+            }
+        });
+
+        if(game.prefs.getBoolean("fullscreen")){
+            fullscreenCheckBox.setChecked(true);
+        }
+        if(game.prefs.getBoolean("vSync")) {
+            vSyncCheckBox.setChecked(true);
+        }
+
+        backButton.setPosition(Gdx.graphics.getWidth() /2 - backButton.getWidth() / 2,
+                Gdx.graphics.getHeight() / 10);
+        graphicsTable.setPosition(Gdx.graphics.getWidth() / 5 - graphicsTable.getWidth() / 2,
+                Gdx.graphics.getHeight() / 1.4f - graphicsTable.getHeight() / 2);
+        soundTable.setPosition(Gdx.graphics.getWidth() / 2 - graphicsTable.getWidth() / 2,
+                Gdx.graphics.getHeight() / 1.4f - graphicsTable.getHeight() / 2);
+        background.setPosition(Gdx.graphics.getWidth() / 2 - background.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 - background.getHeight() / 2);
+
+
+        musicVolumeValue.setText("" + game.prefs.getFloat("musicVolume"));
+        soundVolumeValue.setText("" + game.soundVolume);
+
+        stage.addActor(background);
+        stage.addActor(backButton);
+        stage.addActor(graphicsTable);
+        stage.addActor(soundTable);
+
+
+        backButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
+                game.setScreen(new MenuScreen(game));
+            }
+        });
+    }
+
     private void sliderStyle() {
         Slider.SliderStyle sliderStyle = new Slider.SliderStyle();
         sliderStyle.background = skin.getDrawable("slider");
@@ -125,94 +214,6 @@ public class OptionsScreen implements Screen {
         textButtonStyle.font = font;
         textButtonStyle.up = skin.getDrawable("button05");
         skin.add("button", textButtonStyle);
-    }
-
-
-    @Override
-    public void show() {
-        // Create ClickListeners for buttons
-        fullscreenCheckBox.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
-                if (fullscreenCheckBox.isChecked()){
-                    System.out.println("Switching to fullscreen");
-                    if (!Gdx.graphics.isFullscreen()){
-                        Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
-                        game.fullscreenIsChecked = true;
-                    }
-                } else {
-                    System.out.println("Switching to Windowed");
-                    if (Gdx.graphics.isFullscreen()){
-                        Gdx.graphics.setWindowedMode(1024, 576);
-                        game.fullscreenIsChecked = false;
-                    }
-                }
-            }
-        });
-        vSyncCheckBox.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
-                if (vSyncCheckBox.isChecked()){
-                    System.out.println("Turning on vSync");
-                    Gdx.graphics.setVSync(true);
-                    game.vSyncIsChecked = true;
-
-                } else {
-                    System.out.println("Turning of Vsync");
-                    Gdx.graphics.setVSync(false);
-                    game.vSyncIsChecked = false;
-                }
-            }
-        });
-        musicVolumeSlider.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                //sound.setVolume(soundId, volume.getValue());
-                game.musicVolume = musicVolumeSlider.getValue();
-                musicVolumeValue.setText("" + game.musicVolume);
-            }
-        });
-        soundVolumeSlider.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                game.soundVolume = soundVolumeSlider.getValue();
-                soundVolumeValue.setText("" + game.soundVolume);
-            }
-        });
-
-        if(game.fullscreenIsChecked){
-            fullscreenCheckBox.setChecked(true);
-        } else {
-            fullscreenCheckBox.setChecked(false);
-        }
-        if(game.vSyncIsChecked){
-            vSyncCheckBox.setChecked(true);
-        } else {
-            vSyncCheckBox.setChecked(false);
-        }
-
-        backButton.setPosition(Gdx.graphics.getWidth() /2 - backButton.getWidth() / 2, Gdx.graphics.getHeight() / 10);
-        graphicsTable.setPosition(Gdx.graphics.getWidth() / 5 - graphicsTable.getWidth() / 2, Gdx.graphics.getHeight() / 1.4f - graphicsTable.getHeight() / 2);
-        soundTable.setPosition(Gdx.graphics.getWidth() / 2 - graphicsTable.getWidth() / 2, Gdx.graphics.getHeight() / 1.4f - graphicsTable.getHeight() / 2);
-
-        musicVolumeValue.setText("" + game.musicVolume);
-        soundVolumeValue.setText("" + game.soundVolume);
-
-        stage.addActor(bgImage);
-        stage.addActor(backButton);
-        stage.addActor(graphicsTable);
-        stage.addActor(soundTable);
-
-
-        backButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
-                game.setScreen(new MenuScreen(game));
-            }
-        });
     }
 
     @Override

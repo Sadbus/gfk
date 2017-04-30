@@ -23,7 +23,7 @@ public class AboutScreen implements Screen {
     private TextureAtlas atlas;
     private Skin skin;
 
-    Image bgImage;
+    Image background;
     Image title;
 
     private TextButton backButton;
@@ -39,7 +39,7 @@ public class AboutScreen implements Screen {
         skin.addRegions(atlas);
 
         // Create background image
-        bgImage = new Image(new Texture("sky1.png"));
+        background = new Image(new Texture("menu_bg.png"));
 
         // Define button
         BitmapFont font = new BitmapFont();
@@ -72,7 +72,7 @@ public class AboutScreen implements Screen {
         title.setPosition(Gdx.graphics.getWidth()/2-title.getWidth()/2,Gdx.graphics.getHeight()/2+title.getHeight()/3);
 
 
-        stage.addActor(bgImage);
+        stage.addActor(background);
         stage.addActor(title);
         stage.addActor(backButton);
         stage.addActor(table);
@@ -86,6 +86,9 @@ public class AboutScreen implements Screen {
                 game.setScreen(new MenuScreen(game));
             }
         });
+
+        background.setPosition(Gdx.graphics.getWidth() / 2 - background.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 - background.getHeight() / 2);
     }
 
     @Override

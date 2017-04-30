@@ -1,6 +1,7 @@
 package com.gfk.supermario.Entities;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -33,7 +34,7 @@ public class Ghost extends Enemy
     {
         stateTime += dt;
         setPosition(b2body.getPosition().x - getWidth() /2, b2body.getPosition().y - getHeight() / 2);
-        setRegion(floatAnimation.getKeyFrame(stateTime, true));
+        setRegion((Texture) floatAnimation.getKeyFrame(stateTime, true));
     }
 
     @Override
@@ -49,9 +50,9 @@ public class Ghost extends Enemy
         shape.setRadius(10 / GameRenderer.PPM);
         fixtureDef.friction = 0.6f;
         fixtureDef.filter.categoryBits = GameRenderer.ENEMY_BIT;
-        fixtureDef.filter.maskBits = GameRenderer.GROUND_BIT |
+        fixtureDef.filter.maskBits = GameRenderer.DEFAULT_BIT |
                 GameRenderer.COIN_BIT |
-                GameRenderer.BRICK_BIT |
+                GameRenderer.BOX_BIT |
                 GameRenderer.KEY_BIT |
                 GameRenderer.LOCK_BIT |
                 GameRenderer.MOVABLE_TILE_BIT |
@@ -68,11 +69,6 @@ public class Ghost extends Enemy
         fixtureDef.shape = head;
         fixtureDef.isSensor = true;
 
-        b2body.createFixture(fixtureDef).setUserData("head");
-
-
-
-        b2body.createFixture(fixtureDef).setUserData("bodyShape");
-
+        b2body.createFixture(fixtureDef).setUserData("enemyHead");
     }
 }

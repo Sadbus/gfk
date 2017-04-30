@@ -17,16 +17,13 @@ public class Hero extends Sprite
 {
     public World world;
     public Body b2body;
-    public enum State
-    {
-        FALLING, JUMPING, STANDING, RUNNING
-    };
+    public enum State {FALLING, JUMPING, STANDING, RUNNING}
     public State currentState;
     public State previousState;
     public State fallingState;
-    private Animation heroRun;
-    private Animation heroJump;
-    private Animation heroFall;
+    private Animation<TextureRegion> heroRun;
+    private Animation<TextureRegion> heroJump;
+    private Animation<TextureRegion> heroFall;
 
     private float stateTimer;
     private boolean runningRight;
@@ -50,20 +47,20 @@ public class Hero extends Sprite
         {
             frames.add(new TextureRegion(getTexture(), i * 23, 0, 20, 24 ));
         }
-        heroRun = new Animation(0.1f, frames);
+        heroRun = new Animation<>(0.1f, frames);
         frames.clear();
 
         for (int i = 3; i <5; i++)
         {
             frames.add(new TextureRegion(getTexture(), 24, 0, 20, 24));
         }
-        heroJump = new Animation(0.2f, frames);
+        heroJump = new Animation<>(0.2f, frames);
 
         for (int i = 4; i < 6; i++)
         {
             frames.add(new TextureRegion(getTexture(), 24, 0, 20, 24 ));
         }
-        heroFall = new Animation(0.1f, frames);
+        heroFall = new Animation<>(0.1f, frames);
 
 
         heroStand = new TextureRegion(getTexture(), 1,1,20,24);
@@ -89,12 +86,12 @@ public class Hero extends Sprite
         {
             case JUMPING:
             {
-                region = (TextureRegion) heroJump.getKeyFrame(stateTimer);
+                region = heroJump.getKeyFrame(stateTimer);
                 break;
             }
             case RUNNING:
             {
-                region = (TextureRegion) heroRun.getKeyFrame(stateTimer, true);
+                region = heroRun.getKeyFrame(stateTimer, true);
                 break;
             }
             case FALLING:
@@ -155,7 +152,7 @@ public class Hero extends Sprite
         shape.setRadius(10 / GameRenderer.PPM);
         fixtureDef.friction = 0.6f;
         fixtureDef.filter.categoryBits = GameRenderer.HERO_BIT;
-        fixtureDef.filter.maskBits = GameRenderer.GROUND_BIT |
+        fixtureDef.filter.maskBits = GameRenderer.DEFAULT_BIT |
                 GameRenderer.COIN_BIT |
                 GameRenderer.BOX_BIT |
                 GameRenderer.KEY_BIT |
@@ -175,8 +172,5 @@ public class Hero extends Sprite
         b2body.createFixture(fixtureDef).setUserData("head");
     }
 
-    public void draw(Batch batch)
-    {
-        super.draw(batch);
-    }
+    public void draw(Batch batch) {super.draw(batch);}
 }

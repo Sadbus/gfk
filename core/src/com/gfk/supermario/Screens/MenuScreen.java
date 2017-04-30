@@ -25,19 +25,19 @@ public class MenuScreen implements Screen {
     private TextButton aboutButton;
     private TextButton exitButton;
 
-
     private Music music;
 
-    public Table table;
+    private Table table;
 
-    Image background;
-    Image subTitle;
-    Image title;
+    private Image background;
+    private Image subTitle;
+    private Image title;
 
     public MenuScreen(final GameRenderer game) {
         this.game = game;
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
+
 
         atlas = new TextureAtlas("UI.pack");
         skin = new Skin();
@@ -50,7 +50,7 @@ public class MenuScreen implements Screen {
         buttonStyle();
 
         //TODO: Replace background with something higher resolution
-        background = new Image(new Texture("sky1.png"));
+        background = new Image(new Texture("menu_bg.png"));
         subTitle = new Image(new Texture("welcome.png"));
         title = new Image(new Texture("keymaster.png"));
 
@@ -58,15 +58,6 @@ public class MenuScreen implements Screen {
         optionsButton = new TextButton("Options", skin);
         aboutButton = new TextButton("About", skin);
         exitButton = new TextButton("Exit", skin);
-    }
-
-
-    public void buttonStyle() {
-        BitmapFont font = new BitmapFont();
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.font = font;
-        textButtonStyle.up = skin.getDrawable("button05");
-        skin.add("default", textButtonStyle);
     }
 
     @Override
@@ -103,9 +94,14 @@ public class MenuScreen implements Screen {
             }
         });
 
-        // Set position for text images
-        subTitle.setPosition(Gdx.graphics.getWidth()/2-subTitle.getWidth()/2,Gdx.graphics.getHeight()/2+subTitle.getHeight()/1.2f);
-        title.setPosition(Gdx.graphics.getWidth()/2-title.getWidth()/2,Gdx.graphics.getHeight()/2+title.getHeight()/3);
+        // Set position for images
+        subTitle.setPosition(Gdx.graphics.getWidth() / 2 - subTitle.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 + subTitle.getHeight() / 1.2f);
+        title.setPosition(Gdx.graphics.getWidth() / 2 - title.getWidth()/ 2,
+                Gdx.graphics.getHeight() / 2 + title.getHeight() / 3);
+        background.setPosition(Gdx.graphics.getWidth() / 2 - background.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 - background.getHeight() / 2);
+
 
         // Create table, fill stage and align center.
         table.setFillParent(true);
@@ -130,9 +126,16 @@ public class MenuScreen implements Screen {
         music.setVolume(game.musicVolume);
     }
 
+    public void buttonStyle() {
+        BitmapFont font = new BitmapFont();
+        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.font = font;
+        textButtonStyle.up = skin.getDrawable("button05");
+        skin.add("default", textButtonStyle);
+    }
+
     @Override
-    public void render(float delta)
-    {
+    public void render(float delta) {
         Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 

@@ -1,6 +1,8 @@
 package com.gfk.supermario;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -17,7 +19,7 @@ public class GameRenderer extends Game {
     //"Pixels per Meter", brukes for skalering.
     public static final float PPM = 100;
 
-    public static final short GROUND_BIT = 1;
+    public static final short DEFAULT_BIT = 1;
     public static final short HERO_BIT = 2;
     public static final short HERO_HEAD_BIT = 4;
     public static final short BOX_BIT = 8;
@@ -30,17 +32,17 @@ public class GameRenderer extends Game {
     public static final short ENEMY_BIT = 32;
 
     //Variables for OptionScreen
-    public boolean fullscreenIsChecked;
-    public boolean vSyncIsChecked;
     public float musicVolume = 1f;
     public float soundVolume = 1f;
 
     public static final String TITLE = "Key Master; The quest for keys";
 
     public SpriteBatch batch;
-    public BitmapFont font;
 
     public static AssetManager manager;
+
+    public Preferences prefs;
+
 
     @Override
     public void create () {
@@ -54,6 +56,15 @@ public class GameRenderer extends Game {
         manager.load("audio/sounds/menu_click.mp3", Sound.class);
         manager.load("audio/sounds/lock.mp3", Sound.class);
         manager.finishLoading();
+
+        prefs = Gdx.app.getPreferences("My Preferences");
+
+        prefs.putBoolean("fullscreen", false);
+        prefs.putBoolean("vSync", false);
+        prefs.putFloat("soundVolume", 1f);
+        prefs.putFloat("musicVolume", 1f);
+        prefs.putBoolean("soundOn", true);
+        prefs.putBoolean("musicOn", true);
 
         setScreen(new MenuScreen(this));
     }
