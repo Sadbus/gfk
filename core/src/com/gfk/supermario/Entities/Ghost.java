@@ -81,7 +81,7 @@ public class Ghost extends Enemy
                 GameRenderer.HERO_BIT;
 
         fixtureDef.shape = shape;
-        b2body.createFixture(fixtureDef);
+        b2body.createFixture(fixtureDef).setUserData(this);
 
         // Definerer sensor for å sjekke kollisjon med hodet
         PolygonShape ghostHead = new PolygonShape();

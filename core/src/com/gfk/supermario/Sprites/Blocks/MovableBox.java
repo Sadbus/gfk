@@ -10,7 +10,8 @@ import com.gfk.supermario.Screens.GameScreen;
 /**
  * Created by olav on 20.04.17.
  */
-public class MovableBox extends Sprite {
+public class MovableBox extends Sprite
+{
     public World world;
     public Body body;
     private float x;

@@ -121,6 +121,9 @@ public class GameScreen implements Screen {
         box2 = new MovableBox(this, 1570, 210);
         box3 = new MovableBox(this, 1690, 40);
 
+
+        ghost = new Ghost(this, 32/ GameRenderer.PPM, 32/ GameRenderer.PPM);
+
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
@@ -142,8 +145,6 @@ public class GameScreen implements Screen {
         music.setVolume(game.prefs.getFloat("musicVolume"));
         music.setLooping(true);
         music.play();
-
-        ghost = new Ghost(this, .32f, .32f);
     }
 
     public TextureAtlas getAtlas()
