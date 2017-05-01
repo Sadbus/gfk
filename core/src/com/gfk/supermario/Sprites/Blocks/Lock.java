@@ -20,6 +20,7 @@ public class Lock extends TileObject {
     public void onHeadHit() {
         if (Hero.hasKey) {
             setCategoryFilter(GameRenderer.DESTROYED_BIT);
+            System.out.println("Setting to destroyedbit");
             // TODO: Do something when the player wins
             GameRenderer.manager.get("audio/sounds/lock.mp3", Sound.class).play();
             GameScreen.hasWon = true;

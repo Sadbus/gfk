@@ -43,6 +43,7 @@ public class WorldContactListener implements ContactListener {
                 else if (fixB.getFilterData().categoryBits == GameRenderer.ENEMY_HEAD_BIT)
                 {
                     ((Enemy)fixB.getUserData()).hitOnHead();
+
                 }
                 break;
         }
