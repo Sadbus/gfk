@@ -47,25 +47,25 @@ public class Hero extends Sprite
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for (int i = 1; i < 4; i++)
         {
-            frames.add(new TextureRegion(getTexture(), i * 23, 0, 20, 24 ));
+            frames.add(new TextureRegion(getTexture(), i * 23, 7, 20, 24 ));
         }
-        heroRun = new Animation<>(0.1f, frames);
+        heroRun = new Animation<TextureRegion>(0.1f, frames);
         frames.clear();
 
         for (int i = 3; i <5; i++)
         {
-            frames.add(new TextureRegion(getTexture(), 24, 0, 20, 24));
+            frames.add(new TextureRegion(getTexture(), 24, 7, 20, 24));
         }
-        heroJump = new Animation<>(0.2f, frames);
+        heroJump = new Animation<TextureRegion>(0.2f, frames);
 
         for (int i = 4; i < 6; i++)
         {
-            frames.add(new TextureRegion(getTexture(), 24, 0, 20, 24 ));
+            frames.add(new TextureRegion(getTexture(), 24, 7, 20, 24 ));
         }
-        heroFall = new Animation<>(0.1f, frames);
+        heroFall = new Animation<TextureRegion>(0.1f, frames);
 
 
-        heroStand = new TextureRegion(getTexture(), 1,1,20,24);
+        heroStand = new TextureRegion(getTexture(), 1,7,20,24);
         defineHero();
         setBounds(5,0, 20/ GameRenderer.PPM, 24/GameRenderer.PPM);
         setRegion(heroStand);

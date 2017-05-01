@@ -31,6 +31,7 @@ public class GameRenderer extends Game {
     public static final short MOVABLE_TILE_BIT = 256;
     public static final short OBJECT_BIT = 32;
     public static final short ENEMY_BIT = 32;
+    public static final short BRICK_BIT = 32;
 
     //Variables for OptionScreen
     public float musicVolume = 1f;

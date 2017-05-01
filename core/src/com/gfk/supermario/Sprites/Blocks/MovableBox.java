@@ -22,7 +22,7 @@ public class MovableBox extends Sprite {
         this.x = x;
         this.y = y;
         defineBox();
-        setRegion(new TextureRegion(getTexture(), 133,4,21,21));
+        setRegion(new TextureRegion(getTexture(), 133,10,21,21));
         setBounds(0,0, 21 / GameRenderer.PPM, 21 / GameRenderer.PPM);
     }
 
