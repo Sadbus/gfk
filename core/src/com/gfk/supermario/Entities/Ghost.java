@@ -1,5 +1,6 @@
 package com.gfk.supermario.Entities;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -41,6 +42,7 @@ public class Ghost extends Enemy
         stateTime += dt;
         if(enemyDie && !kill)
         {
+            GameRenderer.manager.get("audio/sounds/ghost_die.mp3", Sound.class).play(GameRenderer.prefs.getFloat("soundVolume"));
             world.destroyBody(b2body);
             kill = true;
             setRegion(new TextureRegion(screen.getAtlas().findRegion("15"), 0, 0, 17, 21));
