@@ -47,9 +47,11 @@ public class Ghost extends Enemy
             world.destroyBody(b2body);
             kill = true;
             setRegion(new TextureRegion(screen.getAtlas().findRegion("15"), 0, 0, 17, 21));
+            stateTime = 0;
         }
         else if(!kill)
         {
+            b2body.setLinearVelocity(floating);
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
             setRegion((TextureRegion) floatAnimation.getKeyFrame(stateTime, true));
         }
@@ -102,6 +104,12 @@ public class Ghost extends Enemy
         enemyDie = true;
     }
 
-    public void draw(Batch batch) {super.draw(batch);}
+    public void draw(Batch batch)
+    {
+        if (!kill || stateTime < 1)
+        {
+            super.draw(batch);
+        }
+    }
 
 }
