@@ -60,7 +60,7 @@ public class initWorld {
             shape.setAsBox(rect.getWidth() / 2 / GameRenderer.PPM,
                     rect.getHeight() / 2 / GameRenderer.PPM);
             fixtureDef.shape = shape;
-            fixtureDef.filter.categoryBits = GameRenderer.ENEMYY_COLLISION_BIT;
+            fixtureDef.filter.categoryBits = GameRenderer.ENEMY_COLLISION_BIT;
             body.createFixture(fixtureDef);
         }
         //create coins
@@ -70,7 +70,6 @@ public class initWorld {
 
         //create Bricks
         for (MapObject object : tiledMap.getLayers().get("Bricks").getObjects().getByType(RectangleMapObject.class)) {
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
             new Box(screen, object);
         }
 
@@ -82,8 +81,12 @@ public class initWorld {
 
         //create Lock
         for (MapObject object : tiledMap.getLayers().get("Lock").getObjects().getByType(RectangleMapObject.class)) {
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
             new Lock(screen, object);
+        }
+
+        //create death layer
+        for (MapObject object : tiledMap.getLayers().get("Death").getObjects().getByType(RectangleMapObject.class)) {
+            new Death(screen, object);
         }
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="13" tilewidth="20" tileheight="20" nextobjectid="593">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="13" tilewidth="20" tileheight="20" nextobjectid="596">
  <tileset firstgid="1" name="backgrounds" tilewidth="21" tileheight="21" tilecount="99" columns="11">
   <image source="sprites/backgrounds.png" width="231" height="189"/>
  </tileset>
@@ -34,9 +34,9 @@
   <object id="539" x="3940" y="100" width="20" height="20"/>
  </objectgroup>
  <objectgroup name="Death">
-  <object id="540" x="280" y="250.25" width="60" height="9.75"/>
-  <object id="542" x="1280" y="240" width="740" height="20"/>
+  <object id="542" x="1280" y="249.333" width="740" height="10.6667"/>
   <object id="543" x="2920" y="226.75" width="520" height="33.25"/>
+  <object id="595" x="280" y="250.333" width="60" height="9.66667"/>
  </objectgroup>
  <objectgroup name="Water">
   <object id="545" x="2420" y="227.667" width="80" height="32.3333"/>

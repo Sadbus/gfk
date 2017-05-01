@@ -67,13 +67,7 @@ public class Spider extends Enemy
         fixtureDef.friction = 0.6f;
         fixtureDef.filter.categoryBits = GameRenderer.ENEMY_BIT;
         fixtureDef.filter.maskBits = GameRenderer.DEFAULT_BIT |
-                GameRenderer.COIN_BIT |
-                GameRenderer.BOX_BIT |
-                GameRenderer.KEY_BIT |
-                GameRenderer.LOCK_BIT |
-                GameRenderer.MOVABLE_TILE_BIT |
                 GameRenderer.ENEMY_BIT |
-                GameRenderer.DEFAULT_BIT |
                 GameRenderer.HERO_BIT;
 
         fixtureDef.shape = shape;

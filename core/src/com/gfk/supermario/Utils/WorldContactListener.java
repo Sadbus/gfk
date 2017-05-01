@@ -1,6 +1,5 @@
 package com.gfk.supermario.Utils;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.*;
 import com.gfk.supermario.Entities.Enemy;
@@ -25,16 +24,25 @@ public class WorldContactListener implements ContactListener {
             case GameRenderer.HERO_HEAD_BIT | GameRenderer.LOCK_BIT:
             case GameRenderer.HERO_HEAD_BIT | GameRenderer.BOX_BIT:
             case GameRenderer.HERO_HEAD_BIT | GameRenderer.COIN_BIT:
+            case GameRenderer.HERO_BIT | GameRenderer.DEATH_BIT:
                 if(fixA.getFilterData().categoryBits == GameRenderer.HERO_HEAD_BIT)
+                {
                     ((TileObject) fixB.getUserData()).onHeadHit();
+                }
                 else
+                {
                     ((TileObject) fixA.getUserData()).onHeadHit();
+                }
                 break;
             case GameRenderer.HERO_BIT | GameRenderer.KEY_BIT:
                 if(fixA.getFilterData().categoryBits == GameRenderer.HERO_BIT)
+                {
                     ((ItemObject) fixB.getUserData()).onHit();
+                }
                 else
+                    {
                     ((ItemObject) fixA.getUserData()).onHit();
+                }
                 break;
             case GameRenderer.ENEMY_HEAD_BIT | GameRenderer.HERO_BIT:
                 if (fixA.getFilterData().categoryBits == GameRenderer.ENEMY_HEAD_BIT)
@@ -58,7 +66,7 @@ public class WorldContactListener implements ContactListener {
 
                 }
                 break;
-            case GameRenderer.ENEMY_BIT | GameRenderer.ENEMYY_COLLISION_BIT:
+            case GameRenderer.ENEMY_BIT | GameRenderer.ENEMY_COLLISION_BIT:
                 if (fixA.getFilterData().categoryBits == GameRenderer.ENEMY_BIT)
                 {
                     ((Enemy)fixA.getUserData()).reverseFloating(true, false);
@@ -71,6 +79,7 @@ public class WorldContactListener implements ContactListener {
                 break;
             case GameRenderer.HERO_BIT | GameRenderer.ENEMY_BIT:
                 Gdx.app.log("You took","damage");
+                break;
         }
     }
 

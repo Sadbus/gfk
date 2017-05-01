@@ -29,10 +29,10 @@ public class GameRenderer extends Game {
     public static final short DESTROYED_BIT = 32;
     public static final short KEY_BIT = 64;
     public static final short LOCK_BIT = 128;
-    public static final short MOVABLE_TILE_BIT = 256;
+    public static final short DEATH_BIT = 256;
     public static final short ENEMY_BIT = 512;
     public static final short ENEMY_HEAD_BIT = 1024;
-    public static final short ENEMYY_COLLISION_BIT = 2048;
+    public static final short ENEMY_COLLISION_BIT = 2048;
 
     //Variables for OptionScreen
     public float musicVolume = 1f;
