@@ -48,7 +48,7 @@ public class AboutScreen implements Screen {
         textButtonStyle.up = skin.getDrawable("button05");
         skin.add("default", textButtonStyle);
 
-        title = new Image(new Texture("keymaster.png"));
+        title = new Image(new Texture("production.png"));
 
 
         // skin refers to default textButtonStyle
