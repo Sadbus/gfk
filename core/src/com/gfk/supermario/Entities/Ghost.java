@@ -3,6 +3,7 @@ package com.gfk.supermario.Entities;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -20,20 +21,26 @@ public class Ghost extends Enemy
     private float stateTime;
     private Animation floatAnimation;
     private Array<TextureRegion> frames;
-    public Ghost(GameScreen screen, float x, float y) {
+
+    public Ghost(GameScreen screen, float x, float y)
+    {
         super(screen, x, y);
+
         frames = new Array<TextureRegion>();
-        for(int i = 0; i < 2; i++)
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("8"), i * 15, 0, 15, 8 ));
+        for(int i = 0; i < 4; i++)
+        {
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("1"), i * 23, 7, 20, 24));
+        }
+
         floatAnimation = new Animation(0.5f, frames);
         stateTime = 0;
-        setBounds(getX(), getY(), 15 / GameRenderer.PPM, 8 / GameRenderer.PPM);
+        setBounds(getX(), getY(), 20/ GameRenderer.PPM, 24/GameRenderer.PPM);
     }
 
     public void update(float dt)
     {
         stateTime += dt;
-        setPosition(b2body.getPosition().x - getWidth() /2, b2body.getPosition().y - getHeight() / 2);
+        setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
         setRegion((Texture) floatAnimation.getKeyFrame(stateTime, true));
     }
 

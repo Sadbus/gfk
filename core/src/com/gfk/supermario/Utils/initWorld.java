@@ -19,7 +19,8 @@ import com.gfk.supermario.Screens.GameScreen;
  */
 public class initWorld {
 
-    public initWorld(GameScreen screen) {
+    public initWorld(GameScreen screen)
+    {
         World world = screen.getWorld();
         TiledMap tiledMap = screen.getTiledMap();
 
@@ -42,6 +43,7 @@ public class initWorld {
             shape.setAsBox(rect.getWidth() / 2 / GameRenderer.PPM,
                     rect.getHeight() / 2 / GameRenderer.PPM);
             fixtureDef.shape = shape;
+            fixtureDef.filter.categoryBits = GameRenderer.OBJECT_BIT;
             body.createFixture(fixtureDef);
         }
         //create coins

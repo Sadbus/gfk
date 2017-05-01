@@ -23,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.gfk.supermario.Entities.Ghost;
 import com.gfk.supermario.Entities.Hero;
 import com.gfk.supermario.GameRenderer;
 import com.gfk.supermario.Sprites.Blocks.MovableBox;
@@ -53,7 +54,9 @@ public class GameScreen implements Screen {
     private Box2DDebugRenderer box2DDebugRenderer;
 
     private HUD hud;
+
     private Hero hero;
+    private Ghost ghost;
     private MovableBox box;
     private MovableBox box2;
     private MovableBox box3;
@@ -113,7 +116,7 @@ public class GameScreen implements Screen {
         new initWorld(this);
         world.setContactListener(new WorldContactListener());
 
-        hero = new Hero(world, this);
+        hero = new Hero(this);
         box = new MovableBox(this, 1290, 200);
         box2 = new MovableBox(this, 1570, 210);
         box3 = new MovableBox(this, 1690, 40);
@@ -139,6 +142,8 @@ public class GameScreen implements Screen {
         music.setVolume(game.prefs.getFloat("musicVolume"));
         music.setLooping(true);
         music.play();
+
+        ghost = new Ghost(this, .32f, .32f);
     }
 
     public TextureAtlas getAtlas()
@@ -225,6 +230,9 @@ public class GameScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         hero.draw(game.batch);
+
+        ghost.draw(game.batch);
+
         box.draw(game.batch);
         box2.draw(game.batch);
         box3.draw(game.batch);
@@ -329,6 +337,7 @@ public class GameScreen implements Screen {
         camera.update();
         tiledMapRenderer.setView(camera);
         hero.update(dt);
+        ghost.update(dt);
         box.update(dt);
         box2.update(dt);
         box3.update(dt);

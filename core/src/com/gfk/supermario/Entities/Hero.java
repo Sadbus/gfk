@@ -34,10 +34,10 @@ public class Hero extends Sprite
 
     private TextureRegion heroStand;
 
-    public Hero(World world, GameScreen screen)
+    public Hero(GameScreen screen)
     {
         super(screen.getAtlas().findRegion("1"));
-        this.world = world;
+        this.world = screen.getWorld();
         currentState = State.STANDING;
         previousState = State.STANDING;
         fallingState = State.FALLING;

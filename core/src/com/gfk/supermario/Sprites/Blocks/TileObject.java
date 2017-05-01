@@ -24,7 +24,8 @@ public abstract class TileObject {
 
     protected Fixture fixture;
 
-    public TileObject(GameScreen screen, MapObject object) {
+    public TileObject(GameScreen screen, MapObject object)
+    {
         this.object = object;
         this.screen = screen;
         this.world = screen.getWorld();

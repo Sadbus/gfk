@@ -15,7 +15,7 @@ public abstract class Enemy extends Sprite
     public Body b2body;
     public Enemy (GameScreen screen, float x, float y)
     {
-        this.world = world;
+        this.world = screen.getWorld();
         this.screen = screen;
         setPosition(x, y);
         defineEnemy();
