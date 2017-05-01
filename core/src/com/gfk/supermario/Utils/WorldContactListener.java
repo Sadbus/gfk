@@ -58,6 +58,17 @@ public class WorldContactListener implements ContactListener {
 
                 }
                 break;
+            case GameRenderer.ENEMY_BIT | GameRenderer.ENEMYY_COLLISION_BIT:
+                if (fixA.getFilterData().categoryBits == GameRenderer.ENEMY_BIT)
+                {
+                    ((Enemy)fixA.getUserData()).reverseFloating(true, false);
+                }
+                else if (fixB.getFilterData().categoryBits == GameRenderer.ENEMY_BIT)
+                {
+                    ((Enemy)fixB.getUserData()).reverseFloating(true, false);
+
+                }
+                break;
             case GameRenderer.HERO_BIT | GameRenderer.ENEMY_BIT:
                 Gdx.app.log("You took","damage");
         }

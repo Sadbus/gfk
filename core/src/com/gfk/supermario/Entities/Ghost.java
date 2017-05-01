@@ -58,7 +58,7 @@ public class Ghost extends Enemy
     protected void defineEnemy()
     {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(3450/GameRenderer.PPM, 120/GameRenderer.PPM);
+        bdef.position.set(3500/GameRenderer.PPM, 120/GameRenderer.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 

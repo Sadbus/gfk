@@ -23,6 +23,7 @@ public abstract class Enemy extends Sprite
         setPosition(x, y);
         defineEnemy();
         floating = new Vector2(1, 0);
+        b2body.setActive(true);
     }
 
     protected abstract void defineEnemy();

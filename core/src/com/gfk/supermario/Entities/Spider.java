@@ -23,10 +23,10 @@ public class Spider extends Enemy
         super(screen, x, y);
 
         frames = new Array<TextureRegion>();
-        for(int i = 0; i < 2; i++)
-        {
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("19"), i * 17, 0, 17, 21));
-        }
+
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("19"), 0, 0, 21, 16));
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("20"), 0, 0, 21, 16));
+
         walkAnimation = new Animation(0.5f, frames);
         stateTime = 0;
         setBounds(getX(), getY(), 21/ GameRenderer.PPM, 14/GameRenderer.PPM);
@@ -82,10 +82,10 @@ public class Spider extends Enemy
         // Definerer sensor for å sjekke kollisjon med hodet
         PolygonShape spiderHead = new PolygonShape();
         Vector2[] vertice = new Vector2[4];
-        vertice[0] = new Vector2(-5, 8).scl(1 / GameRenderer.PPM);
-        vertice[1] = new Vector2(5, 8).scl(1 / GameRenderer.PPM);
-        vertice[2] = new Vector2(-3, 3).scl(1 / GameRenderer.PPM);
-        vertice[3] = new Vector2(3, 3).scl(1 / GameRenderer.PPM);
+        vertice[0] = new Vector2(-7, 12).scl(1 / GameRenderer.PPM);
+        vertice[1] = new Vector2(7, 12).scl(1 / GameRenderer.PPM);
+        vertice[2] = new Vector2(-3, 5).scl(1 / GameRenderer.PPM);
+        vertice[3] = new Vector2(3, 5).scl(1 / GameRenderer.PPM);
         spiderHead.set(vertice);
 
         fixtureDef.shape = spiderHead;
