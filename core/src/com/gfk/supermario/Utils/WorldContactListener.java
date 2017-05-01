@@ -1,6 +1,8 @@
 package com.gfk.supermario.Utils;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.physics.box2d.*;
+import com.gfk.supermario.Entities.Enemy;
 import com.gfk.supermario.Sprites.Blocks.TileObject;
 import com.gfk.supermario.GameRenderer;
 import com.gfk.supermario.Sprites.Items.ItemObject;
@@ -17,7 +19,8 @@ public class WorldContactListener implements ContactListener {
         Fixture fixB = contact.getFixtureB();
         int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
 
-        switch (cDef) {
+        switch (cDef)
+        {
             case GameRenderer.HERO_HEAD_BIT | GameRenderer.LOCK_BIT:
             case GameRenderer.HERO_HEAD_BIT | GameRenderer.BOX_BIT:
             case GameRenderer.HERO_HEAD_BIT | GameRenderer.COIN_BIT:
@@ -32,6 +35,15 @@ public class WorldContactListener implements ContactListener {
                 else
                     ((ItemObject) fixA.getUserData()).onHit();
                 break;
+            case GameRenderer.ENEMY_HEAD_BIT | GameRenderer.HERO_BIT:
+                if (fixA.getFilterData().categoryBits == GameRenderer.ENEMY_HEAD_BIT)
+                {
+                    ((Enemy)fixA.getUserData()).hitOnHead();
+                }
+                else if (fixB.getFilterData().categoryBits == GameRenderer.ENEMY_HEAD_BIT)
+                {
+                    ((Enemy)fixB.getUserData()).hitOnHead();
+                }
         }
     }
 

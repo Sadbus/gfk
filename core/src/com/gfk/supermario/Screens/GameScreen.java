@@ -299,6 +299,7 @@ public class GameScreen implements Screen {
 
     public void update(float dt)
     {
+
         switch (state)
         {
             case RUNNING:
