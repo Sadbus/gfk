@@ -78,10 +78,10 @@ public class Ghost extends Enemy
         // Definerer sensor for å sjekke kollisjon med hodet
         PolygonShape ghostHead = new PolygonShape();
         Vector2[] vertice = new Vector2[4];
-        vertice[0] = new Vector2(-5, 8).scl(1 / GameRenderer.PPM);
-        vertice[1] = new Vector2(5, 8).scl(1 / GameRenderer.PPM);
-        vertice[2] = new Vector2(-3, 3).scl(1 / GameRenderer.PPM);
-        vertice[3] = new Vector2(3, 3).scl(1 / GameRenderer.PPM);
+        vertice[0] = new Vector2(-7, 12).scl(1 / GameRenderer.PPM);
+        vertice[1] = new Vector2(7, 12).scl(1 / GameRenderer.PPM);
+        vertice[2] = new Vector2(-3, 5).scl(1 / GameRenderer.PPM);
+        vertice[3] = new Vector2(3, 5).scl(1 / GameRenderer.PPM);
         ghostHead.set(vertice);
 
         fixtureDef.shape = ghostHead;
