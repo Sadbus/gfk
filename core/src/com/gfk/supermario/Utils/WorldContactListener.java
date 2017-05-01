@@ -1,6 +1,7 @@
 package com.gfk.supermario.Utils;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.*;
 import com.gfk.supermario.Entities.Enemy;
 import com.gfk.supermario.Sprites.Blocks.TileObject;
@@ -45,6 +46,8 @@ public class WorldContactListener implements ContactListener {
                     ((Enemy)fixB.getUserData()).hitOnHead();
                 }
                 break;
+            case GameRenderer.HERO_BIT | GameRenderer.ENEMY_BIT:
+                Gdx.app.log("You took","damage");
         }
     }
 
