@@ -18,6 +18,7 @@ public class DesktopLauncher {
 		config.width = 1024;
 		config.height = 576;
 		config.forceExit = false;
+		config.resizable = false;
 		new LwjglApplication(new GameRenderer(), config);
 	}
 }

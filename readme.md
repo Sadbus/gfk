@@ -36,3 +36,9 @@ Vi har laget en platformer ved hjelp av biblioteket LibGDX, for fysikk har vi br
 
 Grafikken vi har brukt er hentet fra:<br>
 [Kenney](http://www.kenney.nl/)
+
+Meny musikk:<br>
+https://opengameart.org/users/horrorpen
+
+Spill musikk: <br>
+https://opengameart.org/content/caketown-cuteplayful

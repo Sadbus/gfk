@@ -25,6 +25,7 @@ public class AboutScreen implements Screen {
 
     Image background;
     Image title;
+    Image subTitle;
 
     private TextButton backButton;
     private Table table;
@@ -34,12 +35,12 @@ public class AboutScreen implements Screen {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
-        atlas = new TextureAtlas("UI.pack");
+        atlas = new TextureAtlas("UI/UI.pack");
         skin = new Skin();
         skin.addRegions(atlas);
 
         // Create background image
-        background = new Image(new Texture("menu_bg.png"));
+        background = new Image(new Texture("UI/menu_bg.png"));
 
         // Define button
         BitmapFont font = new BitmapFont();
@@ -48,8 +49,9 @@ public class AboutScreen implements Screen {
         textButtonStyle.up = skin.getDrawable("button05");
         skin.add("default", textButtonStyle);
 
-        title = new Image(new Texture("production.png"));
-
+        subTitle = new Image(new Texture("UI/production.png"));
+        title = new Image (new Texture("UI/keymaster.png"));
+        subTitle.setSize(420, 105);
 
         // skin refers to default textButtonStyle
         backButton = new TextButton("Go back", skin);
@@ -58,7 +60,10 @@ public class AboutScreen implements Screen {
         table = new Table();
 
         Label gruppe = new Label("Gruppe:\nOlav Markus Sjurs\nMorten Mikalsen \nAdrian Adamski ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        Label text = new Label("Vi har laget en platformer ved hjelp av biblioteket LibGDX, for fysikk har vi brukt en port av Box2D som følger med LibGX. Spillkartet har blitt laget ved hjelp av et program som heter Tiled.", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        Label text = new Label("Vi har laget en platformer ved hjelp av biblioteket LibGDX, " +
+                "for fysikk har vi brukt en port av Box2D som følger med LibGX. " +
+                "Spillkartet har blitt laget ved hjelp av et program som heter Tiled.",
+                new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         text.setWrap(true);
         text.setWidth(100);
         table.setPosition(Gdx.graphics.getWidth() / 2- table.getWidth() / 2, Gdx.graphics.getHeight() / 2f - table.getHeight() / 2);
@@ -73,6 +78,7 @@ public class AboutScreen implements Screen {
 
 
         stage.addActor(background);
+        stage.addActor(subTitle);
         stage.addActor(title);
         stage.addActor(backButton);
         stage.addActor(table);
@@ -87,6 +93,8 @@ public class AboutScreen implements Screen {
             }
         });
 
+        subTitle.setPosition(Gdx.graphics.getWidth() / 2 - subTitle.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 + subTitle.getHeight() / 2 + 100);
         background.setPosition(Gdx.graphics.getWidth() / 2 - background.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - background.getHeight() / 2);
     }
@@ -125,6 +133,5 @@ public class AboutScreen implements Screen {
         skin.dispose();
         atlas.dispose();
         game.dispose();
-
     }
 }

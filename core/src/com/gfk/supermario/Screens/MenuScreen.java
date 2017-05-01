@@ -38,8 +38,7 @@ public class MenuScreen implements Screen {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
-
-        atlas = new TextureAtlas("UI.pack");
+        atlas = new TextureAtlas("UI/UI.pack");
         skin = new Skin();
         skin.addRegions(atlas);
 
@@ -49,9 +48,9 @@ public class MenuScreen implements Screen {
 
         buttonStyle();
 
-        background = new Image(new Texture("menu_bg.png"));
-        subTitle = new Image(new Texture("welcome.png"));
-        title = new Image(new Texture("keymaster.png"));
+        background = new Image(new Texture("UI/menu_bg.png"));
+        subTitle = new Image(new Texture("UI/welcome.png"));
+        title = new Image(new Texture("UI/keymaster.png"));
 
         startButton = new TextButton("New Game", skin);
         optionsButton = new TextButton("Options", skin);

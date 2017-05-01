@@ -1,15 +1,10 @@
 package com.gfk.supermario.Sprites.Blocks;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.maps.MapObject;
 import com.gfk.supermario.Entities.Hero;
 import com.gfk.supermario.GameRenderer;
 import com.gfk.supermario.Screens.GameScreen;
-import com.gfk.supermario.Screens.MenuScreen;
-import com.gfk.supermario.Screens.WinScreen;
-
-import javax.swing.JOptionPane;
 
 /**
  * Created by Olav on 27.04.2017.

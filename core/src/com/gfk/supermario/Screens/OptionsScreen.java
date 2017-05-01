@@ -44,7 +44,7 @@ public class OptionsScreen implements Screen {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
-        atlas = new TextureAtlas("UI.pack");
+        atlas = new TextureAtlas("UI/UI.pack");
         skin = new Skin();
         skin.addRegions(atlas);
 
@@ -53,7 +53,7 @@ public class OptionsScreen implements Screen {
         sliderStyle();
 
         // Create background image
-        background = new Image(new Texture("menu_bg.png"));
+        background = new Image(new Texture("UI/menu_bg.png"));
 
         // skin refers to default textButtonStyle
         backButton = new TextButton("Go back", skin.get("button", TextButton.TextButtonStyle.class));

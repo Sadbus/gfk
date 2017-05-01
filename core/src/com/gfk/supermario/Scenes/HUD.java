@@ -1,5 +1,6 @@
 package com.gfk.supermario.Scenes;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -46,10 +47,6 @@ public class HUD
 
         key = new ImageButton(skin);
 
-
-
-
-
         Table table = new Table();
         table.top();
         table.setFillParent(true);
@@ -59,7 +56,6 @@ public class HUD
         levelLabel = new Label("First Level", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         worldLabel = new Label("KeyMaster", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
-        //TODO: Replace this with image
         keyLabel = new Label("Find the key!", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         table.add(key).expandX().padTop(10);
@@ -84,7 +80,6 @@ public class HUD
     }
 
     public void buttonStyle() {
-        BitmapFont font = new BitmapFont();
         ImageButton.ImageButtonStyle imageButtonStyle = new ImageButton.ImageButtonStyle();
         imageButtonStyle.up = skin.getDrawable("10");
         imageButtonStyle.checked = skin.getDrawable("9");

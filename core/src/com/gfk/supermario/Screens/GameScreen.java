@@ -31,7 +31,6 @@ import com.gfk.supermario.Utils.initWorld;
 import com.gfk.supermario.Scenes.HUD;
 
 import static com.gfk.supermario.Screens.GameScreen.State.PAUSE;
-import static com.gfk.supermario.Screens.GameScreen.State.RESUME;
 import static com.gfk.supermario.Screens.GameScreen.State.RUNNING;
 
 /**
@@ -40,6 +39,7 @@ import static com.gfk.supermario.Screens.GameScreen.State.RUNNING;
 public class GameScreen implements Screen {
     private GameRenderer game;
     private TextureAtlas atlas;
+    private TextureAtlas atlas2;
 
     private OrthographicCamera camera;
     private FitViewport cameraPort;
@@ -121,15 +121,15 @@ public class GameScreen implements Screen {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
-        atlas = new TextureAtlas("UI.pack");
+        atlas2 = new TextureAtlas("UI/UI.pack");
         skin = new Skin();
-        skin.addRegions(atlas);
+        skin.addRegions(atlas2);
 
         buttonStyle();
 
         table = new Table();
-        background = new Image(new Texture("menu_bg.png"));
-        title = new Image(new Texture("keymaster.png"));
+        background = new Image(new Texture("UI/menu_bg.png"));
+        title = new Image(new Texture("UI/keymaster.png"));
 
         resumeButton = new TextButton("Resume", skin);
         menuButton = new TextButton("Exit to Main Menu", skin);
@@ -187,27 +187,17 @@ public class GameScreen implements Screen {
 
         // Add buttons to table
         table.add(resumeButton);
-        table.row().pad(20);
-        table.add(menuButton);
-        table.row().pad(20);
+        table.row();
+        table.add(menuButton).pad(20);
+        table.row();
         table.add(exitButton);
 
         stage.addActor(background);
         stage.addActor(title);
         stage.addActor(table);
+
     }
 
-
-    /*
-    public void changeMap(){
-        Gdx.app.postRunnable(() -> { //Post runnable posts the below task in opengl thread
-            tiledMap.dispose();
-            tiledMap = new TmxMapLoader().load("Level2.tmx"); //load the new map
-            tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1 / game.PPM);
-
-        });
-    }
-    */
     @Override
     public void render(float delta)
     {
@@ -267,7 +257,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void resume() {
-        this.state = RESUME;
+        this.state = RUNNING;
         music.play();
     }
 
@@ -301,7 +291,8 @@ public class GameScreen implements Screen {
 
     public void update(float dt)
     {
-        switch (state) {
+        switch (state)
+        {
             case RUNNING:
                 updateRunning(dt);
                 break;
@@ -309,15 +300,25 @@ public class GameScreen implements Screen {
                 updatePaused(dt);
                 break;
             case RESUME:
-
+                renderRunning(dt);
                 break;
         }
 
-        if (hasWon){
+        if (hasWon)
+        {
             hasWon = false;
-            game.prefs.putInteger("level", 2);
+            int test = game.prefs.getInteger("level");
+            game.prefs.putInteger("level", game.prefs.getInteger("level") + 1);
             music.stop();
-            game.setScreen(new WinScreen(game));
+            if (game.prefs.getInteger("level") == 2){
+                game.setScreen(new nextLevelScreen(game));
+            }
+            else
+            {
+                System.out.println("You win!");
+                game.setScreen(new winScreen(game));
+            }
+
         }
     }
 
