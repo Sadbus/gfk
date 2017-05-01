@@ -29,7 +29,7 @@ public class Ghost extends Enemy
         frames = new Array<TextureRegion>();
         for(int i = 0; i < 4; i++)
         {
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("1"), i * 23, 7, 20, 24));
+            frames.add(new TextureRegion(screen.getAtlas().findRegion("7"), i * 23, 7, 20, 24));
         }
 
         floatAnimation = new Animation(0.5f, frames);
@@ -41,7 +41,7 @@ public class Ghost extends Enemy
     {
         stateTime += dt;
         setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
-        setRegion((Texture) floatAnimation.getKeyFrame(stateTime, true));
+        setRegion((TextureRegion) floatAnimation.getKeyFrame(stateTime, true));
     }
 
     @Override
@@ -79,4 +79,6 @@ public class Ghost extends Enemy
 
         b2body.createFixture(fixtureDef).setUserData("enemyHead");
     }
+    public void draw(Batch batch) {super.draw(batch);}
+
 }
