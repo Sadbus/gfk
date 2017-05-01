@@ -22,7 +22,7 @@ public abstract class Enemy extends Sprite
         this.screen = screen;
         setPosition(x, y);
         defineEnemy();
-        floating = new Vector2(1, 1);
+        floating = new Vector2(1, 0);
     }
 
     protected abstract void defineEnemy();

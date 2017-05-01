@@ -77,7 +77,7 @@ public class Ghost extends Enemy
                 GameRenderer.LOCK_BIT |
                 GameRenderer.MOVABLE_TILE_BIT |
                 GameRenderer.ENEMY_BIT |
-                GameRenderer.OBJECT_BIT |
+                GameRenderer.DEFAULT_BIT |
                 GameRenderer.HERO_BIT;
 
         fixtureDef.shape = shape;

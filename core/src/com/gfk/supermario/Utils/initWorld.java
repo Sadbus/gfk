@@ -43,7 +43,7 @@ public class initWorld {
             shape.setAsBox(rect.getWidth() / 2 / GameRenderer.PPM,
                     rect.getHeight() / 2 / GameRenderer.PPM);
             fixtureDef.shape = shape;
-            fixtureDef.filter.categoryBits = GameRenderer.OBJECT_BIT;
+            fixtureDef.filter.categoryBits = GameRenderer.DEFAULT_BIT;
             body.createFixture(fixtureDef);
         }
         //create coins
