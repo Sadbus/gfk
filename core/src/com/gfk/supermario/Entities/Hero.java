@@ -159,6 +159,7 @@ public class Hero extends Sprite
                 GameRenderer.BOX_BIT |
                 GameRenderer.KEY_BIT |
                 GameRenderer.LOCK_BIT |
+                GameRenderer.ENEMY_BIT |
                 GameRenderer.MOVABLE_TILE_BIT;
 
         fixtureDef.shape = shape;
