@@ -34,7 +34,7 @@ public class winScreen implements Screen {
     private Table table;
 
     private Image background;
-    private Image youWin;
+    private Image win;
 
     public winScreen(final GameRenderer game) {
         this.game = game;
@@ -52,7 +52,7 @@ public class winScreen implements Screen {
         music = Gdx.audio.newMusic(Gdx.files.internal("audio/music/menu_music.mp3"));
 
         background = new Image(new Texture("UI/menu_bg.png"));
-        //youWIn = new Image(new Texture("UI/welcome.png"));
+        win = new Image(new Texture("UI/win.png"));
 
         menuButton = new TextButton("Exit to Main Menu", skin);
         exitButton = new TextButton("Exit to Desktop", skin);
@@ -77,6 +77,8 @@ public class winScreen implements Screen {
 
         background.setPosition(Gdx.graphics.getWidth() / 2 - background.getWidth() / 2,
                 Gdx.graphics.getHeight() / 2 - background.getHeight() / 2);
+        win.setPosition(Gdx.graphics.getWidth() / 2 - win.getWidth()/ 2,
+                Gdx.graphics.getHeight() / 2 + win.getHeight() / 3);
 
         table.setFillParent(true);
         table.center();
@@ -88,6 +90,7 @@ public class winScreen implements Screen {
 
         stage.addActor(background);
         stage.addActor(table);
+        stage.addActor(win);
 
         music.play();
         music.setVolume(game.musicVolume);
