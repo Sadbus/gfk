@@ -42,14 +42,12 @@ public class MovableBox extends Sprite
 
         body = world.createBody(bdef);
 
-        shape.setAsBox(21 / 2 / GameRenderer.PPM, 21 / 2 / GameRenderer.PPM);
+        shape.setAsBox(20 / 2 / GameRenderer.PPM, 20 / 2 / GameRenderer.PPM);
         fdef.shape = shape;
         body.createFixture(fdef);
-
     }
 
     public void draw(Batch batch) {
         super.draw(batch);
-
     }
 }

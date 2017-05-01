@@ -46,6 +46,23 @@ public class initWorld {
             fixtureDef.filter.categoryBits = GameRenderer.DEFAULT_BIT;
             body.createFixture(fixtureDef);
         }
+        //create tiles
+        for (MapObject object : tiledMap.getLayers().get("EnemyCollision").getObjects().getByType(RectangleMapObject.class))
+        {
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set((rect.getX() + rect.getWidth() / 2) / GameRenderer.PPM,
+                    (rect.getY() + rect.getHeight() / 2) / GameRenderer.PPM);
+
+            body = world.createBody(bdef);
+
+            shape.setAsBox(rect.getWidth() / 2 / GameRenderer.PPM,
+                    rect.getHeight() / 2 / GameRenderer.PPM);
+            fixtureDef.shape = shape;
+            fixtureDef.filter.categoryBits = GameRenderer.ENEMYY_COLLISION_BIT;
+            body.createFixture(fixtureDef);
+        }
         //create coins
         for (MapObject object : tiledMap.getLayers().get("Coins").getObjects().getByType(RectangleMapObject.class)) {
             new Coin(screen, object);

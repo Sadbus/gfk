@@ -25,6 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.gfk.supermario.Entities.Ghost;
 import com.gfk.supermario.Entities.Hero;
+import com.gfk.supermario.Entities.Spider;
 import com.gfk.supermario.GameRenderer;
 import com.gfk.supermario.Sprites.Blocks.MovableBox;
 import com.gfk.supermario.Utils.WorldContactListener;
@@ -57,6 +58,7 @@ public class GameScreen implements Screen {
 
     private Hero hero;
     private Ghost ghost;
+    private Spider spider;
     private MovableBox box;
     private MovableBox box2;
     private MovableBox box3;
@@ -117,12 +119,13 @@ public class GameScreen implements Screen {
         world.setContactListener(new WorldContactListener());
 
         hero = new Hero(this);
+        ghost = new Ghost(this, 850, 100);
+        spider = new Spider(this, 3500, 200);
+
         box = new MovableBox(this, 1290, 200);
         box2 = new MovableBox(this, 1570, 210);
         box3 = new MovableBox(this, 1690, 40);
 
-
-        ghost = new Ghost(this, 32/ GameRenderer.PPM, 32/ GameRenderer.PPM);
 
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -233,6 +236,7 @@ public class GameScreen implements Screen {
         hero.draw(game.batch);
 
         ghost.draw(game.batch);
+        spider.draw(game.batch);
 
         box.draw(game.batch);
         box2.draw(game.batch);
@@ -340,6 +344,7 @@ public class GameScreen implements Screen {
         tiledMapRenderer.setView(camera);
         hero.update(dt);
         ghost.update(dt);
+        spider.update(dt);
         box.update(dt);
         box2.update(dt);
         box3.update(dt);

@@ -141,11 +141,11 @@ public class OptionsScreen implements Screen {
         musicVolumeSlider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                //game.musicVolume = musicVolumeSlider.getValue();
-                //musicVolumeValue.setText("" + game.musicVolume);
+                game.musicVolume = musicVolumeSlider.getValue();
+                musicVolumeValue.setText("" + game.musicVolume);
 
-                game.prefs.putFloat("musicVolume", musicVolumeSlider.getValue());
-                musicVolumeValue.setText("" + game.prefs.getFloat("musicVolume"));
+                //game.prefs.putFloat("musicVolume", musicVolumeSlider.getValue());
+                //musicVolumeValue.setText("" + game.prefs.getFloat("musicVolume"));
             }
         });
         soundVolumeSlider.addListener(new ChangeListener() {
@@ -173,7 +173,8 @@ public class OptionsScreen implements Screen {
                 Gdx.graphics.getHeight() / 2 - background.getHeight() / 2);
 
 
-        musicVolumeValue.setText("" + game.prefs.getFloat("musicVolume"));
+        //musicVolumeValue.setText("" + game.prefs.getFloat("musicVolume"));
+        musicVolumeValue.setText("" + game.musicVolume);
         soundVolumeValue.setText("" + game.soundVolume);
 
         stage.addActor(background);

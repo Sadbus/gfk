@@ -1,10 +1,7 @@
 package com.gfk.supermario.Entities;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -61,7 +58,7 @@ public class Ghost extends Enemy
     protected void defineEnemy()
     {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(50/GameRenderer.PPM, 50/GameRenderer.PPM);
+        bdef.position.set(3450/GameRenderer.PPM, 120/GameRenderer.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
@@ -78,7 +75,8 @@ public class Ghost extends Enemy
                 GameRenderer.MOVABLE_TILE_BIT |
                 GameRenderer.ENEMY_BIT |
                 GameRenderer.DEFAULT_BIT |
-                GameRenderer.HERO_BIT;
+                GameRenderer.HERO_BIT |
+                GameRenderer.ENEMYY_COLLISION_BIT;
 
         fixtureDef.shape = shape;
         b2body.createFixture(fixtureDef).setUserData(this);
