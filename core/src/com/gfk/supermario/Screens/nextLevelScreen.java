@@ -52,7 +52,7 @@ public class nextLevelScreen implements Screen {
         buttonStyle();
 
         background = new Image(new Texture("UI/menu_bg.png"));
-        title = new Image(new Texture("UI/keymaster.png"));
+        title = new Image(new Texture("UI/win.png"));
 
         nextLevel = new TextButton("Next Level", skin);
         menuButton = new TextButton("Exit to Main Menu", skin);
