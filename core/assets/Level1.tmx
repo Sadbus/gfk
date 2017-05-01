@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="13" tilewidth="20" tileheight="20" nextobjectid="596">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="13" tilewidth="20" tileheight="20" nextobjectid="598">
  <tileset firstgid="1" name="backgrounds" tilewidth="21" tileheight="21" tilecount="99" columns="11">
   <image source="sprites/backgrounds.png" width="231" height="189"/>
  </tileset>
@@ -18,7 +18,7 @@
  </layer>
  <layer name="Graphics" width="200" height="13">
   <data encoding="base64" compression="zlib">
-   eJztmj1LAzEYx693X0AdtGgVX6qT4KIiVuon6KIOKjiIoDj6tjhVEKqLoH4CFRU6+REcdXWVovj2GRw6+IQmGGN6d7nL25X7w4+0veSayz3/5smljmNedUMce3L6f5eRi27lYBx6MX2SxiQVX4Nwf79wKSIUq3HjnUiXL4iS6guiaRiPAmYm9Yf1EvFKWKnwBa0k+oKIzB+FdP5IlJr5xITK3l8OcEmUVG8g5aj5w6Q/SO6Rt2RckiLWJzyZ9g9Skv2Rzh969Am4cN89Bfee+ARpG5dx1hUqPGWDN75dsfqtuP5oExwDWiOW/G5FES/nku2LMpM7iSiOL0jextMOfL4L7OOSZQ+3e4O4eAc+BOKD5Fet9PyqI4Y/WkHIE3F8oTIXkzFn5HEuPozbnMK1nvlwTsYCygzgCoxNlPXHKMTfmKQY3AQ2OFRinLM9If5QmW+FlYznX0j0+jxIKvKpTvy9XUyZZfpTF4yNsPsf3Zn/9GAKQNaivETUH6sW9T1IT5LmeJnPh6Oo5DV8UfK5HpFcbhzqrQATQD8u0ftJpn1NwfoDeWHKBz8NwPEiMCshBtcd/lyjigfMI9WHNQNeqjnyYjjKnqLtGoJ7MgexO48pUq8XmJh+FvTHIrRfwiwz5yLzhJ83gvwhU4eaeYkIrajnILw6Zv5fIsMf7L4Ib2+E1Gu29mZ1IYlL4AqouA2OgGP39xgNqkdyJZogXxC2HD3o9kfUuKpSmIptGVQt5F4y126DG+DWbV4vrBd4nDh60O2PHzMYH5Q=
+   eJztmk0vA0EYx7e7XwAHGkq8lJPEBRGV+gS94IDEQSTEUXFxqkRSvUjwCRAkPfkIjlxdpSHePoNDD55JZ2KM6e7O7rxt01/yy5Turu3s8+/M7HIc89QNWfHknP9dSq66yUA/9GMHJPVJGz7DcH2/cCsCqtW49U7QlQtCUnNBmIX+yGHn2vmwHpGshEVFLmiSmAsCGT9y7fEjUTTLiQlK3l8PcUtIajYQGWr8MJkPMvfIWtIvSYHNCQ/T+UEkOR/t8UMPn6AL191TcO1JThBF3MZZV6jIlA3Z+HbFtm/F9UeHYB/QjFnyvRUF3pxLdi5KzNxJhDi5IPM2Hrvw+z3wALes+3i/N6iLd/BDoD7I/KqV7l91xchHHGzJFspEnFyonIvJGDOyeC4+ivc5hc965uM56QtoU6Ar0DdR1h/jUH8TkmpwG9ziWI5xzE5D+RBF5XwrLDLufyHo9XkQKuZT3fjv9jBtmjmfumBthH3+0Zv6bx82B6Yt+e5EiOZj3aJzD+JJ0hgv8/5wFApeIxcFn88jMpebhO3WwClwELfo52lm/5qC9QfKwoyPfgzB+3lwXkINbjr8sUaVD9hH6hw2mM9RdNRTc+TVcJRnirYzAtdkAWp3EZunXi8xNf0smI9l2H8Fu8oci4wTftkIyodMjjT7ElGaqMcgvjpm/r9ERj7Y5yK8ZyNku2Zrb5YLSV6CV2DZbXgMVtzf92jRdmSuRBuUC+KOo0fd+YhaV1VKU7Utw6qF3kv22m14A966zbcLmwWeJ44edefjByQoIC0=
   </data>
  </layer>
  <layer name="TopLayer" width="200" height="13">
@@ -28,10 +28,12 @@
  </layer>
  <objectgroup name="Key">
   <object id="532" x="920" y="100" width="20" height="20"/>
+  <object id="596" x="180" y="200" width="20" height="20"/>
  </objectgroup>
  <objectgroup name="MovableTile"/>
  <objectgroup name="Lock">
   <object id="539" x="3940" y="100" width="20" height="20"/>
+  <object id="597" x="240" y="140" width="20" height="20"/>
  </objectgroup>
  <objectgroup name="Death">
   <object id="542" x="1280" y="249.333" width="740" height="10.6667"/>

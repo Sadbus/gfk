@@ -22,7 +22,7 @@ public class Lock extends TileObject {
             setCategoryFilter(GameRenderer.DESTROYED_BIT);
             System.out.println("Setting to destroyedbit");
             // TODO: Do something when the player wins
-            GameRenderer.manager.get("audio/sounds/lock.mp3", Sound.class).play();
+            GameRenderer.manager.get("audio/sounds/lock.mp3", Sound.class).play(GameRenderer.prefs.getFloat("soundVolume"));
             GameScreen.hasWon = true;
         }
     }

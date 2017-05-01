@@ -29,8 +29,6 @@ public class GameOverScreen implements Screen {
     private TextButton menuButton;
     private TextButton exitButton;
 
-    private Music music;
-
     private Table table;
 
     private Image background;
@@ -50,11 +48,9 @@ public class GameOverScreen implements Screen {
 
         table = new Table();
 
-        music = Gdx.audio.newMusic(Gdx.files.internal("audio/music/menu_music.mp3"));
-
         background = new Image(new Texture("UI/menu_bg.png"));
         //TODO: Bytt bilde
-        gameOver = new Image(new Texture("UI/gameOver.png"));
+        gameOver = new Image(new Texture("UI/game_over_title.png"));
 
         menuButton = new TextButton("Exit to Main Menu", skin);
         exitButton = new TextButton("Exit to Desktop", skin);
@@ -65,14 +61,14 @@ public class GameOverScreen implements Screen {
         menuButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
-                music.stop();
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play(game.prefs.getFloat("soundVolume"));
                 game.setScreen(new MenuScreen(game));
             }
         });
         exitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play(game.prefs.getFloat("soundVolume"));
                 Gdx.app.exit();
             }
         });
@@ -93,9 +89,6 @@ public class GameOverScreen implements Screen {
         stage.addActor(background);
         stage.addActor(table);
         stage.addActor(gameOver);
-
-        music.play();
-        music.setVolume(game.musicVolume);
     }
 
     @Override
@@ -129,7 +122,6 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void dispose() {
-        music.dispose();
         skin.dispose();
         atlas.dispose();
         game.dispose();

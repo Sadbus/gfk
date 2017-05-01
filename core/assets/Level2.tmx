@@ -19,6 +19,7 @@
  <objectgroup name="Lock">
   <object id="6" x="560" y="160" width="20" height="20"/>
  </objectgroup>
+ <objectgroup name="EnemyCollision"/>
  <objectgroup name="Key">
   <object id="5" x="500" y="200" width="20" height="20"/>
  </objectgroup>

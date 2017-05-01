@@ -52,7 +52,7 @@ public class nextLevelScreen implements Screen {
         buttonStyle();
 
         background = new Image(new Texture("UI/menu_bg.png"));
-        title = new Image(new Texture("UI/win.png"));
+        title = new Image(new Texture("UI/win_title.png"));
 
         nextLevel = new TextButton("Next Level", skin);
         menuButton = new TextButton("Exit to Main Menu", skin);
@@ -65,14 +65,14 @@ public class nextLevelScreen implements Screen {
         nextLevel.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play(game.prefs.getFloat("soundVolume"));
                 game.setScreen(new GameScreen(game));
-                System.out.println("Next Level");
             }
         });
         menuButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play(game.prefs.getFloat("soundVolume"));
                 game.setScreen(new MenuScreen(game));
             }
         });

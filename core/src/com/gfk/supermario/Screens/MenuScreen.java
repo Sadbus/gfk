@@ -44,18 +44,21 @@ public class MenuScreen implements Screen {
 
         table = new Table();
 
-        music = Gdx.audio.newMusic(Gdx.files.internal("audio/music/menu_music.mp3"));
-
         buttonStyle();
 
         background = new Image(new Texture("UI/menu_bg.png"));
-        subTitle = new Image(new Texture("UI/welcome.png"));
-        title = new Image(new Texture("UI/keymaster.png"));
+        subTitle = new Image(new Texture("UI/welcome_subtitle.png"));
+        title = new Image(new Texture("UI/keymaster_title.png"));
 
         startButton = new TextButton("New Game", skin);
         optionsButton = new TextButton("Options", skin);
         aboutButton = new TextButton("About", skin);
         exitButton = new TextButton("Exit", skin);
+
+        music = GameRenderer.manager.get("audio/music/menu_music.mp3", Music.class);
+        music.setVolume(game.prefs.getFloat("musicVolume"));
+        music.setLooping(true);
+        music.play();
     }
 
     @Override
@@ -64,7 +67,7 @@ public class MenuScreen implements Screen {
         startButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play(game.prefs.getFloat("soundVolume"));
                 music.stop();
                 game.setScreen(new GameScreen(game));
             }
@@ -72,16 +75,14 @@ public class MenuScreen implements Screen {
         optionsButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
-                music.stop();
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play(game.prefs.getFloat("soundVolume"));
                 game.setScreen(new OptionsScreen(game));
             }
         });
         aboutButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
-                music.stop();
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play(game.prefs.getFloat("soundVolume"));
                 game.setScreen(new AboutScreen(game));
             }
         });
@@ -120,8 +121,7 @@ public class MenuScreen implements Screen {
         stage.addActor(title);
         stage.addActor(table);
 
-        music.play();
-        music.setVolume(game.musicVolume);
+        music.setVolume(game.prefs.getFloat("musicVolume"));
     }
 
     public void buttonStyle() {

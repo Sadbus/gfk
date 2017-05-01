@@ -2,6 +2,7 @@ package com.gfk.supermario.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -86,8 +87,8 @@ public class OptionsScreen implements Screen {
         musicVolumeSlider = new Slider(0.1f, 0.9f, 0.1f, false, skin.get("slider", Slider.SliderStyle.class));
         soundVolumeSlider = new Slider(0.1f, 0.9f, 0.1f, false, skin.get("slider", Slider.SliderStyle.class));
 
-        musicVolumeSlider.setValue(game.musicVolume);
-        soundVolumeSlider.setValue(game.soundVolume);
+        musicVolumeSlider.setValue(game.prefs.getFloat("musicVolume"));
+        soundVolumeSlider.setValue(game.prefs.getFloat("soundVolume"));
 
         musicVolumeValue = new Label("0.9", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         soundVolumeValue = new Label("0.9", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
@@ -109,7 +110,7 @@ public class OptionsScreen implements Screen {
         fullscreenCheckBox.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play(game.prefs.getFloat("soundVolume"));
                 if (fullscreenCheckBox.isChecked()){
                     System.out.println("Switching to fullscreen");
                     if (!Gdx.graphics.isFullscreen()){
@@ -128,7 +129,7 @@ public class OptionsScreen implements Screen {
         vSyncCheckBox.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play(game.prefs.getFloat("soundVolume"));
                 if (vSyncCheckBox.isChecked()){
                     game.prefs.putBoolean("vSync", true);
                     Gdx.graphics.setVSync(true);
@@ -141,11 +142,9 @@ public class OptionsScreen implements Screen {
         musicVolumeSlider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.musicVolume = musicVolumeSlider.getValue();
-                musicVolumeValue.setText("" + game.musicVolume);
 
-                //game.prefs.putFloat("musicVolume", musicVolumeSlider.getValue());
-                //musicVolumeValue.setText("" + game.prefs.getFloat("musicVolume"));
+                game.prefs.putFloat("musicVolume", musicVolumeSlider.getValue());
+                musicVolumeValue.setText("" + game.prefs.getFloat("musicVolume"));
             }
         });
         soundVolumeSlider.addListener(new ChangeListener() {
@@ -153,6 +152,9 @@ public class OptionsScreen implements Screen {
             public void changed(ChangeEvent event, Actor actor) {
                 game.soundVolume = soundVolumeSlider.getValue();
                 soundVolumeValue.setText("" + game.soundVolume);
+
+                game.prefs.putFloat("soundVolume", soundVolumeSlider.getValue());
+                soundVolumeValue.setText("" + game.prefs.getFloat("soundVolume"));
             }
         });
 
@@ -174,8 +176,8 @@ public class OptionsScreen implements Screen {
 
 
         //musicVolumeValue.setText("" + game.prefs.getFloat("musicVolume"));
-        musicVolumeValue.setText("" + game.musicVolume);
-        soundVolumeValue.setText("" + game.soundVolume);
+        musicVolumeValue.setText("" + game.prefs.getFloat("musicVolume"));
+        soundVolumeValue.setText("" + game.prefs.getFloat("soundVolume"));
 
         stage.addActor(background);
         stage.addActor(backButton);
@@ -186,7 +188,7 @@ public class OptionsScreen implements Screen {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play(game.prefs.getFloat("soundVolume"));
                 game.setScreen(new MenuScreen(game));
             }
         });

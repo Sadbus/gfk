@@ -52,7 +52,7 @@ public class winScreen implements Screen {
         music = Gdx.audio.newMusic(Gdx.files.internal("audio/music/menu_music.mp3"));
 
         background = new Image(new Texture("UI/menu_bg.png"));
-        win = new Image(new Texture("UI/win.png"));
+        win = new Image(new Texture("UI/win_title.png"));
 
         menuButton = new TextButton("Exit to Main Menu", skin);
         exitButton = new TextButton("Exit to Desktop", skin);
@@ -63,7 +63,7 @@ public class winScreen implements Screen {
         menuButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play(game.prefs.getFloat("soundVolume"));
                 music.stop();
                 game.setScreen(new MenuScreen(game));
             }

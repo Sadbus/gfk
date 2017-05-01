@@ -1,6 +1,9 @@
 package com.gfk.supermario.Entities;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -20,7 +23,7 @@ public class Hero extends Sprite
 {
     public World world;
     public Body b2body;
-    public enum State {FALLING, JUMPING, STANDING, RUNNING}
+    public enum State{FALLING, JUMPING, STANDING, RUNNING, DEAD}
     public State currentState;
     public State previousState;
     public State fallingState;
@@ -29,11 +32,14 @@ public class Hero extends Sprite
     private Animation<TextureRegion> heroFall;
 
     private float stateTimer;
-    private boolean runningRight;
 
+    private boolean runningRight;
     public static Boolean hasKey;
+    public static Boolean isHit;
+    public static Boolean isDead;
 
     private TextureRegion heroStand;
+    private TextureRegion heroDead;
 
     public Hero(GameScreen screen)
     {
@@ -44,6 +50,8 @@ public class Hero extends Sprite
         fallingState = State.FALLING;
         stateTimer = 0;
         runningRight = true;
+        isDead = false;
+        isHit = false;
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for (int i = 1; i < 4; i++)
@@ -67,6 +75,8 @@ public class Hero extends Sprite
 
 
         heroStand = new TextureRegion(getTexture(), 1,7,20,24);
+        heroDead = new TextureRegion(screen.getAtlas().findRegion("5"), 24, 7, 20, 20);
+
         defineHero();
         setBounds(5,0, 20/ GameRenderer.PPM, 24/GameRenderer.PPM);
         setRegion(heroStand);
@@ -104,6 +114,9 @@ public class Hero extends Sprite
                 region = heroStand;
                 break;
             }
+            case DEAD:
+                region = heroDead;
+                break;
         }
 
         // Going left or right
@@ -136,6 +149,10 @@ public class Hero extends Sprite
         else if (b2body.getLinearVelocity().x != 0)
         {
             return State.RUNNING;
+        }
+        else if (isHit) {
+            hit();
+            return State.DEAD;
         }
         else
         {
@@ -177,6 +194,7 @@ public class Hero extends Sprite
         b2body.createFixture(fixtureDef).setUserData("head");
     }
 
+
     public void jump(){
         if (currentState == STANDING | currentState == RUNNING){
             b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
@@ -184,5 +202,29 @@ public class Hero extends Sprite
         }
     }
 
+    public void hit(){
+        if (!isDead) {
+
+            Gdx.app.log("Hero", "is hit");
+            GameRenderer.manager.get("audio/music/game_music.mp3", Music.class).stop();
+            GameRenderer.manager.get("audio/sounds/hero_die.mp3", Sound.class).play(GameRenderer.prefs.getFloat("soundVolume"));
+            Filter filter = new Filter();
+            filter.maskBits = GameRenderer.NOTHING_BIT;
+            for(Fixture fixture : b2body.getFixtureList()){
+                fixture.setFilterData(filter);
+            }
+            b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+            isDead = true;
+        }
+    }
+
     public void draw(Batch batch) {super.draw(batch);}
+
+    public boolean isDead(){
+        return isDead;
+    }
+
+    public float getStateTimer(){
+        return stateTimer;
+    }
 }

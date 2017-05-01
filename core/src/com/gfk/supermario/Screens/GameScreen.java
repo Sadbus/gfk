@@ -52,10 +52,9 @@ public class GameScreen implements Screen {
 
     //  Box2D - Physics
     private World world;
-    private Box2DDebugRenderer box2DDebugRenderer;
+
 
     private HUD hud;
-
     private Hero hero;
     private Ghost ghost;
     private Spider spider;
@@ -105,7 +104,7 @@ public class GameScreen implements Screen {
 
         }
 
-            tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1 / game.PPM);
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1 / game.PPM);
 
         //Sentrerer kamera.
         camera.position.set(cameraPort.getWorldWidth() / 2, cameraPort.getWorldHeight() / 2, 0);
@@ -113,7 +112,6 @@ public class GameScreen implements Screen {
         //  Box2D - Physics
         Box2D.init();
         world = new World(new Vector2(0, -10), true);
-        box2DDebugRenderer = new Box2DDebugRenderer();
 
         new initWorld(this);
         world.setContactListener(new WorldContactListener());
@@ -138,7 +136,7 @@ public class GameScreen implements Screen {
 
         table = new Table();
         background = new Image(new Texture("UI/menu_bg.png"));
-        title = new Image(new Texture("UI/keymaster.png"));
+        title = new Image(new Texture("UI/keymaster_title.png"));
 
         resumeButton = new TextButton("Resume", skin);
         menuButton = new TextButton("Exit to Main Menu", skin);
@@ -148,11 +146,6 @@ public class GameScreen implements Screen {
         music.setVolume(game.prefs.getFloat("musicVolume"));
         music.setLooping(true);
         music.play();
-    }
-
-    public TextureAtlas getAtlas()
-    {
-        return atlas;
     }
 
     @Override
@@ -210,7 +203,8 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta)
     {
-        switch (state) {
+        switch (state)
+        {
             case RUNNING:
                 renderRunning(delta);
                 break;
@@ -229,8 +223,6 @@ public class GameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         tiledMapRenderer.render();
 
-        box2DDebugRenderer.render(world, camera.combined);
-
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         hero.draw(game.batch);
@@ -245,9 +237,16 @@ public class GameScreen implements Screen {
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
+
+        if (gameOver())
+        {
+            game.setScreen(new GameOverScreen(game));
+            dispose();
+        }
     }
 
-    public void renderPause(float dt){
+    public void renderPause(float dt)
+    {
         Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -262,14 +261,16 @@ public class GameScreen implements Screen {
     }
 
     @Override
-    public void pause() {
+    public void pause()
+    {
         music.pause();
         this.state = PAUSE;
 
     }
 
     @Override
-    public void resume() {
+    public void resume()
+    {
         this.state = RUNNING;
         music.play();
     }
@@ -281,24 +282,25 @@ public class GameScreen implements Screen {
 
     public void handleInput(float dt)
     {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
-        {
-            //hero.b2body.applyLinearImpulse(new Vector2(0, 4f),hero.b2body.getWorldCenter(), true);
-            hero.jump();
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && hero.b2body.getLinearVelocity().x <= 2)
-        {
-            hero.b2body.applyLinearImpulse(new Vector2(0.1f, 0),
-                    hero.b2body.getWorldCenter(), true);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && hero.b2body.getLinearVelocity().x >= -2)
-        {
-            hero.b2body.applyLinearImpulse(new Vector2(-0.1f, 0),
-                    hero.b2body.getWorldCenter(), true);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
-        {
-            pause();
+        if (!Hero.isDead) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
+            {
+                hero.jump();
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && hero.b2body.getLinearVelocity().x <= 2)
+            {
+                hero.b2body.applyLinearImpulse(new Vector2(0.1f, 0),
+                        hero.b2body.getWorldCenter(), true);
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && hero.b2body.getLinearVelocity().x >= -2)
+            {
+                hero.b2body.applyLinearImpulse(new Vector2(-0.1f, 0),
+                        hero.b2body.getWorldCenter(), true);
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
+            {
+                pause();
+            }
         }
     }
 
@@ -321,7 +323,6 @@ public class GameScreen implements Screen {
         if (hasWon)
         {
             hasWon = false;
-            int test = game.prefs.getInteger("level");
             game.prefs.putInteger("level", game.prefs.getInteger("level") + 1);
             music.stop();
             if (game.prefs.getInteger("level") == 2){
@@ -329,17 +330,20 @@ public class GameScreen implements Screen {
             }
             else
             {
+                game.prefs.putInteger("level", 1);
                 System.out.println("You win!");
                 game.setScreen(new winScreen(game));
             }
-
         }
     }
 
-    public void updateRunning(float dt){
+    public void updateRunning(float dt)
+    {
         handleInput(dt);
         world.step(1/60f, 6, 2);
-        camera.position.x = hero.b2body.getPosition().x;
+        if (!Hero.isDead) {
+            camera.position.x = hero.b2body.getPosition().x;
+        }
         camera.update();
         tiledMapRenderer.setView(camera);
         hero.update(dt);
@@ -350,7 +354,8 @@ public class GameScreen implements Screen {
         box3.update(dt);
     }
 
-    public void updatePaused(float dt){
+    public void updatePaused(float dt)
+    {
         handleInput(dt);
     }
 
@@ -359,14 +364,14 @@ public class GameScreen implements Screen {
     {
         music.dispose();
         tiledMap.dispose();
-        box2DDebugRenderer.dispose();
         world.dispose();
         atlas.dispose();
         stage.dispose();
         skin.dispose();
     }
 
-    public void buttonStyle() {
+    public void buttonStyle()
+    {
         BitmapFont font = new BitmapFont();
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = font;
@@ -375,10 +380,25 @@ public class GameScreen implements Screen {
     }
 
 
-    public TiledMap getTiledMap(){
+    public TiledMap getTiledMap()
+    {
         return tiledMap;
     }
-    public World getWorld(){
+    public World getWorld()
+    {
         return world;
+    }
+    public TextureAtlas getAtlas()
+    {
+        return atlas;
+    }
+
+    public Boolean gameOver()
+    {
+        if(hero.currentState == Hero.State.DEAD && hero.getStateTimer() > 3)
+        {
+            return true;
+        }
+        return false;
     }
 }

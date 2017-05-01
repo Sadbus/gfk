@@ -21,6 +21,7 @@ public class GameRenderer extends Game {
     //"Pixels per Meter", brukes for skalering.
     public static final float PPM = 100;
 
+    public static final short NOTHING_BIT = 0;
     public static final short DEFAULT_BIT = 1;
     public static final short HERO_BIT = 2;
     public static final short HERO_HEAD_BIT = 4;
@@ -35,8 +36,8 @@ public class GameRenderer extends Game {
     public static final short ENEMY_COLLISION_BIT = 2048;
 
     //Variables for OptionScreen
-    public float musicVolume = 1f;
-    public float soundVolume = 1f;
+    public static float musicVolume = 1f;
+    public static float soundVolume = 1f;
 
     public static final String TITLE = "Key Master; The quest for keys";
 
@@ -44,7 +45,7 @@ public class GameRenderer extends Game {
 
     public static AssetManager manager;
 
-    public Preferences prefs;
+    public static Preferences prefs;
 
 
 
@@ -60,6 +61,7 @@ public class GameRenderer extends Game {
         manager.load("audio/sounds/key.mp3", Sound.class);
         manager.load("audio/sounds/menu_click.mp3", Sound.class);
         manager.load("audio/sounds/lock.mp3", Sound.class);
+        manager.load("audio/sounds/hero_die.mp3", Sound.class);
         manager.finishLoading();
 
         prefs = Gdx.app.getPreferences("My Preferences");

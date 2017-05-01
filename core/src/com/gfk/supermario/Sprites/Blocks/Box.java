@@ -21,7 +21,9 @@ public class Box extends TileObject {
         setCategoryFilter(GameRenderer.DESTROYED_BIT);
         getCell().setTile(null);
         HUD.addScore(25);
+        GameRenderer.manager.get("audio/sounds/break_box.ogg", Sound.class).play(GameRenderer.prefs.getFloat("soundVolume"));
 
-        GameRenderer.manager.get("audio/sounds/break_box.ogg", Sound.class).play();
+
+
     }
 }

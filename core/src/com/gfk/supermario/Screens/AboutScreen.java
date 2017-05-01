@@ -49,8 +49,8 @@ public class AboutScreen implements Screen {
         textButtonStyle.up = skin.getDrawable("button05");
         skin.add("default", textButtonStyle);
 
-        subTitle = new Image(new Texture("UI/production.png"));
-        title = new Image (new Texture("UI/keymaster.png"));
+        subTitle = new Image(new Texture("UI/production_subtitle.png"));
+        title = new Image (new Texture("UI/keymaster_title.png"));
         subTitle.setSize(420, 105);
 
         // skin refers to default textButtonStyle
@@ -88,7 +88,7 @@ public class AboutScreen implements Screen {
         {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play();
+                GameRenderer.manager.get("audio/sounds/menu_click.mp3", Sound.class).play(game.prefs.getFloat("soundVolume"));
                 game.setScreen(new MenuScreen(game));
             }
         });

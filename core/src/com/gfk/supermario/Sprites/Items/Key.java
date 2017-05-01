@@ -25,6 +25,6 @@ public class Key extends ItemObject {
         Hero.hasKey = true;
         HUD.gotKey();
         HUD.addScore(300);
-        GameRenderer.manager.get("audio/sounds/key.mp3", Sound.class).play();
+        GameRenderer.manager.get("audio/sounds/key.mp3", Sound.class).play(GameRenderer.prefs.getFloat("soundVolume"));
     }
 }
